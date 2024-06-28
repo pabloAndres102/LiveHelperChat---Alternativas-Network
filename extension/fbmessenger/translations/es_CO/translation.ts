@@ -15,8 +15,16 @@
   <context>
   <name>module/fbmessenger</name>
   <message>
+    <source>Select Kanban Status</source>
+    <translation>Seleccionar estado de embudo</translation>
+  </message>
+  <message>
     <source>Edit kanban status</source>
     <translation>Editar estado embudo</translation>
+  </message>
+  <message>
+    <source>NO STATUS</source>
+    <translation>SIN ESTADO</translation>
   </message>
    <message>
     <source>New kanban status</source>

@@ -106,6 +106,13 @@ $ViewList['rawjson'] = array(
     'functions' => array('use_admin'),
 );
 
+
+$ViewList['kanban_status2'] = array(
+    'params' => array('id'),
+    'uparams' => array(),
+    'functions' => array('use_admin'),
+);
+
 $ViewList['send'] = array(
     'params' => array(),
     'uparams' => array('recipient','business_account_id'),
