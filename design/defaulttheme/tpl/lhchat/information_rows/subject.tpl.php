@@ -7,7 +7,7 @@
             </h6>
 
 
-            <h6 class="fw-bold"><span class="material-icons">view_kanban</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/subject', 'Add kanban status') ?>
+            <h6 class="fw-bold"><span class="material-icons">view_kanban</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Add kanban status') ?>
                 <button type="button" class="btn btn-xs btn-link text-muted pb-1 ps-1" onclick="return lhc.revealModal({
                                                                 'url': '<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/kanban_status2'); ?>?id=<?php echo urlencode($chat->id); ?>'
                                                                 })"><i class="material-icons me-0">&#xE145;</i></button>
