@@ -47,7 +47,7 @@
         <div class="col-md-6 offset-md-3">
             <div class="custom-card">
                 <center>
-                    <h3 class="attr-header"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Catalogue'); ?></h3>
+                    <h3 class="attr-header"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Catalog'); ?></h3>
                 </center>
                 <center>
                     <form action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/activatecatalog') ?>" method="post" style="display: inline-block; margin-bottom: 9px;">

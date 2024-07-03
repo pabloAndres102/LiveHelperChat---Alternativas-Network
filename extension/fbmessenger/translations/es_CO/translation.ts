@@ -15,12 +15,8 @@
   <context>
   <name>module/fbmessenger</name>
   <message>
-    <source>NO STATUS</source>
-    <translation>SIN ESTADO</translation>
-  </message>
-  <message>
-    <source>Add kanban status</source>
-    <translation>Agregar estado de embudo</translation>
+    <source>Catalog</source>
+    <translation>Catálogo</translation>
   </message>
   <message>
     <source>Select Kanban Status</source>

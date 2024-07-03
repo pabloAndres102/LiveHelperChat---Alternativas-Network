@@ -7,7 +7,7 @@ $data = (array)$fbOptions->data;
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://graph.facebook.com/v17.0/'.$data['business_phone_id'].'/whatsapp_commerce_settings',
+  CURLOPT_URL => 'https://graph.facebook.com/v17.0/'.$data['whatsapp_business_account_phone_number'].'/whatsapp_commerce_settings',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
