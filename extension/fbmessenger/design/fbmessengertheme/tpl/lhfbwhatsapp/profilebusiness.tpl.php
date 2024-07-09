@@ -42,40 +42,7 @@
         }
     }
 </style>
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <div class="custom-card">
-                <center>
-                    <h3 class="attr-header"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Catalog'); ?></h3>
-                </center>
-                <center>
-                    <form action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/activatecatalog') ?>" method="post" style="display: inline-block; margin-bottom: 9px;">
-                        <input type="hidden" name="action">
-                        <button type="submit" class="btn btn-success btn-sm">
-                            <span class="material-icons">power_settings_new</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Activate'); ?>/<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Deactivate'); ?>
-                        </button>
-                    </form>
-                    <?php
 
-                    if (isset($_SESSION['desactivado'])) {
-                        echo '<div class="alert alert-warning">' . $_SESSION['desactivado'] . '</div>';
-                        unset($_SESSION['desactivado']);
-                    }
-                    if (isset($_SESSION['activado'])) {
-                        echo '<div class="alert alert-success">' . $_SESSION['activado'] . '</div>';
-                        unset($_SESSION['activado']);
-                    }
-                    if (isset($_SESSION['set'])) {
-                        echo '<div class="alert alert-warning">' . $_SESSION['set'] . '</div>';
-                        unset($_SESSION['set']);
-                    }
-                    ?>
-                </center>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-10 offset-md-2">

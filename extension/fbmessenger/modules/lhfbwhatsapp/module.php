@@ -106,6 +106,23 @@ $ViewList['rawjson'] = array(
     'functions' => array('use_admin'),
 );
 
+$ViewList['catalog_products'] = array(
+    'params' => array(''),
+    'uparams' => array(),
+    'functions' => array('use_admin'),
+);
+
+$ViewList['create_product'] = array(
+    'params' => array(''),
+    'uparams' => array(),
+    'functions' => array('use_admin'),
+);
+
+$ViewList['edit_product'] = array(
+    'params' => array(''),
+    'uparams' => array(),
+    'functions' => array('use_admin'),
+);
 
 $ViewList['kanban_status2'] = array(
     'params' => array('id'),

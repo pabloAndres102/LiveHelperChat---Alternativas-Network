@@ -15,6 +15,26 @@
   <context>
   <name>module/fbmessenger</name>
   <message>
+    <source>Activate</source>
+    <translation>Activar</translation>
+  </message>
+  <message>
+    <source>Code</source>
+    <translation>Codigo</translation>
+  </message>
+  <message>
+    <source>Image</source>
+    <translation>Imagen</translation>
+  </message>
+  <message>
+    <source>Actions</source>
+    <translation>Acciones</translation>
+  </message>
+  <message>
+    <source>Deactivate</source>
+    <translation>Desactivar</translation>
+  </message>
+  <message>
     <source>Catalog</source>
     <translation>Catálogo</translation>
   </message>
@@ -1250,6 +1270,22 @@
     <message>
       <source>Edit</source>
       <translation>Editar </translation>
+    </message>
+    <message>
+      <source>Product name</source>
+      <translation>Nombre de producto</translation>
+    </message>
+    <message>
+      <source>Product code</source>
+      <translation>Codigo de producto</translation>
+    </message>
+    <message>
+      <source>Product image</source>
+      <translation>Imagen de producto</translation>
+    </message>
+    <message>
+      <source>Update product</source>
+      <translation>Actualizar producto</translation>
     </message>
     <message>
       <source>Main</source>

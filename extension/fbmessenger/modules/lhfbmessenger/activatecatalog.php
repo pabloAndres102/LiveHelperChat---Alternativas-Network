@@ -67,4 +67,4 @@ $response = curl_exec($curl);
 curl_close($curl);
 
 print_r($response);
-header('Location: ' . erLhcoreClassDesign::baseurl('fbwhatsapp/profilebusiness'));
+header('Location: ' . erLhcoreClassDesign::baseurl('fbwhatsapp/catalog_products'));
