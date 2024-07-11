@@ -7,11 +7,8 @@ class erLhcoreClassModelMessageFBWhatsAppCampaign
     use \erLhcoreClassDBTrait;
 
     public static $dbTable = 'lhc_fbmessengerwhatsapp_campaign';
-
     public static $dbTableId = 'id';
-
     public static $dbSessionHandler = 'erLhcoreClassExtensionFbmessenger::getSession';
-
     public static $dbSortOrder = 'DESC';
 
     public function getState()
@@ -32,7 +29,15 @@ class erLhcoreClassModelMessageFBWhatsAppCampaign
             'template_id' => $this->template_id,
             'language' => $this->language,
             'private' => $this->private,
+            'finished_at' => $this->finished_at // Añadir la propiedad finished_at
         );
+    }
+
+    public function beforeUpdate()
+    {
+        if ($this->status == self::STATUS_PENDING && $this->finished_at == 0) {
+            $this->finished_at = time();
+        }
     }
 
     public function afterRemove()
@@ -94,6 +99,9 @@ class erLhcoreClassModelMessageFBWhatsAppCampaign
             case 'total_contacts':
                 return \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppCampaignRecipient::getCount(['filter' => ['campaign_id' => $this->id]]);
 
+            case 'finished_at':
+                return $this->finished_at;
+
             default:
                 break;
         }
@@ -116,12 +124,14 @@ class erLhcoreClassModelMessageFBWhatsAppCampaign
     public $business_account_id = 0;
     public $message_variables = '';
     public $private = self::LIST_PUBLIC;
-
     public $phone_sender = '';
     public $phone_sender_id = '';
     public $template = '';
     public $template_id = '';
     public $language = '';
+    public $finished_at = 0; // Añadir la propiedad finished_at
 }
+
+
 
 ?>

@@ -1768,6 +1768,16 @@
         "extra": ""
       }
     ],
+    "lhc_fbmessengerwhatsapp_campaign": [
+      {
+        "field": "finished_at",
+        "type": "bigint(20) unsigned",
+        "null": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ],
     "lh_abstract_subject_dep": [
       {
         "field": "id",

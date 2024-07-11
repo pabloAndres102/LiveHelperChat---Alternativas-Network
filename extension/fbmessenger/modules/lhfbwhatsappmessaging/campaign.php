@@ -58,6 +58,17 @@ $pages->serverURL = erLhcoreClassDesign::baseurl('fbwhatsappmessaging/campaign')
 $pages->paginate();
 $tpl->set('pages',$pages);
 
+
+
+foreach (LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppCampaign::getList() as $status) {
+    if ($status->status == LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppCampaign::STATUS_FINISHED && $status->finished_at == 0) {
+        $status->finished_at = time();
+        $status->saveThis();
+    }   
+}
+
+
+
 if ($pages->items_total > 0) {
     $items = \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppCampaign::getList(array_merge(array('limit' => $pages->items_per_page, 'offset' => $pages->low),$filterParams['filter']));
     $tpl->set('items',$items);

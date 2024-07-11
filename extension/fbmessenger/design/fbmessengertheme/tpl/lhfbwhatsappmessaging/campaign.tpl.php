@@ -66,7 +66,7 @@ if (isset($_SESSION['email_send_status'])) {
                     <?php endif; ?>
                 </td>
                 <td>
-                    <?php echo htmlspecialchars((string)$item->user); ?>
+                    <?php print_r($item->user->username) ?>
                 </td>
                 <td>
                     <?php if ($item->private == LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppCampaign::LIST_PUBLIC) : ?>
@@ -87,6 +87,7 @@ if (isset($_SESSION['email_send_status'])) {
                         <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'In progress'); ?>
                     <?php elseif ($item->status == LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppCampaign::STATUS_FINISHED) : ?>
                         <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Finished'); ?>
+                        &nbsp;&nbsp;(<?php print_r(date('d-m-Y H:i', $item->finished_at)) ?>)
                     <?php endif; ?>
                 </td>
                 <td class="<?php
