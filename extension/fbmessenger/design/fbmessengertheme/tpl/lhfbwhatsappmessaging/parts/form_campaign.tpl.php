@@ -62,7 +62,7 @@
         <div class="row">
             <div class="col-9">
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <small><strong>Tenga en cuenta:</strong> Los contactos desactivados serán ignorados en el envío de la campaña, Si desea activar o desactivar una campaña haga click <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/mailingrecipient') ?>"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Aqui'); ?></a></small>
+                    <small><strong>Tenga en cuenta:</strong> Los contactos desactivados serán ignorados en el envío de la campaña, Si desea activar o desactivar un contacto haga click <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/mailingrecipient') ?>"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Aqui'); ?></a></small>
                 </div>
                 <div class="form-group">
                     <label><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Name'); ?>*</label>
