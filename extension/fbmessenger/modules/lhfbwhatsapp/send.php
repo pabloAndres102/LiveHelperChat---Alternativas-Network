@@ -245,6 +245,15 @@ if (ezcInputForm::hasPostData()) {
         $Errors[] = erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Please choose a template!');
     }
 
+    $status_contact = LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::getList(['filter' => ['phone' => $item->phone]]);
+    foreach ($status_contact as $contact) {
+        if($contact->disabled > 0){
+            $Errors[] = erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'This contact is deactivated');
+        }
+        
+    }
+
+
 
  
     if (isset($_POST['nombre_archivo1'])) {
@@ -419,9 +428,13 @@ if (ezcInputForm::hasPostData()) {
 
             $item->user_id = $currentUser->getUserID();
 
+
+            
+
+
             if ($item->status != \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppMessage::STATUS_SCHEDULED) {
-                LiveHelperChatExtension\fbmessenger\providers\FBMessengerWhatsAppLiveHelperChat::getInstance()->sendTemplate($item, $templates, $phones);
-                $item->saveThis();
+                // LiveHelperChatExtension\fbmessenger\providers\FBMessengerWhatsAppLiveHelperChat::getInstance()->sendTemplate($item, $templates, $phones);
+                // $item->saveThis();
             }
 
             if ($item->status == \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppMessage::STATUS_SCHEDULED) {
@@ -457,7 +470,7 @@ if (ezcInputForm::hasPostData()) {
                 $campaignRecipient->saveThis();
                 // print_r($campaignRecipient);
             }
-
+            
             $tpl->set('updated', true);
             $tpl->set('fbcommand', '!fbtemplate ' . json_encode([
                 'template_name' => $item->template,
@@ -476,6 +489,9 @@ if (isset($messageVariablesOriginal)) {
     $item->message_variables_array = $messageVariablesOriginal;
     $item->message_variables = json_encode($messageVariablesOriginal);
 }
+
+
+
 
 $tpl->setArray([
     'send' => $item,

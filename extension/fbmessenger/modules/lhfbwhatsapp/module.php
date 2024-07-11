@@ -125,7 +125,7 @@ $ViewList['edit_product'] = array(
 );
 
 $ViewList['kanban_status2'] = array(
-    'params' => array('id'),
+    'params' => array('id'), 
     'uparams' => array(),
     'functions' => array('use_admin'),
 );

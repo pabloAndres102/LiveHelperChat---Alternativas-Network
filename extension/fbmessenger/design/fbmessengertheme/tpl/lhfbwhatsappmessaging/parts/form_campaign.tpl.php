@@ -27,7 +27,7 @@
         border-radius: 5px;
     }
 
-    .checkbox-label:hover input ~ .checkmark {
+    .checkbox-label:hover input~.checkmark {
         background-color: #ccc;
     }
 
@@ -37,7 +37,7 @@
         display: none;
     }
 
-    .checkbox-label input:checked ~ .checkmark:after {
+    .checkbox-label input:checked~.checkmark:after {
         display: block;
     }
 
@@ -61,6 +61,9 @@
     <div class="col-6">
         <div class="row">
             <div class="col-9">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <small><strong>Tenga en cuenta:</strong> Los contactos desactivados serán ignorados en el envío de la campaña, Si desea activar o desactivar una campaña haga click <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/mailingrecipient') ?>"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Aqui'); ?></a></small>
+                </div>
                 <div class="form-group">
                     <label><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Name'); ?>*</label>
                     <input type="text" maxlength="250" class="form-control form-control-sm" name="name" value="<?php echo htmlspecialchars($item->name) ?>" />
