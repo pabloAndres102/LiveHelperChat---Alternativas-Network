@@ -1,23 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
+<style>
+    .search-form {
+        max-width: 800px;
+        /* Ancho máximo del formulario */
+        margin: 0;
+        /* Sin margen superior ni inferior */
+        display: flex;
+        /* Flex para alineación */
+        justify-content: flex-start;
+        /* Alinear a la izquierda */
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        .btn-group>a {
-            margin-right: 10px;
-            /* Puedes ajustar el valor según tu preferencia */
-        }
+    .input-group {
+        display: flex;
+        gap: 10px;
+        /* Espacio entre los elementos */
+        width: 100%;
+        /* Hacer que el grupo ocupe todo el ancho disponible */
+    }
 
-        .components-column {
-            max-width: 300px;
-            /* Puedes ajustar el valor según tus necesidades */
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    </style>
-</head>
+    .form-control,
+    .form-select {
+        flex: 1;
+        /* Hacer que los campos ocupen espacio igual */
+        padding: 10px;
+        /* Espaciado interno */
+        border: 1px solid #ced4da;
+        /* Borde */
+        border-radius: 4px;
+        /* Bordes redondeados */
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #007bff;
+        /* Color del borde en foco */
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        /* Sombra en foco */
+    }
+
+    .btn-primary {
+        padding: 10px 20px;
+        /* Espaciado interno del botón */
+        border-radius: 4px;
+        /* Bordes redondeados */
+    }
+
+
+    .btn-group>a {
+        margin-right: 10px;
+        /* Puedes ajustar el valor según tu preferencia */
+    }
+
+    .components-column {
+        max-width: 300px;
+        /* Puedes ajustar el valor según tus necesidades */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
 
 <body>
     <h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Templates'); ?></h1>
@@ -108,6 +148,98 @@
         unset($_SESSION['api_response']);
     }
     ?>
+    <form method="GET" action="<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/templates'); ?>" class="search-form mb-3">
+        <div class="input-group">
+            <input type="text" name="search_name" placeholder="Nombre" value="<?php echo htmlspecialchars($_GET['search_name'] ?? ''); ?>" class="form-control" />
+            <select name="search_category" class="form-select">
+                <option value="">Categoría</option>
+                <option value="MARKETING" <?php echo (($_GET['search_category'] ?? '') == 'MARKETING') ? 'selected' : ''; ?>>Marketing</option>
+                <option value="UTILITY" <?php echo (($_GET['search_category'] ?? '') == 'UTILITY') ? 'selected' : ''; ?>>Utilidad</option>
+                <option value="AUTHENTICATION" <?php echo (($_GET['search_category'] ?? '') == 'AUTHENTICATION') ? 'selected' : ''; ?>>Autenticación</option>
+            </select>
+            <select class="form-select" id="language" name="search_language" aria-label="Seleccionar idioma">
+                <option value="es" selected>Español</option>
+                <option value="af">Afrikáans</option>
+                <option value="sq">Albanés</option>
+                <option value="ar">Árabe</option>
+                <option value="az">Azerí</option>
+                <option value="bn">Bengalí</option>
+                <option value="bg">Búlgaro</option>
+                <option value="ca">Catalán</option>
+                <option value="zh_CN">Chino (China)</option>
+                <option value="zh_HK">Chino (Hong Kong)</option>
+                <option value="zh_TW">Chino (Tailandia)</option>
+                <option value="cs">Checo</option>
+                <option value="nl">Holandés</option>
+                <option value="en_US">Inglés</option>
+                <option value="en_GB">Inglés (Reino Unido)</option>
+                <option value="es_LA">Español (EE. UU.)</option>
+                <option value="et">Estonio</option>
+                <option value="fil">Filipino</option>
+                <option value="fi">Finlandés</option>
+                <option value="fr">Francés</option>
+                <option value="de">Alemán</option>
+                <option value="el">Griego</option>
+                <option value="gu">Guyaratí</option>
+                <option value="he">Hebreo</option>
+                <option value="hi">Hindi</option>
+                <option value="hu">Húngaro</option>
+                <option value="id">Indonesio</option>
+                <option value="ga">Irlandés</option>
+                <option value="it">Italiano</option>
+                <option value="ja">Japonés</option>
+                <option value="kn">Canarés</option>
+                <option value="kk">Kazajo</option>
+                <option value="ko">Coreano</option>
+                <option value="lo">Lao</option>
+                <option value="lv">Letón</option>
+                <option value="lt">Lituano</option>
+                <option value="mk">Macedonio</option>
+                <option value="ms">Malayo</option>
+                <option value="mr">Maratí</option>
+                <option value="nb">Noruego</option>
+                <option value="fa">Persa</option>
+                <option value="pl">Polaco</option>
+                <option value="pt_BR">Portugués (Brasil)</option>
+                <option value="pt_PT">Portugués (Portugal)</option>
+                <option value="pa">Punyabí</option>
+                <option value="ro">Rumano</option>
+                <option value="ru">Ruso</option>
+                <option value="sr">Serbio</option>
+                <option value="sk">Eslovaco</option>
+                <option value="sl">Esloveno</option>
+                <option value="es_AR">Español (Argentina)</option>
+                <option value="es_ES">Español (España)</option>
+                <option value="es_MX">Español (México)</option>
+                <option value="sw">Suajili</option>
+                <option value="sv">Sueco</option>
+                <option value="ta">Tamil</option>
+                <option value="te">Telugu</option>
+                <option value="th">Tailandés</option>
+                <option value="tr">Turco</option>
+                <option value="uk">Ucraniano</option>
+                <option value="ur">Urdu</option>
+                <option value="uz">Uzbeko</option>
+                <option value="vi">Vietnamita</option>
+            </select>
+
+            <select name="search_status" class="form-select">
+                <option value="">Estado</option>
+                <option value="APPROVED" style="color: green;" <?php echo (($_GET['search_status'] ?? '') == 'APPROVED') ? 'selected' : ''; ?>>Aprobado</option>
+                <option value="PENDING" style="color: rgba(255, 215, 0, 0.6);" <?php echo (($_GET['search_status'] ?? '') == 'PENDING') ? 'selected' : ''; ?>>Pendiente</option> <!-- Amarillo más opaco -->
+                <option value="REJECTED" style="color: red;" <?php echo (($_GET['search_status'] ?? '') == 'REJECTED') ? 'selected' : ''; ?>>Rechazado</option>
+            </select>
+
+
+            <button type="submit" class="btn btn-primary">Buscar</button>
+            <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/templates'); ?>" class="btn btn-primary d-flex align-items-center">
+                <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', ' << '); ?>
+            </a>
+        </div>
+    </form>
+
+
+
 
     <?php include(erLhcoreClassDesign::designtpl('lhkernel/paginator.tpl.php')); ?>
     <table class="table table-sm" ng-non-bindable>
