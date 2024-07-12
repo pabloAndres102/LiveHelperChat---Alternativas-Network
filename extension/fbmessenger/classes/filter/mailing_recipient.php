@@ -62,6 +62,19 @@ $fieldsSearch['user_ids'] = array (
     )
 );
 
+$fieldsSearch['email'] = array(
+    'type' => 'text',
+    'trans' => 'Email',
+    'required' => false,
+    'valid_if_filled' => false,
+    'filter_type' => 'like',
+    'filter_table_field' => 'email',
+    'validation_definition' => new ezcInputFormDefinitionElement(
+        ezcInputFormDefinitionElement::OPTIONAL, 'string'
+    )
+);
+
+
 $fieldSortAttr = array (
     'field'      => false,
     'default'    => false,
