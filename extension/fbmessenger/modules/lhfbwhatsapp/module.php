@@ -139,7 +139,7 @@ $ViewList['send'] = array(
 $ViewList['templates'] = array(
     'params' => array(),
     'uparams' => array(),
-    'functions' => array('use_admizn'),
+    'functions' => array('use_admin'),
 );
 
 $ViewList['rendersend'] = array(

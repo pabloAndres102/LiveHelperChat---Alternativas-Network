@@ -50,6 +50,35 @@ if (!empty($jsonresponse)) {
         'info_delivered' => $info_delivered,
     ]);
 }
+// Prepara los datos para Chart.js
+$labels = [];
+$sentData = [];
+$deliveredData = [];
+$readData = [];
+
+// Recorre los puntos de datos y extrae la información
+if (isset($dataPoints) && !empty($dataPoints)) :
+    $data_points = $dataPoints['data'][0]['data_points'];
+    foreach ($data_points as $data_point) : 
+        $labels[] = date('d/m/Y', $data_point['start']);
+        $sentData[] = $data_point['sent'];
+        $deliveredData[] = $data_point['delivered'];
+        $readData[] = $data_point['read'];
+    endforeach;
+endif;
+
+// Convertir datos a JSON para pasar a JavaScript
+$labelsJson = json_encode($labels);
+$sentDataJson = json_encode($sentData);
+$deliveredDataJson = json_encode($deliveredData);
+$readDataJson = json_encode($readData);
+
+$tpl->setArray([
+    'labelsJson' => $labelsJson,
+    'sentDataJson' => $sentDataJson,
+    'deliveredDataJson' => $deliveredDataJson,
+    'readDataJson' => $readDataJson,
+]);
 
 
 $curl = curl_init();

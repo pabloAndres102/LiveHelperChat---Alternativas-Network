@@ -48,7 +48,7 @@
         /* Color del borde al hacer hover */
     }
 </style>
-
+<?php $products = erLhcoreClassModelCatalogProducts::getList(); ?>
 <h6><?php echo htmlspecialchars($template['name']) ?> <span class="badge badge-secondary"><?php echo htmlspecialchars($template['category']) ?></span></h6>
 
 <?php $fieldsCount = 0;
@@ -302,8 +302,6 @@ echo '</script>';
             <?php endif ?>
         <?php endforeach ?>
 
-
-
         <?php $tarjeta = 1; ?>
         <?php foreach ($template['components'] as $component) : ?>
             <?php if ($component['type'] == 'CAROUSEL') : ?>
@@ -331,11 +329,6 @@ echo '</script>';
             <br>
         <?php endforeach; ?>
         <br>
-
-
-
-
-
 
         </div>
 
@@ -367,7 +360,9 @@ echo '</script>';
 
                 // Creamos el nuevo input
                 var newInput = document.createElement('div');
-                newInput.innerHTML = '<div class="form-group"><label class="font-weight-bold">Producto ' + productCount + '</label><input class="form-control form-control-sm" type="text" name="products[]"></div>';
+                newInput.classList.add('form-group');
+                newInput.innerHTML = '<label class="font-weight-bold">Producto ' + productCount + '</label><select class="form-control form-control-sm" name="products[]"><?php foreach ($products as $product) : ?><option value="<?php echo htmlspecialchars($product->code); ?>"><?php echo htmlspecialchars($product->name); ?></option><?php endforeach; ?></select>';
+
 
                 // Agregamos el nuevo input al contenedor
                 document.getElementById('extraProducts').appendChild(newInput);

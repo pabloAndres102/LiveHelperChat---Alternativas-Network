@@ -1,4 +1,4 @@
-<h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Edit'); ?></h1>
+<h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Campaign'); ?></h1>
 
 <?php if (isset($updated)) : $msg = erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Updated'); ?>
     <?php include(erLhcoreClassDesign::designtpl('lhkernel/alert_success.tpl.php')); ?>
@@ -22,12 +22,10 @@
         </div>
     </div>
 
-   
-
     <div class="btn-group" role="group" aria-label="...">
-        <input type="submit" class="btn btn-sm btn-secondary" name="Save_page" value="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Save'); ?>" />
-        <input type="submit" class="btn btn-sm btn-secondary" name="Update_page" value="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Update'); ?>" />
-        <input type="submit" class="btn btn-sm btn-secondary" name="Cancel_page" value="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Cancel'); ?>" />
+        <!-- <input type="submit" class="btn btn-sm btn-secondary" name="Save_page" value="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Save'); ?>" />
+        <input type="submit" class="btn btn-sm btn-secondary" name="Update_page" value="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Update'); ?>" /> -->
+        <input type="submit" class="btn btn-sm btn-secondary" name="Cancel_page" value="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Volver'); ?>" />
     </div>
 
 </form>
@@ -35,7 +33,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         
-
+        var nameselect = document.querySelector('input[name="name"]');
         var departmentSelect = document.querySelector('select[name="dep_id"]');
         var privateCheckbox = document.querySelector('input[name="private"]');
         var startDateTimeInput = document.getElementById('startDateTime');
@@ -44,7 +42,7 @@
         var templateSelect = document.querySelector('select[name="template"]');
 
         // Deshabilita el campo para hacerlo de solo lectura
-
+        nameselect.setAttribute('disabled', 'disabled');
         departmentSelect.setAttribute('disabled', 'disabled');
         privateCheckbox.setAttribute('disabled', 'disabled');
         startDateTimeInput.setAttribute('readonly', 'readonly');

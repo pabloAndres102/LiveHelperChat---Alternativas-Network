@@ -15,6 +15,84 @@
   <context>
   <name>module/fbmessenger</name>
   <message>
+      <source>Add kanban status</source>
+      <translation>Agregar estado de embudo</translation>
+    </message>
+  <message>
+    <source>ABUSIVE_CONTENT</source>
+    <translation>Contenido abusivo</translation>
+</message>
+<message>
+    <source>ABUSIVE_CONTENT_TOOLTIP</source>
+    <translation>El contenido de la plantilla es considerado abusivo según las políticas de Facebook.</translation>
+</message>
+
+<message>
+    <source>INVALID_FORMAT</source>
+    <translation>Formato inválido</translation>
+</message>
+<message>
+    <source>INVALID_FORMAT_TOOLTIP</source>
+    <translation>El formato de la plantilla no cumple con los requisitos establecidos por Facebook.</translation>
+</message>
+
+<message>
+    <source>NONE</source>
+    <translation>Ninguna</translation>
+</message>
+<message>
+    <source>NONE_TOOLTIP</source>
+    <translation>No se especifica ninguna razón de rechazo.</translation>
+</message>
+
+<message>
+    <source>PROMOTIONAL</source>
+    <translation>Promocional</translation>
+</message>
+<message>
+    <source>PROMOTIONAL_TOOLTIP</source>
+    <translation>El contenido de la plantilla es promocional y requiere la etiqueta adecuada según las políticas de Facebook.</translation>
+</message>
+
+<message>
+    <source>TAG_CONTENT_MISMATCH</source>
+    <translation>Inconsistencia con etiquetas de contenido</translation>
+</message>
+<message>
+    <source>TAG_CONTENT_MISMATCH_TOOLTIP</source>
+    <translation>Las etiquetas de contenido de la plantilla no coinciden con el contenido real de la misma según las políticas de Facebook.</translation>
+</message>
+
+<message>
+    <source>SCAM</source>
+    <translation>Estafa</translation>
+</message>
+<message>
+    <source>SCAM_TOOLTIP</source>
+    <translation>El contenido de la plantilla se considera una estafa según las políticas de Facebook.</translation>
+</message>
+
+  <message>
+    <source>INVALID_FORMAT</source>
+    <translation>FORMATO INVALIDO</translation>
+  </message>
+  <message>
+    <source>ABUSIVE_CONTENT</source>
+    <translation>CONTENIDO ABUSIVO</translation>
+  </message>
+  <message>
+    <source>PROMOTIONAL</source>
+    <translation>PROMOCIONAL</translation>
+  </message>
+  <message>
+    <source>TAG_CONTENT_MISMATCH</source>
+    <translation>EL CONTENIDO DE LA ETIQUETA NO COINCIDE</translation>
+  </message>
+  <message>
+    <source>SCAM</source>
+    <translation>ESTAFA</translation>
+  </message>
+  <message>
     <source>Activate</source>
     <translation>Activar</translation>
   </message>

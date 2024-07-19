@@ -12,6 +12,10 @@
     unset($_SESSION['activate']);
 }
 ?>
+<a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/campaignrecipient') ?>/(campaign)/<?php echo htmlspecialchars($item->campaign_id) ?>" class="btn btn-primary">
+    <span class="material-icons">equalizer</span>
+    <?php echo htmlspecialchars((string)$item->campaign) ?>
+</a>
 
 
 <?php if (isset($items)) : ?>
@@ -51,6 +55,11 @@
                 <td>
                     <?php if ($item->campaign_id > 0) : ?>
                         <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/campaignrecipient') ?>/(campaign)/<?php echo htmlspecialchars($item->campaign_id) ?>"><?php echo htmlspecialchars((string)$item->campaign) ?></a>
+                        <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/campaignrecipient') ?>/(campaign)/<?php echo htmlspecialchars($item->campaign_id) ?>" class="btn btn-primary">
+                            <span class="material-icons">equalizer</span>
+                            <?php echo htmlspecialchars((string)$item->campaign) ?>
+                        </a>
+
                     <?php else : ?>
                         <!-- Aquí puedes agregar lo que desees mostrar cuando campaign_id es 0 o menor -->
                         Envío simple

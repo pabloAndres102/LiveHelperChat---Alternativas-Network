@@ -24,18 +24,18 @@ $ViewList['kanban_status'] = array(
 $ViewList['kanban_new'] = array(
     'params' => array(),
     'uparams' => array(),
-    'functions' => array('use_admin'),
+    'functions' => array('use_admin','create_status'),
 );
 $ViewList['kanban_edit'] = array(
     'params' => array(),
     'uparams' => array(),
-    'functions' => array('use_admin'),
+    'functions' => array('use_admin','edit_status'),
 );
 
 $ViewList['kanban_delete'] = array(
     'params' => array(),
     'uparams' => array(),
-    'functions' => array('use_admin'),
+    'functions' => array('use_admin','delete_status'),
 );
 
 $ViewList['mailinglist'] = array(
@@ -176,4 +176,10 @@ $FunctionList['delete_campaign'] = array('explain' => 'Allow operator to delete 
 $FunctionList['delete_all_campaign'] = array('explain' => 'Allow operator to delete all campaigns, not only his own');
 $FunctionList['edit_all_campaign'] = array('explain' => 'Allow operator to edit all campaigns, not only his own');
 
+
+// kanban
+$FunctionList['view_kanban'] = array('explain' => 'Allow operator to view kanban');
+$FunctionList['delete_status'] = array('explain' => 'Allow operator to delete kanban status');
+$FunctionList['edit_status'] = array('explain' => 'Allow operator to edit kanban status');
+$FunctionList['create_status'] = array('explain' => 'Allow operator to edit kanban status');
 ?>

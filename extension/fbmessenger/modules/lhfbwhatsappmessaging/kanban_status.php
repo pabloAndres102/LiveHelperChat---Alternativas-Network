@@ -7,16 +7,23 @@ $status = erLhcoreClassModelGenericKanban::getList();
 $tpl->set('status',$status);
 
 
+if ($currentUser->hasAccessTo('lhfbwhatsappmessaging', 'delete_status')) {
+    $tpl->set('delete_status', true);
+} else {
+    $tpl->set('delete_status', false);
+}
 
+if ($currentUser->hasAccessTo('lhfbwhatsappmessaging', 'edit_status')) {
+    $tpl->set('edit_status', true);
+} else {
+    $tpl->set('edit_status', false);
+}
 
-
-
-
-
-
-
-
-
+if ($currentUser->hasAccessTo('lhfbwhatsappmessaging', 'create_status')) {
+    $tpl->set('create_status', true);
+} else {
+    $tpl->set('create_status', false);
+}
 
 
 

@@ -19,6 +19,8 @@ $tpl->setArray([
 
 $response = explode('<!--=========||=========-->', $tpl->fetch());
 
+
+
 echo json_encode([
     'preview' => $response[0],
     'form' => $response[1],

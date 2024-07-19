@@ -33,13 +33,14 @@
             padding: 0;
         }
     </style>
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<?php include(erLhcoreClassDesign::designtpl('lhkernel/paginator.tpl.php')); ?>
-<button class="btn btn-primary" id="showInfoButton"><span class="material-icons">query_stats</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/lists/search_panel','Quick stats')?></button>
 
-<div id="infoDiv" style="display: none; border: 2px solid #3498db; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); background-color: #f9f9f9; margin-top: 20px;">
-    <h1 style="font-size: 24px; color: #3498db; margin-bottom: 10px;"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/pendingchats','Information')?></h1>
+<?php include(erLhcoreClassDesign::designtpl('lhkernel/paginator.tpl.php')); ?>
+<center><h4><?php print_r($template_name)?></h4></center> <br>
+<div id="infoDiv" style=" border: 2px solid #3498db; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); background-color: #f9f9f9; margin-top: 20px;">
+    <h1 style="font-size: 24px; color: #3498db; margin-bottom: 10px;"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/pendingchats','Resumen')?> <span class="material-icons">query_stats</span></h1>
     <p style="font-size: 18px; margin-bottom: 10px;"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Sended')?>: <?php print_r($info_sent) ?></p>
     <p style="font-size: 18px; margin-bottom: 10px;"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Delivered')?>: <?php print_r($info_delivered) ?></p>
     <p style="font-size: 18px;"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Readed')?>: <?php print_r($info_read) ?></p>
@@ -47,7 +48,7 @@
 <br><br>
 <small><mark><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Summary of the last 30 days'); ?> </mark></small>
 <br>
-<center><h4><?php print_r($template_name)?></h4></center> <br>
+
 <table>
     <tr>
         <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Start')?></th>
@@ -94,13 +95,74 @@
         <?php print_r($metrics) ?>
     <?php endif; ?>
 </table>
+<canvas id="lineChart" width="400" height="200"></canvas>
+
+<script>
+    // Datos en formato JSON desde PHP
+    var labels = <?php echo $labelsJson; ?>;
+    var sentData = <?php echo $sentDataJson; ?>;
+    var deliveredData = <?php echo $deliveredDataJson; ?>;
+    var readData = <?php echo $readDataJson; ?>;
+
+    // Configuración del gráfico de líneas
+    var ctx = document.getElementById('lineChart').getContext('2d');
+    var lineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Enviado',
+                    data: sentData,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: false
+                },
+                {
+                    label: 'Entregado',
+                    data: deliveredData,
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    fill: false
+                },
+                {
+                    label: 'Leído',
+                    data: readData,
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Count'
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+
+
 
 
 <!-- <td><?php print_r($data_point[0]['data_points'][0]['delivered']); ?></td> -->
 
 </body>
 </html>
-<script>
+<!-- <script>
     // Obtén el botón y el div por su ID
     var showInfoButton = document.getElementById('showInfoButton');
     var infoDiv = document.getElementById('infoDiv');
@@ -116,4 +178,4 @@
             infoDiv.style.display = 'none';
         }
     });
-</script>
+</script> -->

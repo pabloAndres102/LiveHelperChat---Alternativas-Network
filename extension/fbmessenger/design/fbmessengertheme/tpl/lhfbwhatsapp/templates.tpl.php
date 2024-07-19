@@ -71,6 +71,13 @@
             <span class="material-icons mr-2">view_carousel</span>
             <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Create carousel'); ?>
         </a>
+        <span class="ms-3">
+            <span style="color: green;">Aprobada:</span> la plantilla pasó la revisión y se aprobó, y ahora se puede enviar en mensajes de plantilla.
+            <br />
+            <span style="color: rgba(255, 215, 0, 0.6);">Pendiente:</span> la plantilla pasó la validación de categoría y está en revisión.
+            <br />
+            <span style="color: red;">Rechazada:</span> la plantilla no pasó la validación de categoría o la revisión. Puedes conocer el motivo del rechazo.
+        </span>
     </div>
 
 
@@ -246,11 +253,12 @@
         <thead>
             <tr>
                 <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Name'); ?></th>
-                <th>Idioma</th>
+                <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Idioma') ?></th>
                 <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/pendingchats', 'Status') ?></th>
                 <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('abstract/proactivechatinvitation', 'Category') ?></th>
                 <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('abstract/proactivechatinvitation', 'Template type') ?></th>
                 <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('file/file', 'Components') ?></th>
+                <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Actions') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -279,17 +287,51 @@
                         <td>
                             <?php
                             $status = htmlspecialchars($template['status']);
+                            $translation = erTranslationClassLhTranslation::getInstance();
+
                             if ($status == 'APPROVED') {
-                                echo '<span style="color: green;">' . erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'APPROVED') . '</span>';
+                                echo '<span style="color: green;">' . $translation->getTranslation('module/fbmessenger', 'APPROVED') . '</span>';
                             } elseif ($status == 'PENDING') {
-                                echo '<span style="color: yellow;">' . erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'PENDING') . '</span>';
+                                echo '<span style="color: yellow;">' . $translation->getTranslation('module/fbmessenger', 'PENDING') . '</span>';
                             } elseif ($status == 'REJECTED') {
-                                echo '<span style="color: red;">' . erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'REJECTED') . '</span>';
+                                echo '<span style="color: red;">' . $translation->getTranslation('module/fbmessenger', 'REJECTED') . '</span>';
+                                echo '<br>';
+                                $reason = '';
+                                $tooltip = '';
+
+                                if ($template['rejected_reason'] == 'ABUSIVE_CONTENT') {
+                                    $reason = $translation->getTranslation('module/fbmessenger', 'ABUSIVE_CONTENT');
+                                    $tooltip = $translation->getTranslation('module/fbmessenger', 'ABUSIVE_CONTENT_TOOLTIP');
+                                } elseif ($template['rejected_reason'] == 'INVALID_FORMAT') {
+                                    $reason = $translation->getTranslation('module/fbmessenger', 'INVALID_FORMAT');
+                                    $tooltip = $translation->getTranslation('module/fbmessenger', 'INVALID_FORMAT_TOOLTIP');
+                                } elseif ($template['rejected_reason'] == 'NONE') {
+                                    $reason = $translation->getTranslation('module/fbmessenger', 'NONE');
+                                    $tooltip = $translation->getTranslation('module/fbmessenger', 'NONE_TOOLTIP');
+                                } elseif ($template['rejected_reason'] == 'PROMOTIONAL') {
+                                    $reason = $translation->getTranslation('module/fbmessenger', 'PROMOTIONAL');
+                                    $tooltip = $translation->getTranslation('module/fbmessenger', 'PROMOTIONAL_TOOLTIP');
+                                } elseif ($template['rejected_reason'] == 'TAG_CONTENT_MISMATCH') {
+                                    $reason = $translation->getTranslation('module/fbmessenger', 'TAG_CONTENT_MISMATCH');
+                                    $tooltip = $translation->getTranslation('module/fbmessenger', 'TAG_CONTENT_MISMATCH_TOOLTIP');
+                                } elseif ($template['rejected_reason'] == 'SCAM') {
+                                    $reason = $translation->getTranslation('module/fbmessenger', 'SCAM');
+                                    $tooltip = $translation->getTranslation('module/fbmessenger', 'SCAM_TOOLTIP');
+                                }
+
+                                if ($reason) {
+                                    // Icono de ayuda con tooltip
+                                    echo '<span class="tooltip-container" title="' . htmlspecialchars($tooltip) . '">';
+                                    echo '<span class="material-icons">help</span>';
+                                    echo $reason;
+                                    echo '</span>';
+                                }
                             } else {
                                 echo htmlspecialchars($template['status']);
                             }
                             ?>
                         </td>
+
                         <td>
                             <?php
                             $category = htmlspecialchars($template['category']);
@@ -362,16 +404,19 @@
                                     ?><p><?php echo htmlspecialchars($component['text']) ?></p><?php endif; ?>
                                     <?php if ($component['type'] == 'HEADER') : ?>
                                         <?php if ($component['format'] == 'DOCUMENT') : $fieldCountHeaderDocument = 1; ?>
-                                            <h5 class="text-secondary">DOCUMENT</h5>
+                                            <!-- <h5 class="text-secondary">DOCUMENT</h5> -->
+                                            <h5 class="text-secondary"><?php echo htmlspecialchars($template['language']) ?> </h5>
                                         <?php elseif ($component['format'] == 'VIDEO') : $fieldCountHeaderVideo = 1; ?>
-                                            <h5 class="text-secondary">VIDEO</h5>
+                                            <!-- <h5 class="text-secondary">VIDEO</h5> -->
+                                            <h5 class="text-secondary"><?php echo htmlspecialchars($template['language']) ?> </h5>
                                             <?php if (isset($component['example']['header_handle'][0])) : ?>
                                                 <video width="100">
                                                     <source src="<?php echo htmlspecialchars($component['example']['header_handle'][0]) ?>" type="video/mp4">
                                                 </video>
                                             <?php endif; ?>
                                         <?php elseif ($component['format'] == 'IMAGE') : $fieldCountHeaderImage = 1; ?>
-                                            <h5 class="text-secondary">IMAGE</h5>
+                                            <!-- <h5 class="text-secondary">IMAGE</h5> -->
+                                            <h5 class="text-secondary"><?php echo htmlspecialchars($template['language']) ?> </h5>
                                             <?php if (isset($component['example']['header_handle'][0])) : ?>
                                                 <img src="<?php echo htmlspecialchars($component['example']['header_handle'][0]) ?>" width="100px" />
                                             <?php endif; ?>
@@ -398,16 +443,17 @@
                         </td>
                         <td>
                             <?php if ($delete_template == true) : ?>
-                                <form method="post" action="<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/delete') ?>" onsubmit="return confirm('Esta acción es irreversible, ¿desea eliminar la plantilla? ');">
+                                <form method="post" action="<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/delete') ?>" onsubmit="return confirm('¿Confirmas que quieres eliminar esta plantilla de mensaje? No podrás usar el nombre <?php echo htmlspecialchars($template['name']); ?> para ninguna plantilla de mensaje nueva que crees mientras se elimina.');">
                                     <input type="hidden" name="template_name" value="<?php echo htmlspecialchars_decode($template['name']); ?>">
                                     <button type="submit" class="btn btn-danger"><span class="material-icons">delete</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Delete'); ?></button>
                                 </form>
                             <?php endif ?>
                             <form method="post" action="<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/metric_templates') ?>">
                                 <input type="hidden" name="template_id" value="<?php echo htmlspecialchars_decode($template['id']); ?>">
-                                <button type="submit" class="btn btn-dark"><span class="material-icons">equalizer</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Metrics'); ?></button>
+                                <button type="submit" class="btn btn-info"><span class="material-icons">equalizer</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Metrics'); ?></button>
                             </form>
                         </td>
+
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>

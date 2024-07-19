@@ -493,6 +493,9 @@ if (isset($messageVariablesOriginal)) {
 
 
 
+
+
+
 $tpl->setArray([
     'send' => $item,
     'templates' => $templates,

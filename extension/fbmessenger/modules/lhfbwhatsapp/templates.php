@@ -1,10 +1,12 @@
 <?php
 $tpl = erLhcoreClassTemplate::getInstance('lhfbwhatsapp/templates.tpl.php');
+$fbOptions = erLhcoreClassModelChatConfig::fetch('fbmessenger_options');
+$data = (array)$fbOptions->data;
 
 try {
     $instance = LiveHelperChatExtension\fbmessenger\providers\FBMessengerWhatsAppLiveHelperChat::getInstance();
     $templates = $instance->getTemplates();
-    
+
     // Inicializa la variable de conteo de plantillas
     $templateCount = 0;
     $filteredTemplates = [];
@@ -23,10 +25,41 @@ try {
         'sample_movie_ticket_confirmation'
     );
 
-
     foreach ($templates as $template) {
-        if (!in_array($template['name'], $excludedTemplates)) {
+
+        if ($template['status'] == 'REJECTED') {
+            $access_token = $data['whatsapp_access_token'];
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://graph.facebook.com/v20.0/' . $template['id'] . '?fields=name%2Clanguage%2Cstatus%2Ccategory%2Crejected_reason%2Cquality_score&access_token=' . $access_token,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+            ));
+
+            $response = curl_exec($curl);
+            $response = json_decode($response, true);
+
+            curl_close($curl);
+
+            // Asegúrate de que $template['rejected_reason'] sea un array antes de agregar el valor
+            if (!isset($template['rejected_reason'])) {
+                $template['rejected_reason'] = array();
+            }
+            $template['rejected_reason'] = $response['rejected_reason'];
             
+        }
+
+        
+
+        if (!in_array($template['name'], $excludedTemplates)) {
+
             // Filtrado por nombre
             if ($searchName && stripos($template['name'], $searchName) === false) {
                 continue;
@@ -46,8 +79,8 @@ try {
             $filteredTemplates[] = $template;
             $templateCount++;
         }
+        
     }
-
 } catch (Exception $e) {
     $tpl->set('error', $e->getMessage());
     $filteredTemplates = [];
@@ -81,14 +114,11 @@ $tpl->set('templates', $filteredTemplates);
 
 $Result['content'] = $tpl->fetch();
 $Result['path'] = array(
-    array('url' => erLhcoreClassDesign::baseurl('fbmessenger/index'), 
-        'title' => erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Facebook chat')),
+    array(
+        'url' => erLhcoreClassDesign::baseurl('fbmessenger/index'),
+        'title' => erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Facebook chat')
+    ),
     array(
         'title' => erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Templates')
     )
 );
-
-
-
-
-?>
