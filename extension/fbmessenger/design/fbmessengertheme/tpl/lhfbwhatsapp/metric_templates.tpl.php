@@ -1,6 +1,68 @@
-<!DOCTYPE html>
-<html>
+<style>
+    .tooltip-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
 
+.tooltip-container .tooltip-content {
+    visibility: hidden;
+    width: 300px; /* Ajusta el ancho según sea necesario */
+    background-color: #f9f9f9;
+    color: #333;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    top: 125%; /* Mueve el tooltip hacia abajo desde el icono */
+    left: 50%;
+    margin-left: -150px; /* Centra el tooltip */
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+    white-space: pre-line; /* Asegura que los saltos de línea en el texto se respeten */
+    overflow: auto; /* Permite el desplazamiento si el contenido es demasiado grande */
+}
+
+.tooltip-container:hover .tooltip-content {
+    visibility: visible;
+}
+
+.tooltip-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tooltip-item:last-child {
+    margin-bottom: 0;
+}
+
+.tooltip-item .circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    display: inline-block;
+}
+
+.tooltip-item.red .circle {
+    background-color: red;
+}
+
+.tooltip-item.green .circle {
+    background-color: green;
+}
+
+.tooltip-item.yellow .circle {
+    background-color: yellow;
+}
+
+.tooltip-item.unknown .circle {
+    background-color: gray; /* Usa un color adecuado para UNKNOWN */
+}
+
+</style>
 <head>
     <style>
         .quality-indicator {
@@ -98,8 +160,28 @@
             }
             ?>
         </span>
-        <span class="tooltip-container" title="Calidad de plantilla">
+        <span class="tooltip-container">
+            <span class="tooltip-content">
+                <div class="tooltip-item red">
+                    <span class="circle red"></span>
+                    BAJA: La calidad es baja y suspendida o pausada debido a la alta cantidad de rebotes al momento de envíos o bloqueos por parte de los clientes.
+                </div>
+                <div class="tooltip-item green">
+                    <span class="circle green"></span>
+                    ALTA: Tu plantilla cumple con todos los requisitos de calidad.
+                </div>
+                <div class="tooltip-item yellow">
+                    <span class="circle yellow"></span>
+                    MEDIA: Debes tener cuidado, esta plantilla puede ser suspendida por abuso en rebotes o aumento de bloqueos o denuncias por parte de los clientes.
+                </div>
+                <div class="tooltip-item unknown">
+                    <span class="circle unknown"></span>
+                    DESCONOCIDA: No tienes el suficiente volumen para calificar esta plantilla.
+                </div>
+            </span>
             &nbsp;&nbsp;<span class="material-icons">help</span>
+        </span>
+
     </div>
     <div id="infoDiv" style="border: 2px solid #3498db; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); background-color: #f9f9f9; margin-top: 20px;">
         <h1 style="font-size: 24px; color: #3498db; margin-bottom: 10px;">
