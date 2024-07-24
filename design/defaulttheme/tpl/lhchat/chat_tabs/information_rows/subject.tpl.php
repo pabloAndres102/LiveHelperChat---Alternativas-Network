@@ -12,18 +12,19 @@
                     <span class="material-icons" title="<?php print isset($aicon['t']) ? htmlspecialchars($aicon['t']) : htmlspecialchars($aicon['i']) ?>" <?php if (isset($aicon['c']) && $aicon['c'] != '') : ?>style="color:<?php echo htmlspecialchars($aicon['c']) ?>" <?php endif; ?>><?php echo htmlspecialchars(is_array($aicon) && isset($aicon['i']) ? $aicon['i'] : $aicon) ?></span>
                 <?php endforeach; ?>
 
-            <h6 class="fw-bold"><span class="material-icons">view_kanban</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Add kanban status') ?>
+            <h6 class="fw-bold"><span class="material-icons">view_kanban</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Add kanban status') ?>
                 <button type="button" class="btn btn-xs btn-link text-muted pb-1 ps-1" onclick="return lhc.revealModal({
                                                                 'url': '<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/kanban_status2'); ?>?id=<?php echo urlencode($chat->id); ?>'
                                                                 })"><i class="material-icons me-0">&#xE145;</i></button>
             </h6>
-
+            <br>
             <?php if ($chat->kanban_id > 0): ?>
                 <?php $status_kanban = erLhcoreClassModelGenericKanban::fetch($chat->kanban_id); ?>
                 <span style="background-color: <?php echo htmlspecialchars($status_kanban->color); ?>; padding: 5px; border-radius: 3px; color: white;">
                     <?php echo htmlspecialchars($status_kanban->nombre); ?>
                 </span>
             <?php endif; ?>
+            <br>
         </td>
     </tr>
 <?php endif; ?>

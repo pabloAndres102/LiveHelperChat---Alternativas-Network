@@ -125,6 +125,10 @@
                 </div>
 
                 <div class="mb-3 hidden-content" id="headers">
+                    <br>
+                    <span><small><strong>Ejemplos de contenido del encabezado y variables: </strong><br>
+                            Para ayudarnos a revisar tu contenido, proporciona ejemplos de las variables o del contenido multimedia en el encabezado. No incluyas información del cliente. Meta revisa las plantillas y los parámetros de las variables para proteger la seguridad e integridad de nuestros servicios.
+                        </small></span><br><br>
                     <label for="header" class="form-label"> <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Header type'); ?></strong></label>
                     <select class="form-select" id="header" name="header" aria-label="Default select example">
                         <option value=""><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Without header'); ?></option>
@@ -136,6 +140,7 @@
 
                     <label for="campoDeTexto" id="labelCampoDeTexto" class="form-label" hidden> <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Text header'); ?></strong> </label>
                     <input type="text" id="campoDeTexto" name="campoDeTexto" class="form-control" maxlength="60" placeholder="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'You can upload a variable'); ?>" hidden>
+                    <div id="charCount1" class="form-text" hidden>Caracteres: 0 de 60</div>
 
                     <div id="nuevoInput" style="display: none;">
                         <label for="inputNuevo">Variable</label>
@@ -189,6 +194,7 @@
                 <div class="mb-3 hidden-content">
                     <label for="footer" class="form-label"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Footer'); ?></strong></label>
                     <input type="text" class="form-control" id="footer" name="footer" maxlength="60">
+                    <div id="charCount2" class="form-text">Caracteres: 0 de 60</div>
                 </div>
 
                 <div class="form-check form-switch hidden-content">
@@ -522,7 +528,7 @@
                             <input type="text" class="form-control" id="buttonAutocompletar" name="buttonAutocompletar" placeholder="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Autofill'); ?>">
                         </div>
                         <div id="caducidad">
-                            <label for="caducidad"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Add the expiration date for the code'); ?></strong></label>
+                            <label for="caducidad"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Add the expiration date for the code'); ?></strong>: (Minutos)</label>
                             <input type="number" class="form-control" id="caducidad" name="caducidad" placeholder="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Enter a value between 1 and 90'); ?>" max="90">
                         </div>
                     </div>
@@ -533,6 +539,23 @@
         <br>
         <br> <br> <br> <br> <br> <br> <br> <br> <br>
     </div>
+
+    <script>
+        function addCharCounter(inputId, counterId, maxLength) {
+            const inputField = document.getElementById(inputId);
+            const charCounter = document.getElementById(counterId);
+
+            inputField.addEventListener('input', function() {
+                const currentLength = inputField.value.length;
+                charCounter.textContent = `Caracteres: ${currentLength} de ${maxLength}`;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            addCharCounter('campoDeTexto', 'charCount1', 60);
+            addCharCounter('footer', 'charCount2', 60);
+        });
+    </script>
 
     <script>
         document.getElementById('buttonMPM').addEventListener('change', function() {
@@ -815,6 +838,7 @@
         const selectElement = document.getElementById('header');
         const inputElement = document.getElementById('campoDeTexto');
         const labelElement = document.getElementById('labelCampoDeTexto');
+        const charcountheader = document.getElementById('charCount1');
 
         selectElement.addEventListener('change', () => {
             const selectedOption = selectElement.options[selectElement.selectedIndex].value;
@@ -822,9 +846,11 @@
             if (selectedOption === 'TEXT') {
                 inputElement.removeAttribute('hidden');
                 labelElement.removeAttribute('hidden');
+                charcountheader.removeAttribute('hidden');
             } else {
                 inputElement.setAttribute('hidden', 'true');
                 labelElement.setAttribute('hidden', 'true');
+                charcountheader.setAttribute('hidden', 'true');
             }
 
         });

@@ -53,7 +53,6 @@
     <?php include(erLhcoreClassDesign::designtpl('lhkernel/csfr_token.tpl.php')); ?>
     <div class="row">
         <div class="col-8">
-
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">

@@ -1,4 +1,34 @@
 <style>
+  .catalog-status {
+    padding: 10px;
+    margin: 20px auto;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2rem;
+    width: 50%;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .catalog-status-active {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+
+  .catalog-status-inactive {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+
+  .catalog-status .material-icons {
+    font-size: 1.5rem;
+  }
+
   h1 {
     font-size: 2rem;
     color: #333;
@@ -121,12 +151,20 @@
 
 <h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Catalog'); ?></h1>
 <center>
-  <form action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/activatecatalog') ?>" method="post" style="display: inline-block; margin-bottom: 9px;">
+  <form action="<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/catalog_products') ?>" method="post" style="display: inline-block; margin-bottom: 9px;">
     <input type="hidden" name="action">
     <button type="submit" class="btn btn-primary">
       <span class="material-icons">inventory</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Activate'); ?>/<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Deactivate'); ?>
     </button>
   </form>
+
+  <?php if (isset($status_catalog)) : ?>
+    <div class="catalog-status <?php echo $status_catalog === 'Catalogo activado' ? 'catalog-status-active' : 'catalog-status-inactive'; ?>">
+      <span class="material-icons">inventory</span>
+      <?php echo $status_catalog; ?>
+    </div>
+  <?php endif ?>
+
   <?php
 
   if (isset($_SESSION['desactivado'])) {

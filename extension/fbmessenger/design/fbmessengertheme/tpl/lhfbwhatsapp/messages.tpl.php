@@ -12,10 +12,7 @@
     unset($_SESSION['activate']);
 }
 ?>
-<a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/campaignrecipient') ?>/(campaign)/<?php echo htmlspecialchars($item->campaign_id) ?>" class="btn btn-primary">
-    <span class="material-icons">equalizer</span>
-    <?php echo htmlspecialchars((string)$item->campaign) ?>
-</a>
+
 
 
 <?php if (isset($items)) : ?>
@@ -54,14 +51,13 @@
                 </td>
                 <td>
                     <?php if ($item->campaign_id > 0) : ?>
-                        <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/campaignrecipient') ?>/(campaign)/<?php echo htmlspecialchars($item->campaign_id) ?>"><?php echo htmlspecialchars((string)$item->campaign) ?></a>
-                        <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/campaignrecipient') ?>/(campaign)/<?php echo htmlspecialchars($item->campaign_id) ?>" class="btn btn-primary">
+                        <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/statistic_campaign') ?>/?id=<?php echo htmlspecialchars($item->campaign_id) ?>"><?php echo htmlspecialchars((string)$item->campaign) ?></a>
+                        &nbsp;&nbsp;- <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/statistic_campaign') ?>/?id=<?php echo htmlspecialchars($item->campaign_id) ?>">
                             <span class="material-icons">equalizer</span>
-                            <?php echo htmlspecialchars((string)$item->campaign) ?>
                         </a>
 
                     <?php else : ?>
-                        <!-- Aquí puedes agregar lo que desees mostrar cuando campaign_id es 0 o menor -->
+
                         Envío simple
                     <?php endif; ?>
                 </td>
@@ -169,6 +165,8 @@
                         <?php endif; ?>
                     <?php elseif ($item->status == \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppMessage::STATUS_FAILED) : ?>
                         <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Failed'); ?>
+                        &nbsp;&nbsp;<a class="material-icons" style="color: red;" onclick="lhc.revealModal({'url':WWW_DIR_JAVASCRIPT+'fbwhatsapp/error_modal/<?php echo $item->id ?>'})">dangerous</a>
+
                     <?php elseif ($item->status == \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppMessage::STATUS_PENDING_PROCESS) : ?>
                         <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Pending to be processed'); ?>
                     <?php elseif ($item->status == \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppMessage::STATUS_REJECTED) : ?>

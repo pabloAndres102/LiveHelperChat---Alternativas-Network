@@ -5,10 +5,32 @@ $fbOptions = erLhcoreClassModelChatConfig::fetch('fbmessenger_options');
 $data = (array)$fbOptions->data;
 $tpl = erLhcoreClassTemplate::getInstance('lhfbwhatsapp/metric_templates.tpl.php');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $template_id = $_POST['template_id'];
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $template_id = $_GET['template_id'];
     $instance = \LiveHelperChatExtension\fbmessenger\providers\FBMessengerWhatsAppLiveHelperChat::getInstance();
     $jsonresponse = $instance->getTemplateMetrics($template_id);
+
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://graph.facebook.com/v20.0/' . $template_id . '?fields=quality_score&access_token=' . $data['whatsapp_access_token'],
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+    ));
+
+    $response = curl_exec($curl);
+    $response = json_decode($response, true);
+    $quality_score = $response['quality_score']['score'];
+    $tpl->set('quality_score', $quality_score);
+
+    print_r($template_date);
+    
+    curl_close($curl);
 }
 
 if (!empty($jsonresponse)) {
@@ -59,11 +81,18 @@ $readData = [];
 // Recorre los puntos de datos y extrae la información
 if (isset($dataPoints) && !empty($dataPoints)) :
     $data_points = $dataPoints['data'][0]['data_points'];
-    foreach ($data_points as $data_point) : 
-        $labels[] = date('d/m/Y', $data_point['start']);
-        $sentData[] = $data_point['sent'];
-        $deliveredData[] = $data_point['delivered'];
-        $readData[] = $data_point['read'];
+    foreach ($data_points as $data_point) :
+        $sent = $data_point['sent'];
+        $delivered = $data_point['delivered'];
+        $read = $data_point['read'];
+        
+        // Verifica si al menos uno de los valores es mayor a 0
+        if ($sent > 0 || $delivered > 0 || $read > 0) :
+            $labels[] = date('d/m/Y', $data_point['start']);
+            $sentData[] = $sent;
+            $deliveredData[] = $delivered;
+            $readData[] = $read;
+        endif;
     endforeach;
 endif;
 

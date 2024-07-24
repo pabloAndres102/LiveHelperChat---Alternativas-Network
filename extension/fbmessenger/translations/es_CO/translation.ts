@@ -15,6 +15,259 @@
   <context>
   <name>module/fbmessenger</name>
   <message>
+  <source>es</source>
+  <translation>Español</translation>
+</message>
+<message>
+  <source>af</source>
+  <translation>Afrikáans</translation>
+</message>
+<message>
+  <source>sq</source>
+  <translation>Albanés</translation>
+</message>
+<message>
+  <source>ar</source>
+  <translation>Árabe</translation>
+</message>
+<message>
+  <source>az</source>
+  <translation>Azerí</translation>
+</message>
+<message>
+  <source>bn</source>
+  <translation>Bengalí</translation>
+</message>
+<message>
+  <source>bg</source>
+  <translation>Búlgaro</translation>
+</message>
+<message>
+  <source>ca</source>
+  <translation>Catalán</translation>
+</message>
+<message>
+  <source>zh_CN</source>
+  <translation>Chino (China)</translation>
+</message>
+<message>
+  <source>zh_HK</source>
+  <translation>Chino (Hong Kong)</translation>
+</message>
+<message>
+  <source>zh_TW</source>
+  <translation>Chino (Tailandia)</translation>
+</message>
+<message>
+  <source>cs</source>
+  <translation>Checo</translation>
+</message>
+<message>
+  <source>nl</source>
+  <translation>Holandés</translation>
+</message>
+<message>
+  <source>en_US</source>
+  <translation>Inglés</translation>
+</message>
+<message>
+  <source>en_GB</source>
+  <translation>Inglés (Reino Unido)</translation>
+</message>
+<message>
+  <source>es_LA</source>
+  <translation>Español (EE. UU.)</translation>
+</message>
+<message>
+  <source>et</source>
+  <translation>Estonio</translation>
+</message>
+<message>
+  <source>fil</source>
+  <translation>Filipino</translation>
+</message>
+<message>
+  <source>fi</source>
+  <translation>Finlandés</translation>
+</message>
+<message>
+  <source>fr</source>
+  <translation>Francés</translation>
+</message>
+<message>
+  <source>de</source>
+  <translation>Alemán</translation>
+</message>
+<message>
+  <source>el</source>
+  <translation>Griego</translation>
+</message>
+<message>
+  <source>gu</source>
+  <translation>Guyaratí</translation>
+</message>
+<message>
+  <source>he</source>
+  <translation>Hebreo</translation>
+</message>
+<message>
+  <source>hi</source>
+  <translation>Hindi</translation>
+</message>
+<message>
+  <source>hu</source>
+  <translation>Húngaro</translation>
+</message>
+<message>
+  <source>id</source>
+  <translation>Indonesio</translation>
+</message>
+<message>
+  <source>ga</source>
+  <translation>Irlandés</translation>
+</message>
+<message>
+  <source>it</source>
+  <translation>Italiano</translation>
+</message>
+<message>
+  <source>ja</source>
+  <translation>Japonés</translation>
+</message>
+<message>
+  <source>kn</source>
+  <translation>Canarés</translation>
+</message>
+<message>
+  <source>kk</source>
+  <translation>Kazajo</translation>
+</message>
+<message>
+  <source>ko</source>
+  <translation>Coreano</translation>
+</message>
+<message>
+  <source>lo</source>
+  <translation>Lao</translation>
+</message>
+<message>
+  <source>lv</source>
+  <translation>Letón</translation>
+</message>
+<message>
+  <source>lt</source>
+  <translation>Lituano</translation>
+</message>
+<message>
+  <source>mk</source>
+  <translation>Macedonio</translation>
+</message>
+<message>
+  <source>ms</source>
+  <translation>Malayo</translation>
+</message>
+<message>
+  <source>mr</source>
+  <translation>Maratí</translation>
+</message>
+<message>
+  <source>nb</source>
+  <translation>Noruego</translation>
+</message>
+<message>
+  <source>fa</source>
+  <translation>Persa</translation>
+</message>
+<message>
+  <source>pl</source>
+  <translation>Polaco</translation>
+</message>
+<message>
+  <source>pt_BR</source>
+  <translation>Portugués (Brasil)</translation>
+</message>
+<message>
+  <source>pt_PT</source>
+  <translation>Portugués (Portugal)</translation>
+</message>
+<message>
+  <source>pa</source>
+  <translation>Punyabí</translation>
+</message>
+<message>
+  <source>ro</source>
+  <translation>Rumano</translation>
+</message>
+<message>
+  <source>ru</source>
+  <translation>Ruso</translation>
+</message>
+<message>
+  <source>sr</source>
+  <translation>Serbio</translation>
+</message>
+<message>
+  <source>sk</source>
+  <translation>Eslovaco</translation>
+</message>
+<message>
+  <source>sl</source>
+  <translation>Esloveno</translation>
+</message>
+<message>
+  <source>es_AR</source>
+  <translation>Español (Argentina)</translation>
+</message>
+<message>
+  <source>es_ES</source>
+  <translation>Español (España)</translation>
+</message>
+<message>
+  <source>es_MX</source>
+  <translation>Español (México)</translation>
+</message>
+<message>
+  <source>sw</source>
+  <translation>Suajili</translation>
+</message>
+<message>
+  <source>sv</source>
+  <translation>Sueco</translation>
+</message>
+<message>
+  <source>ta</source>
+  <translation>Tamil</translation>
+</message>
+<message>
+  <source>te</source>
+  <translation>Telugu</translation>
+</message>
+<message>
+  <source>th</source>
+  <translation>Tailandés</translation>
+</message>
+<message>
+  <source>tr</source>
+  <translation>Turco</translation>
+</message>
+<message>
+  <source>uk</source>
+  <translation>Ucraniano</translation>
+</message>
+<message>
+  <source>ur</source>
+  <translation>Urdu</translation>
+</message>
+<message>
+  <source>uz</source>
+  <translation>Uzbeko</translation>
+</message>
+<message>
+  <source>vi</source>
+  <translation>Vietnamita</translation>
+</message>
+
+  <message>
       <source>Add kanban status</source>
       <translation>Agregar estado de embudo</translation>
     </message>

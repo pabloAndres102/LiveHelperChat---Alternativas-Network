@@ -41,6 +41,13 @@ $ViewList['metric_templates'] = array(
     'functions' => array('use_admin'),
 );
 
+$ViewList['error_modal'] = array(
+    'params' => array('id'),
+    'uparams' => array(),
+    'functions' => array('use_admin'),
+);
+
+
 $ViewList['createflow'] = array(
     'params' => array(),
     'uparams' => array(),

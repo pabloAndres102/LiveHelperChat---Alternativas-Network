@@ -240,7 +240,7 @@
 
             <button type="submit" class="btn btn-primary">Buscar</button>
             <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/templates'); ?>" class="btn btn-primary d-flex align-items-center">
-                <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', ' << '); ?>
+            <span class="material-icons">undo</span>
             </a>
         </div>
     </form>
@@ -282,7 +282,7 @@
                             <?php echo htmlspecialchars($template['name']) ?>
                         </td>
                         <td>
-                            <?php echo htmlspecialchars($template['language']) ?>
+                        <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', $template['language']); ?>
                         </td>
                         <td>
                             <?php
@@ -378,6 +378,7 @@
                             $fieldCountHeaderDocument = 0;
                             $fieldCountHeaderImage = 0;
                             $fieldCountHeaderVideo = 0; ?>
+                            <h5 class="text-secondary"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', $template['language']); ?></h5>
                             <div class="rounded bg-light p-2" title="<?php echo htmlspecialchars(json_encode($template, JSON_PRETTY_PRINT)) ?>">
                                 <?php foreach ($template['components'] as $component) : ?>
                                     <?php if ($component['type'] == 'HEADER' && $component['format'] == 'IMAGE' && isset($component['example']['header_url'][0])) : ?>
@@ -405,10 +406,10 @@
                                     <?php if ($component['type'] == 'HEADER') : ?>
                                         <?php if ($component['format'] == 'DOCUMENT') : $fieldCountHeaderDocument = 1; ?>
                                             <!-- <h5 class="text-secondary">DOCUMENT</h5> -->
-                                            <h5 class="text-secondary"><?php echo htmlspecialchars($template['language']) ?> </h5>
+                                            
                                         <?php elseif ($component['format'] == 'VIDEO') : $fieldCountHeaderVideo = 1; ?>
                                             <!-- <h5 class="text-secondary">VIDEO</h5> -->
-                                            <h5 class="text-secondary"><?php echo htmlspecialchars($template['language']) ?> </h5>
+                                            
                                             <?php if (isset($component['example']['header_handle'][0])) : ?>
                                                 <video width="100">
                                                     <source src="<?php echo htmlspecialchars($component['example']['header_handle'][0]) ?>" type="video/mp4">
@@ -416,7 +417,7 @@
                                             <?php endif; ?>
                                         <?php elseif ($component['format'] == 'IMAGE') : $fieldCountHeaderImage = 1; ?>
                                             <!-- <h5 class="text-secondary">IMAGE</h5> -->
-                                            <h5 class="text-secondary"><?php echo htmlspecialchars($template['language']) ?> </h5>
+                                            
                                             <?php if (isset($component['example']['header_handle'][0])) : ?>
                                                 <img src="<?php echo htmlspecialchars($component['example']['header_handle'][0]) ?>" width="100px" />
                                             <?php endif; ?>
@@ -448,7 +449,7 @@
                                     <button type="submit" class="btn btn-danger"><span class="material-icons">delete</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Delete'); ?></button>
                                 </form>
                             <?php endif ?>
-                            <form method="post" action="<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/metric_templates') ?>">
+                            <form method="get" action="<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/metric_templates') ?>">
                                 <input type="hidden" name="template_id" value="<?php echo htmlspecialchars_decode($template['id']); ?>">
                                 <button type="submit" class="btn btn-info"><span class="material-icons">equalizer</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Metrics'); ?></button>
                             </form>
