@@ -15,6 +15,26 @@
   <context>
   <name>module/fbmessenger</name>
   <message>
+      <source>Kanban funnel</source>
+      <translation>Embudo kanban</translation>
+    </message>
+  <message>
+  <source>Contacts</source>
+  <translation>Contactos</translation>
+</message>
+  <message>
+  <source>Create contact list</source>
+  <translation>Crear lista de contacto</translation>
+</message>
+  <message>
+  <source>Contacts list</source>
+  <translation>Lista de contactos</translation>
+</message>
+  <message>
+  <source>Create campaign</source>
+  <translation>Crear campaña</translation>
+</message>
+  <message>
   <source>es</source>
   <translation>Español</translation>
 </message>
@@ -266,7 +286,26 @@
   <source>vi</source>
   <translation>Vietnamita</translation>
 </message>
-
+<message>
+<message>
+      <source>Last Name</source>
+      <translation>Apellido</translation>
+    </message>
+      <source>Contact information</source>
+      <translation>Informacion de contacto</translation>
+    </message>
+    <message>
+      <source>Field</source>
+      <translation>Campo</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Valor</translation>
+    </message>
+<message>
+      <source>Add contact</source>
+      <translation>Agregar contacto</translation>
+    </message>
   <message>
       <source>Add kanban status</source>
       <translation>Agregar estado de embudo</translation>

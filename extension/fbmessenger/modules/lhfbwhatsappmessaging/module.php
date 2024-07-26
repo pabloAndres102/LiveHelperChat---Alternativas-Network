@@ -32,6 +32,12 @@ $ViewList['kanban_edit'] = array(
     'functions' => array('use_admin','edit_status'),
 );
 
+$ViewList['modal_recipient'] = array(
+    'params' => array('id'),
+    'uparams' => array(),
+    'functions' => array('use_admin'),
+);
+
 $ViewList['kanban_delete'] = array(
     'params' => array(),
     'uparams' => array(),

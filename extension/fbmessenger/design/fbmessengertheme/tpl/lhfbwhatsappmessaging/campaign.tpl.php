@@ -1,7 +1,8 @@
 <h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Campaigns list'); ?></h1>
 
 <?php include(erLhcoreClassDesign::designtpl('lhfbwhatsappmessaging/parts/search_panel_mailinglist.tpl.php')); ?>
-<a class="btn btn-secondary btn-sm" href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/newcampaign') ?>"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'New'); ?></a>
+<a class="btn btn-secondary btn-sm" href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/newcampaign') ?>"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Create campaign'); ?></a>
+<br>
 <br>
 <?php if (isset($items)) : ?>
 <?php

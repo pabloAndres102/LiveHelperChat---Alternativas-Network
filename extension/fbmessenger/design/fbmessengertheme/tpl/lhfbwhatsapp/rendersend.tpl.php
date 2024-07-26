@@ -76,7 +76,9 @@ echo '</script>';
 
 ?>
 <?php $products = erLhcoreClassModelCatalogProducts::getList(); ?>
-<h6><?php echo htmlspecialchars($template['name']) ?> <span class="badge badge-secondary"><?php echo htmlspecialchars($template['category']) ?></span></h6>
+<h6><strong>Nombre de plantilla: </strong><?php echo htmlspecialchars($template['name']) ?></h6>
+<h6><strong>Categoria de plantilla: </strong><span style="color: black;" class="badge badge-secondary"><?php echo htmlspecialchars($template['category']) ?></span></h6>
+<h6><strong>Nombre de plantilla: </strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', $template['language']); ?></h6>
 <?php $fieldsCount = 0;
 $fieldsCountHeader = 0;
 $fieldCountHeaderDocument = 0;
@@ -108,16 +110,16 @@ $fieldCountHeaderVideo = 0; ?>
         ?><p><?php echo htmlspecialchars($component['text']) ?></p><?php endif; ?>
         <?php if ($component['type'] == 'HEADER') : ?>
             <?php if ($component['format'] == 'DOCUMENT') : $fieldCountHeaderDocument = 1; ?>
-                <h5 class="text-secondary">DOCUMENT</h5>
+                <!-- <h5 class="text-secondary">DOCUMENT</h5> -->
             <?php elseif ($component['format'] == 'VIDEO') : $fieldCountHeaderVideo = 1; ?>
-                <h5 class="text-secondary">VIDEO</h5>
+                <!-- <h5 class="text-secondary">VIDEO</h5> -->
                 <?php if (isset($component['example']['header_handle'][0])) : ?>
                     <video width="100">
                         <source src="<?php echo htmlspecialchars($component['example']['header_handle'][0]) ?>" type="video/mp4">
                     </video>
                 <?php endif; ?>
             <?php elseif ($component['format'] == 'IMAGE') : $fieldCountHeaderImage = 1; ?>
-                <h5 class="text-secondary">IMAGE</h5>
+                <!-- <h5 class="text-secondary">IMAGE</h5> -->
                 <?php if (isset($component['example']['header_handle'][0])) : ?>
                     <img src="<?php echo htmlspecialchars($component['example']['header_handle'][0]) ?>" width="100px" />
                 <?php endif; ?>

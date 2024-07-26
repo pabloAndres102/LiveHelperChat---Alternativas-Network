@@ -1,4 +1,4 @@
-<h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Recipient list'); ?></h1>
+<h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Contacts'); ?></h1>
 
 <?php include(erLhcoreClassDesign::designtpl('lhfbwhatsappmessaging/parts/search_panel_mailing_recipient.tpl.php')); ?>
 <table cellpadding="0" cellspacing="0" class="table table-sm table-hover" width="100%" ng-non-bindable>
@@ -11,6 +11,7 @@
             <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Owner'); ?></th>
             <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Status'); ?></th>
             <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Type'); ?></th>
+            <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Delivery status'); ?></th>
             <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Chat ID'); ?></th>
             <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Send'); ?></th>
             <th width="1%"></th>
@@ -21,7 +22,7 @@
                 <td>
                     <i class="material-icons"><?php if ($item->disabled == 0) : ?>done<?php else : ?>block<?php endif; ?></i>
                     <button data-success="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Copied'); ?>" title="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Click to copy phone'); ?>" class="mx-0 btn btn-xs btn-link text-muted py-1" data-copy="<?php echo htmlspecialchars($item->phone) ?>" onclick="lhinst.copyContent($(this))" type="button"><i class="material-icons mr-0">content_copy</i></button>
-
+                    <a class="material-icons" style="color: green;" onclick="lhc.revealModal({'url':WWW_DIR_JAVASCRIPT+'fbwhatsappmessaging/modal_recipient/<?php echo $item->id ?>'})">help</a>
                     <?php if ($item->can_edit) : ?>
                         <button class="m-0 p-0 btn btn-sm btn-link<?php if ($item->disabled == 1) : ?> text-muted<?php endif; ?>" href="#" onclick="return lhc.revealModal({'title' : 'Import', 'height':350, backdrop:true, 'url':'<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/editmailingrecipient') ?>/<?php echo $item->id ?>'})">
                             <span class="material-icons">edit</span><?php echo htmlspecialchars($item->phone) ?><?php $item->phone_recipient != '' ? print ' (' . $item->phone_recipient . ') ' : print ' ' ?><?php echo htmlspecialchars($item->email) ?>
@@ -78,6 +79,20 @@
                     <?php else : ?>
                         <span class="material-icons">vpn_lock</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Private'); ?>
                     <?php endif; ?>
+                </td>
+                <td>
+                    <?php
+                    $deliveryStatus = $item->delivery_status;
+                    if ($deliveryStatus === \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_UNKNOWN) {
+                        echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Unknown');
+                    } elseif ($deliveryStatus === \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_UNSUBSCRIBED) {
+                        echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Unsubscribed');
+                    } elseif ($deliveryStatus === \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_FAILED) {
+                        echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Failed');
+                    } elseif ($deliveryStatus === \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_ACTIVE) {
+                        echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Active');
+                    }
+                    ?>
                 </td>
                 <td>
                     <?php if ($item->chat_id > 0) : ?>

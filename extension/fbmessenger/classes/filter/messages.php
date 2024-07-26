@@ -7,7 +7,7 @@ $fieldsSearch['phone'] = array (
     'trans' => 'Name',
     'required' => false,
     'valid_if_filled' => false,
-    'filter_type' => 'filter',
+    'filter_type' => 'like',
     'filter_table_field' => 'phone',
     'validation_definition' => new ezcInputFormDefinitionElement (
         ezcInputFormDefinitionElement::OPTIONAL, 'string'

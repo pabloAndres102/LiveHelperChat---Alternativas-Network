@@ -105,6 +105,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <div class="container">
+<h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Statistics'); ?></h1>
+<br>
     <form method="POST" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/index') ?>">
         <!-- Establecer por defecto el primer día del mes actual a las 00:00 para la primera fecha -->
         <input type="datetime-local" name="start" value="<?php echo (isset($startTimestamp) ? date('Y-m-01\T00:00', $startTimestamp) : date('Y-m-01\T00:00')); ?>">&nbsp;&nbsp;

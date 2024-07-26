@@ -19,16 +19,17 @@ if (!empty($filterParams['input_form']->ml)) {
 if (!$currentUser->hasAccessTo('lhfbwhatsappmessaging','all_contact_list')) {
     $filterParams['filter']['customfilter'][] = ' (private = 0 OR user_id = ' . (int)$currentUser->getUserID() . ')';
 }
-$phone_format = $filterParams['input_form']->phone;
-$phone_format = str_replace(' ','',$phone_format);
 
+$phone_search = isset($filterParams['input_form']->phone) ? $filterParams['input_form']->phone : '';
+$phone_format = preg_replace('/\D/', '', $phone_search);
+$filterParams['input_form']->phone = '%' . $phone_format . '%';
 if ($Params['user_parameters_unordered']['export'] == 'csv') {
     \LiveHelperChatExtension\fbmessenger\providers\FBMessengerWhatsAppMailingValidator::exportMessagesCSV2(array_merge($filterParams['filter'], array('limit' => 100000, 'offset' => 0)));
     exit;
 }
 
 
-$filterParams['input_form']->phone = $phone_format;
+$filterParams['input_form']->phone_display = $phone_search;
 $append = erLhcoreClassSearchHandler::getURLAppendFromInput($filterParams['input_form']);
 
 $pages = new lhPaginator();

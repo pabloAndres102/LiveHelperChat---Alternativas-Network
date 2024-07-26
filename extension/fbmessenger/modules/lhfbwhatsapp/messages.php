@@ -9,7 +9,16 @@ if (isset($_GET['doSearch'])) {
     $filterParams = erLhcoreClassSearchHandler::getParams(array('customfilterfile' => 'extension/fbmessenger/classes/filter/messages.php', 'format_filter' => true, 'uparams' => $Params['user_parameters_unordered']));
     $filterParams['is_search'] = false;
 }
+if(isset($_GET['campaign_name'])){
+    $campaign_name = $_GET['campaign_name'];
+    $id_campaign = LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppCampaign::getList(['filterlike' => ['name' => $campaign_name]]);
 
+    $array_ids = [];
+    foreach($id_campaign as $id){
+        $array_ids[] = $id->id;
+    }
+    $filterParams['filter']['filterin']['campaign_id'] = $array_ids;
+}
 
 
 if (isset($_POST['phone_off'], $_POST['action'])) {
