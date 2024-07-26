@@ -43,7 +43,7 @@
                 )); ?>
             </div>
         </div>
-        <div class="col-md-2">
+        <!-- <div class="col-md-2">
             <div class="form-group">
                 <label><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/lists/search_panel', 'Department group'); ?></label>
                 <?php echo erLhcoreClassRenderHelper::renderMultiDropdown(array(
@@ -56,7 +56,7 @@
                     'list_function'  => 'erLhcoreClassModelDepartamentGroup::getList'
                 )); ?>
             </div>
-        </div>
+        </div> -->
 
         <?php include(erLhcoreClassDesign::designtpl('lhchat/lists/parts/user_title.tpl.php')); ?>
         <div class="col-md-2">
@@ -74,7 +74,7 @@
                 )); ?>
             </div>
         </div>
-        <?php include(erLhcoreClassDesign::designtpl('lhchat/lists/parts/user_group_title.tpl.php')); ?>
+        <!-- <?php include(erLhcoreClassDesign::designtpl('lhchat/lists/parts/user_group_title.tpl.php')); ?>
         <div class="col-md-2">
             <div class="form-group">
                 <label><?php echo $userGroupTitle['user_group']; ?></label>
@@ -88,7 +88,7 @@
                     'list_function'  => 'erLhcoreClassModelGroup::getList'
                 )); ?>
             </div>
-        </div>
+        </div> -->
 
     </div>
 

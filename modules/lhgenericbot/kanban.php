@@ -70,6 +70,10 @@ if (isset($_GET['doSearch'])) {
     $filterParams = erLhcoreClassSearchHandler::getParams(array('module' => 'chat', 'module_file' => 'chat_search', 'format_filter' => true, 'uparams' => $Params['user_parameters_unordered']));
     $filterParams['is_search'] = false;
 }
+if (isset($filterParams['filter']['filterlikeright'])) {
+    $filterParams['filter']['filterlike'] = $filterParams['filter']['filterlikeright'];
+    unset($filterParams['filter']['filterlikeright']);
+}
 
 erLhcoreClassChatStatistic::formatUserFilter($filterParams);
 
@@ -343,5 +347,11 @@ $tpl->set('current_user_id', $currentUser->getUserID());
 
 
 $Result['content'] = $tpl->fetch();
+$Result['path'] = array(
+    array(
+        'url' => erLhcoreClassDesign::baseurl('genericbot/kanban'),
+        'title' => erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Kanban'),
+    ),
+);
 
 erLhcoreClassChatEventDispatcher::getInstance()->dispatch('chat.list_path', array('result' => &$Result));

@@ -100,6 +100,7 @@
     </style>
 </head>
 <body>
+<h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Kanban funnel')?></h1>
     <?php if (isset($takes_to_long)) : $msg = erTranslationClassLhTranslation::getInstance()->getTranslation('chat/onlineusers', 'Your request takes to long. Please contact your administrator and send him url from your browser.'); ?>
         <?php include(erLhcoreClassDesign::designtpl('lhkernel/alert_info.tpl.php')); ?>
     <?php endif; ?>
@@ -108,9 +109,10 @@
     <?php include(erLhcoreClassDesign::designtpl('lhkernel/csfr_token.tpl.php')); ?>
 
     <?php include(erLhcoreClassDesign::designtpl('lhchat/lists_chats_parts/append_table_class.tpl.php')); ?>
+    <br>
     <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/kanban_status'); ?>" class="btn btn-primary"><span class="material-icons">description</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Estados embudo'); ?></a>
     <div class="kanban-column-container">
-        <br>
+
         <div class="kanban-container">
         <!-- Columna General -->
         <div class="kanban-column" id="general" style="background-color: rgba(211, 211, 211, 0.5);">
