@@ -11,6 +11,12 @@ $ViewList['facebook'] = array(
     'uparams' => array()
 );
 
+$ViewList['indicators'] = array(
+    'params' => array(''), 
+    'uparams' => array(),
+    'functions' => array('use_admin'),
+);
+
 
 $ViewList['activatecatalog'] = array(
     'params' => array(),

@@ -4,6 +4,7 @@ $tpl = erLhcoreClassTemplate::getInstance('lhfbwhatsappmessaging/kanban_status.t
 
 $status = erLhcoreClassModelGenericKanban::getList();
 
+
 $tpl->set('status',$status);
 
 

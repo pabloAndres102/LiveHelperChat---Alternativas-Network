@@ -223,13 +223,13 @@ foreach ($kanbans as $kanban) {
     $id = $kanban->id;
     $nombre = $kanban->nombre;
     $color = $kanban->color;
-    $chat_id = $kanban->chat_id;
+    $position = $kanban->posicion;
 
     $kanbanData[] = array(
         'id' => $id,
         'nombre' => $nombre,
         'color' => $color,
-        'chat_id' => $chat_id
+        'position' => $position
     );
 }
 $tpl->set('kanbanData', $kanbanData);

@@ -15,6 +15,10 @@
   <context>
   <name>module/fbmessenger</name>
   <message>
+      <source>Template type</source>
+      <translation>Tipo</translation>
+    </message>
+  <message>
       <source>Kanban funnel</source>
       <translation>Embudo kanban</translation>
     </message>

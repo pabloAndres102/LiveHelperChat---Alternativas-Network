@@ -240,7 +240,7 @@
 
             <button type="submit" class="btn btn-primary">Buscar</button>
             <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/templates'); ?>" class="btn btn-primary d-flex align-items-center">
-            <span class="material-icons">undo</span>
+                <span class="material-icons">undo</span>
             </a>
         </div>
     </form>
@@ -253,11 +253,11 @@
         <thead>
             <tr>
                 <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Name'); ?></th>
-                <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Idioma') ?></th>
-                <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/pendingchats', 'Status') ?></th>
                 <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('abstract/proactivechatinvitation', 'Category') ?></th>
-                <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('abstract/proactivechatinvitation', 'Template type') ?></th>
-                <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('file/file', 'Components') ?></th>
+                <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Template type') ?></th>
+                <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('file/file', 'Content') ?></th>
+                <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/pendingchats', 'Status') ?></th>
+                <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Idioma') ?></th>
                 <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Actions') ?></th>
             </tr>
         </thead>
@@ -282,7 +282,113 @@
                             <?php echo htmlspecialchars($template['name']) ?>
                         </td>
                         <td>
-                        <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', $template['language']); ?>
+                            <?php
+                            $category = htmlspecialchars($template['category']);
+                            // Mostrar categorías en mayúsculas y en español
+                            if ($category == 'MARKETING') {
+                                echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'MARKETING');
+                            } elseif ($category == 'UTILITY') {
+                                echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'UTILITY');
+                            } elseif ($category == 'AUTHENTICATION') {
+                                echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'AUTHENTICATION');
+                            } else {
+                                echo $category; // Mostrar categoría original si no coincide con las categorías hardcoded
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            $templateType = ''; // Variable para almacenar el tipo de plantilla
+                            foreach ($template['components'] as $component) {
+                                if ($component['type'] == 'CAROUSEL') {
+                                    $templateType = 'CARRUSEL';
+                                } elseif ($component['type'] == 'LIMITED_TIME_OFFER') {
+                                    $templateType = 'OFERTA';
+                                }
+                                foreach ($component['buttons'] as $buttons) {
+                                    if ($buttons['type'] == 'MPM') {
+                                        $templateType = 'MULTIPRODUCTO';
+                                    }
+                                    if ($buttons['type'] == 'CATALOG') {
+                                        $templateType = 'CATALOGO';
+                                    }
+                                }
+                            }
+                            if (empty($templateType)) {
+                                $templateType = 'ESTÁNDAR';
+                            }
+                            echo htmlspecialchars($templateType);
+                            ?>
+                        </td>
+                        <td class="components-column">
+                            <?php $fieldsCount = 0;
+                            $fieldsCountHeader = 0;
+                            $fieldCountHeaderDocument = 0;
+                            $fieldCountHeaderImage = 0;
+                            $fieldCountHeaderVideo = 0; ?>
+                            <h5 class="text-secondary">Idioma: <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', $template['language']); ?></h5>
+                            <div class="rounded bg-light p-2" title="<?php echo htmlspecialchars(json_encode($template, JSON_PRETTY_PRINT)) ?>">
+                                <?php foreach ($template['components'] as $component) : ?>
+                                    <?php if ($component['type'] == 'HEADER' && $component['format'] == 'IMAGE' && isset($component['example']['header_url'][0])) : ?>
+                                        <img src="<?php echo htmlspecialchars($component['example']['header_url'][0]) ?>" width="100px" />
+                                    <?php endif; ?>
+                                    <?php if ($component['type'] == 'HEADER' && $component['format'] == 'DOCUMENT' && isset($component['example']['header_url'][0])) : ?>
+                                        <div>
+                                            <span class="badge badge-secondary">FILE: <?php echo htmlspecialchars($component['example']['header_url'][0]) ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if ($component['type'] == 'HEADER' && $component['format'] == 'VIDEO' && isset($component['example']['header_url'][0])) : ?>
+                                        <div>
+                                            <span class="badge badge-secondary">VIDEO: <?php echo htmlspecialchars($component['example']['header_url'][0]) ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                                <?php foreach ($template['components'] as $component) : ?>
+                                    <?php if ($component['type'] == 'BODY') :
+                                        $matchesReplace = [];
+                                        preg_match_all('/\{\{[0-9]\}\}/is', $component['text'], $matchesReplace);
+                                        if (isset($matchesReplace[0])) {
+                                            $fieldsCount = count($matchesReplace[0]);
+                                        }
+                                    ?><p><?php echo htmlspecialchars($component['text']) ?></p><?php endif; ?>
+                                    <?php if ($component['type'] == 'HEADER') : ?>
+                                        <?php if ($component['format'] == 'DOCUMENT') : $fieldCountHeaderDocument = 1; ?>
+                                            <!-- <h5 class="text-secondary">DOCUMENT</h5> -->
+
+                                        <?php elseif ($component['format'] == 'VIDEO') : $fieldCountHeaderVideo = 1; ?>
+                                            <!-- <h5 class="text-secondary">VIDEO</h5> -->
+
+                                            <?php if (isset($component['example']['header_handle'][0])) : ?>
+                                                <video width="100">
+                                                    <source src="<?php echo htmlspecialchars($component['example']['header_handle'][0]) ?>" type="video/mp4">
+                                                </video>
+                                            <?php endif; ?>
+                                        <?php elseif ($component['format'] == 'IMAGE') : $fieldCountHeaderImage = 1; ?>
+                                            <!-- <h5 class="text-secondary">IMAGE</h5> -->
+
+                                            <?php if (isset($component['example']['header_handle'][0])) : ?>
+                                                <img src="<?php echo htmlspecialchars($component['example']['header_handle'][0]) ?>" width="100px" />
+                                            <?php endif; ?>
+                                        <?php else : ?>
+                                            <?php
+                                            $matchesReplace = [];
+                                            preg_match_all('/\{\{[0-9]\}\}/is', $component['text'], $matchesReplace);
+                                            if (isset($matchesReplace[0])) {
+                                                $fieldsCountHeader = count($matchesReplace[0]);
+                                            }
+                                            ?>
+                                            <h5 class="text-secondary"><?php echo htmlspecialchars($component['text']) ?></h5>
+                                        <?php endif; ?>
+
+                                    <?php endif; ?>
+                                    <?php if ($component['type'] == 'FOOTER') : ?><p class="text-secondary"><?php echo htmlspecialchars($component['text']) ?></p><?php endif; ?>
+                                    <?php if ($component['type'] == 'BUTTONS') : ?>
+                                        <?php foreach ($component['buttons'] as $button) : ?>
+                                            <div class="pb-2"><button class="btn btn-sm btn-secondary"><?php echo htmlspecialchars($button['text']) ?> | <?php echo htmlspecialchars($button['type']) ?></button></div>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
                         </td>
                         <td>
                             <?php
@@ -331,116 +437,8 @@
                             }
                             ?>
                         </td>
-
                         <td>
-                            <?php
-                            $category = htmlspecialchars($template['category']);
-                            // Mostrar categorías en mayúsculas y en español
-                            if ($category == 'MARKETING') {
-                                echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'MARKETING');
-                            } elseif ($category == 'UTILITY') {
-                                echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'UTILITY');
-                            } elseif ($category == 'AUTHENTICATION') {
-                                echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'AUTHENTICATION');
-                            } else {
-                                echo $category; // Mostrar categoría original si no coincide con las categorías hardcoded
-                            }
-                            ?>
-                        </td>
-                        <td>
-                            <?php
-                            $templateType = ''; // Variable para almacenar el tipo de plantilla
-                            foreach ($template['components'] as $component) {
-                                if ($component['type'] == 'CAROUSEL') {
-                                    $templateType = 'CARRUSEL';
-                                } elseif ($component['type'] == 'LIMITED_TIME_OFFER') {
-                                    $templateType = 'OFERTA';
-                                }
-                                foreach ($component['buttons'] as $buttons) {
-                                    if ($buttons['type'] == 'MPM') {
-                                        $templateType = 'MULTIPRODUCTO';
-                                    }
-                                    if ($buttons['type'] == 'CATALOG') {
-                                        $templateType = 'CATALOGO';
-                                    }
-                                }
-                            }
-                            if (empty($templateType)) {
-                                $templateType = 'ESTÁNDAR';
-                            }
-                            echo htmlspecialchars($templateType);
-                            ?>
-                        </td>
-
-                        <td class="components-column">
-                            <?php $fieldsCount = 0;
-                            $fieldsCountHeader = 0;
-                            $fieldCountHeaderDocument = 0;
-                            $fieldCountHeaderImage = 0;
-                            $fieldCountHeaderVideo = 0; ?>
-                            <h5 class="text-secondary"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', $template['language']); ?></h5>
-                            <div class="rounded bg-light p-2" title="<?php echo htmlspecialchars(json_encode($template, JSON_PRETTY_PRINT)) ?>">
-                                <?php foreach ($template['components'] as $component) : ?>
-                                    <?php if ($component['type'] == 'HEADER' && $component['format'] == 'IMAGE' && isset($component['example']['header_url'][0])) : ?>
-                                        <img src="<?php echo htmlspecialchars($component['example']['header_url'][0]) ?>" width="100px" />
-                                    <?php endif; ?>
-                                    <?php if ($component['type'] == 'HEADER' && $component['format'] == 'DOCUMENT' && isset($component['example']['header_url'][0])) : ?>
-                                        <div>
-                                            <span class="badge badge-secondary">FILE: <?php echo htmlspecialchars($component['example']['header_url'][0]) ?></span>
-                                        </div>
-                                    <?php endif; ?>
-                                    <?php if ($component['type'] == 'HEADER' && $component['format'] == 'VIDEO' && isset($component['example']['header_url'][0])) : ?>
-                                        <div>
-                                            <span class="badge badge-secondary">VIDEO: <?php echo htmlspecialchars($component['example']['header_url'][0]) ?></span>
-                                        </div>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                                <?php foreach ($template['components'] as $component) : ?>
-                                    <?php if ($component['type'] == 'BODY') :
-                                        $matchesReplace = [];
-                                        preg_match_all('/\{\{[0-9]\}\}/is', $component['text'], $matchesReplace);
-                                        if (isset($matchesReplace[0])) {
-                                            $fieldsCount = count($matchesReplace[0]);
-                                        }
-                                    ?><p><?php echo htmlspecialchars($component['text']) ?></p><?php endif; ?>
-                                    <?php if ($component['type'] == 'HEADER') : ?>
-                                        <?php if ($component['format'] == 'DOCUMENT') : $fieldCountHeaderDocument = 1; ?>
-                                            <!-- <h5 class="text-secondary">DOCUMENT</h5> -->
-                                            
-                                        <?php elseif ($component['format'] == 'VIDEO') : $fieldCountHeaderVideo = 1; ?>
-                                            <!-- <h5 class="text-secondary">VIDEO</h5> -->
-                                            
-                                            <?php if (isset($component['example']['header_handle'][0])) : ?>
-                                                <video width="100">
-                                                    <source src="<?php echo htmlspecialchars($component['example']['header_handle'][0]) ?>" type="video/mp4">
-                                                </video>
-                                            <?php endif; ?>
-                                        <?php elseif ($component['format'] == 'IMAGE') : $fieldCountHeaderImage = 1; ?>
-                                            <!-- <h5 class="text-secondary">IMAGE</h5> -->
-                                            
-                                            <?php if (isset($component['example']['header_handle'][0])) : ?>
-                                                <img src="<?php echo htmlspecialchars($component['example']['header_handle'][0]) ?>" width="100px" />
-                                            <?php endif; ?>
-                                        <?php else : ?>
-                                            <?php
-                                            $matchesReplace = [];
-                                            preg_match_all('/\{\{[0-9]\}\}/is', $component['text'], $matchesReplace);
-                                            if (isset($matchesReplace[0])) {
-                                                $fieldsCountHeader = count($matchesReplace[0]);
-                                            }
-                                            ?>
-                                            <h5 class="text-secondary"><?php echo htmlspecialchars($component['text']) ?></h5>
-                                        <?php endif; ?>
-
-                                    <?php endif; ?>
-                                    <?php if ($component['type'] == 'FOOTER') : ?><p class="text-secondary"><?php echo htmlspecialchars($component['text']) ?></p><?php endif; ?>
-                                    <?php if ($component['type'] == 'BUTTONS') : ?>
-                                        <?php foreach ($component['buttons'] as $button) : ?>
-                                            <div class="pb-2"><button class="btn btn-sm btn-secondary"><?php echo htmlspecialchars($button['text']) ?> | <?php echo htmlspecialchars($button['type']) ?></button></div>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            </div>
+                            <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', $template['language']); ?>
                         </td>
                         <td>
                             <?php if ($delete_template == true) : ?>
@@ -454,7 +452,6 @@
                                 <button type="submit" class="btn btn-info"><span class="material-icons">equalizer</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Metrics'); ?></button>
                             </form>
                         </td>
-
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>

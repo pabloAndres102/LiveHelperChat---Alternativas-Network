@@ -21,10 +21,10 @@ $def->properties['color']->columnName   = 'color'; // Cambia el nombre de la col
 $def->properties['color']->propertyName = 'color';
 $def->properties['color']->propertyType = ezcPersistentObjectProperty::PHP_TYPE_STRING;
 
-$def->properties['chat_id'] = new ezcPersistentObjectProperty();
-$def->properties['chat_id']->columnName   = 'chat_id'; // Nombre de la nueva columna
-$def->properties['chat_id']->propertyName = 'chat_id';
-$def->properties['chat_id']->propertyType = ezcPersistentObjectProperty::PHP_TYPE_INT;
+$def->properties['posicion'] = new ezcPersistentObjectProperty();
+$def->properties['posicion']->columnName   = 'posicion'; // Nombre de la nueva columna
+$def->properties['posicion']->propertyName = 'posicion';
+$def->properties['posicion']->propertyType = ezcPersistentObjectProperty::PHP_TYPE_INT;
 
 return $def;
 

@@ -104,6 +104,7 @@
       <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'ID'); ?></th>
       <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Name'); ?></th>
       <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Color'); ?></th>
+      <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Position'); ?></th>
       <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Acciones'); ?></th>
     </tr>
   </thead>
@@ -113,6 +114,7 @@
         <td><?php echo $row->id; ?></td>
         <td><?php echo $row->nombre; ?></td>
         <td><?php echo $row->color; ?></td>
+        <td><?php echo $row->posicion; ?></td>
         <td>
           <?php if ($delete_status == true) : ?>
             <form method="post" action="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/kanban_delete') ?>" onsubmit="return confirm('Esta acción es irreversible, ¿desea eliminar la plantilla? ');">

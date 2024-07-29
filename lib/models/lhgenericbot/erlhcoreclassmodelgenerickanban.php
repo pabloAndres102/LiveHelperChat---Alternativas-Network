@@ -4,7 +4,7 @@ class erLhcoreClassModelGenericKanban {
 
     use erLhcoreClassDBTrait;
 
-    public static $dbTable = 'lh_generic_kanban'; // Manteniendo el nombre de la tabla
+    public static $dbTable = 'lh_generic_kanban'; 
     public static $dbTableId = 'id';
     public static $dbSessionHandler = 'erLhcoreClassGenericBot::getSession';
     public static $dbSortOrder = 'DESC';
@@ -15,7 +15,7 @@ class erLhcoreClassModelGenericKanban {
             'id' => $this->id,
             'nombre' => $this->nombre,
             'color' => $this->color,
-            'chat_id' => $this->chat_id, 
+            'posicion' => $this->posicion, 
         );
 
         return $stateArray;
@@ -29,6 +29,6 @@ class erLhcoreClassModelGenericKanban {
     public $id = null;
     public $nombre = '';
     public $color = '';
-    public $chat_id = null; 
+    public $posicion = ''; 
 }
 ?>

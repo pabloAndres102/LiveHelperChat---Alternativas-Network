@@ -15,7 +15,7 @@ if(isset($_POST['name_status']) || isset($_POST['color'])){
         $edit_status = erLhcoreClassModelGenericKanban::fetch($_POST['status_edit']);
         $edit_status->nombre = $_POST['name_status'];
         $edit_status->color = $_POST['color'];
-        $edit_status->chat_id = 0;
+        $edit_status->posicion =$_POST['position'];
         $edit_status->updateThis();
         erLhcoreClassModule::redirect('fbwhatsappmessaging/kanban_status');
     }

@@ -1,47 +1,82 @@
 <style>
     .tarjeta {
         border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        padding: 20px;
-        text-align: center;
-        width: 400px;
-        margin: 0 auto;
-        /* Centra horizontalmente */
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        text-align: left;
+        max-width: 500px;
+        margin: 20px auto;
+        background-color: #ffffff;
     }
 
     .tarjeta input[type="text"],
-    .tarjeta input[type="submit"],
+    .tarjeta input[type="number"],
+    .tarjeta input[type="color"],
     .tarjeta select {
-        width: 100%;
-        padding: 10px;
-        margin: 5px 0;
+        width: calc(100% - 20px);
+        padding: 12px;
+        margin: 10px 0;
         border: 1px solid #ccc;
-        border-radius: 5px;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+    .tarjeta input[type="text"]:focus,
+    .tarjeta input[type="number"]:focus,
+    .tarjeta input[type="color"]:focus,
+    .tarjeta select:focus {
+        border-color: #007bff;
+        outline: none;
     }
 
     .tarjeta label {
-        text-align: left;
         display: block;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
+        font-weight: bold;
+        font-size: 14px;
+        color: #333;
     }
 
-    /* Estilo para el select */
-    .tarjeta select {
+    .tarjeta button[type="submit"] {
         width: 100%;
-        /* Hacer que el select ocupe todo el ancho */
-        padding: 10px;
-        background-color: #f5f5f5;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        background-color: #007bff;
+        color: #ffffff;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+    .tarjeta button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .tarjeta .material-icons {
+        vertical-align: middle;
+        margin-right: 5px;
     }
 </style>
+
 <div class="tarjeta">
     <form method="POST" action="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/kanban_new') ?>">
-        <label for="nombre"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Name'); ?></label>
-        <input type="text" id="name_status" name="name_status" required><br>
+        <label for="name_status"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Name'); ?></label>
+        <input type="text" id="name_status" name="name_status" required>
+        
+        <label for="position">Posición</label>
+        <input type="number" id="position" name="position" required>
+        
         <label for="color">Color</label>
-        <input type="color" id="color" name="color"> <br>
-        <button type="submit" class="btn btn-success"><span class="material-icons">add_circle_outline</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Create'); ?></button>
+        <input type="color" id="color" name="color">
+        
+        <button type="submit" class="btn btn-success">
+            <span class="material-icons">add_circle_outline</span>
+            <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Create'); ?>
+        </button>
     </form>
 </div>

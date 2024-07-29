@@ -2,138 +2,127 @@
     /* Estilos para el título del gráfico */
     .chart-title {
         font-size: 24px;
-        /* Tamaño de fuente */
         color: #333;
-        /* Color del texto */
         margin-bottom: 10px;
-        /* Margen inferior */
         text-align: center;
-        /* Alinear al centro */
     }
 
     /* Estilos para los inputs de fecha */
     input[type="datetime-local"] {
         padding: 8px 12px;
-        /* Ajustar el relleno */
         border: 1px solid #ced4da;
-        /* Borde */
         border-radius: 4px;
-        /* Bordes redondeados */
         box-sizing: border-box;
-        /* Incluir el borde en el tamaño total */
         font-size: 14px;
-        /* Tamaño de fuente */
         outline: none;
-        /* Eliminar el resplandor al enfocar */
     }
 
     /* Estilos para los botones */
     button.btn {
         padding: 8px 16px;
-        /* Ajustar el relleno */
         border: none;
-        /* Sin borde */
         border-radius: 4px;
-        /* Bordes redondeados */
         cursor: pointer;
-        /* Cursor de puntero */
         background-color: #007bff;
-        /* Color de fondo */
         color: #fff;
-        /* Color de texto */
         font-size: 14px;
-        /* Tamaño de fuente */
     }
 
     /* Estilos para el botón de búsqueda */
     button.btn-primary {
         background-color: #007bff;
-        /* Color de fondo */
     }
 
     /* Estilos para el icono de búsqueda */
     span.material-icons {
         vertical-align: middle;
-        /* Alinear verticalmente */
         margin-right: 5px;
-        /* Margen derecho */
     }
 
-    /* Estilos para los recuadros */
-    .recuadro {
+    /* Estilos para los recuadros y botones de recuadros */
+    .recuadro,
+    .recuadro-button {
         background-color: #f8f9fa;
-        /* Color de fondo */
         border: 1px solid #dee2e6;
-        /* Borde */
         padding: 20px;
-        /* Espaciado interno */
         margin-bottom: 20px;
-        /* Espaciado inferior */
         transition: all 0.3s ease;
-        /* Transición suave para el efecto hover */
+        text-align: left;
+        width: 100%;
     }
 
-    /* Estilos para el texto dentro del recuadro */
-    .recuadro p,
-    .recuadro h1 {
-        margin: 0;
-        /* Eliminar márgenes para el texto */
-    }
-
-    /* Efecto hover */
-    .recuadro:hover {
+    .recuadro:hover,
+    .recuadro-button:hover {
         background-color: #e9ecef;
-        /* Cambiar el color de fondo al hacer hover */
         transform: translateY(-5px);
-        /* Elevar ligeramente el recuadro */
         box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-        /* Sombra suave */
         border-color: #ced4da;
-        /* Cambiar el color del borde */
         cursor: pointer;
-        /* Cambiar el cursor al hacer hover */
+    }
+
+    .recuadro p,
+    .recuadro h1,
+    .recuadro-button p,
+    .recuadro-button h1 {
+        margin: 0;
     }
 
     /* Estilos para los números */
-    .recuadro h1 {
+    .recuadro h1,
+    .recuadro-button h1 {
         font-size: 32px;
-        /* Tamaño de fuente grande para los números */
         color: #007bff;
-        /* Color azul para los números */
+    }
+
+    /* Eliminar estilo de borde y fondo predeterminado de botones */
+    .recuadro-button {
+        background: none;
+        border: none;
+        padding: 0;
     }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <div class="container">
-<h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Statistics'); ?></h1>
-<br>
-    <form method="POST" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/index') ?>">
-        <!-- Establecer por defecto el primer día del mes actual a las 00:00 para la primera fecha -->
-        <input type="datetime-local" name="start" value="<?php echo (isset($startTimestamp) ? date('Y-m-01\T00:00', $startTimestamp) : date('Y-m-01\T00:00')); ?>">&nbsp;&nbsp;
-
-        <!-- Establecer por defecto la fecha y hora actuales para la segunda fecha -->
-        <input type="datetime-local" name="end" value="<?php echo (isset($endTimestamp) ? date('Y-m-d\TH:i', $endTimestamp) : date('Y-m-d\TH:i')); ?>"> &nbsp;&nbsp;
-
+    <h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Statistics'); ?></h1>
+    <br>
+    <form method="POST" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/index') ?>" id="dateForm">
+        <input type="datetime-local" name="start" id="startDate" value="<?php echo (isset($startTimestamp) ? date('Y-m-01\T00:00', $startTimestamp) : date('Y-m-01\T00:00')); ?>">&nbsp;&nbsp;
+        <input type="datetime-local" name="end" id="endDate" value="<?php echo (isset($endTimestamp) ? date('Y-m-d\TH:i', $endTimestamp) : date('Y-m-d\TH:i')); ?>">&nbsp;&nbsp;
         <button class="btn btn-primary" type="submit"><span class="material-icons">search</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Search'); ?></button>
     </form>
     <br>
     <div class="row">
         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-            <div class="recuadro"> <!-- Recuadro 1 -->
-                <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Sent conversations'); ?></strong></p>
-                <?php if (isset($totalSent)) : ?>
-                    <h1><?php echo $totalSent; ?></h1>
-                <?php endif; ?>
-            </div>
+            <form method="GET" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/indicators') ?>" class="indicatorForm">
+                <input type="hidden" name="status_statistic" value="1,2,3,6,7">
+                <input type="hidden" name="start" class="startDate">
+                <input type="hidden" name="end" class="endDate">
+                <button type="submit" class="recuadro-button">
+                    <div class="recuadro">
+                        <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Sent conversations'); ?></strong></p>
+                        <?php if (isset($totalSent)) : ?>
+                            <h1><?php echo $totalSent; ?></h1>
+                        <?php endif; ?>
+                    </div>
+                </button>
+            </form>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-            <div class="recuadro"> <!-- Recuadro 4 -->
-                <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Total read'); ?></strong></p>
-                <?php if (isset($totalRead)) : ?>
-                    <h1><?php print_r($totalRead); ?></h1>
-                <?php endif; ?>
-            </div>
+            <form method="GET" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/indicators') ?>" class="indicatorForm">
+                <input type="hidden" name="status_statistic" value="3">
+                <input type="hidden" name="start" class="startDate">
+                <input type="hidden" name="end" class="endDate">
+                <button type="submit" class="recuadro-button">
+                    <div class="recuadro">
+                        <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Total read'); ?></strong></p>
+                        <?php if (isset($totalRead)) : ?>
+                            <h1><?php echo $totalRead; ?></h1>
+                        <?php endif; ?>
+                    </div>
+                </button>
+            </form>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
@@ -156,12 +145,19 @@
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-            <div class="recuadro"> <!-- Recuadro 3 -->
-                <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Generated conversations'); ?></strong></p>
-                <?php if (isset($chatid)) : ?>
-                    <h1><?php echo $chatid; ?></h1>
-                <?php endif; ?>
-            </div>
+            <form method="GET" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/indicators') ?>" class="indicatorForm">
+                <input type="hidden" name="conversation">
+                <input type="hidden" name="start" class="startDate">
+                <input type="hidden" name="end" class="endDate">
+                <button type="submit" class="recuadro-button">
+                    <div class="recuadro">
+                        <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Generated conversations'); ?></strong></p>
+                        <?php if (isset($chatid)) : ?>
+                            <h1><?php echo $chatid; ?></h1>
+                        <?php endif; ?>
+                    </div>
+                </button>
+            </form>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
@@ -196,30 +192,51 @@
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-            <div class="recuadro"> <!-- Recuadro 4 -->
-                <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Estado de entregados'); ?></strong></p>
-                <?php if (isset($deliveredCount)) : ?>
-                    <h1><?php echo $deliveredCount; ?></h1>
-                <?php endif; ?>
-            </div>
+        <form method="GET" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/indicators') ?>" class="indicatorForm">
+                <input type="hidden" name="status_statistic" value="2">
+                <input type="hidden" name="start" class="startDate">
+                <input type="hidden" name="end" class="endDate">
+                <button type="submit" class="recuadro-button">
+                    <div class="recuadro">
+                        <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Estado entregado'); ?></strong></p>
+                        <?php if (isset($deliveredCount)) : ?>
+                            <h1><?php echo $deliveredCount; ?></h1>
+                        <?php endif; ?>
+                    </div>
+                </button>
+            </form>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-            <div class="recuadro"> <!-- Recuadro 4 -->
-                <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Estado de fallidos'); ?></strong></p>
-                <?php if (isset($failedCount)) : ?>
-                    <h1><?php echo $failedCount; ?></h1>
-                <?php endif; ?>
-            </div>
+        <form method="GET" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/indicators') ?>" class="indicatorForm">
+                <input type="hidden" name="status_statistic" value="6">
+                <input type="hidden" name="start" class="startDate">
+                <input type="hidden" name="end" class="endDate">
+                <button type="submit" class="recuadro-button">
+                    <div class="recuadro">
+                        <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Estado fallido'); ?></strong></p>
+                        <?php if (isset($failedCount)) : ?>
+                            <h1><?php echo $failedCount; ?></h1>
+                        <?php endif; ?>
+                    </div>
+                </button>
+            </form>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-            <div class="recuadro"> <!-- Recuadro 4 -->
-                <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Estado Rechazado'); ?></strong></p>
-                <?php if (isset($rejectedCount)) : ?>
-                    <h1><?php echo $rejectedCount; ?></h1>
-                <?php endif; ?>
-            </div>
+            <form method="GET" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/indicators') ?>">
+                <input type="hidden" name="status_statistic" value="7">
+                <input type="hidden" name="start" class="startDate">
+                <input type="hidden" name="end" class="endDate">
+                <button type="submit" class="recuadro-button">
+                    <div class="recuadro">
+                        <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Estado rechazado'); ?></strong></p>
+                        <?php if (isset($rejectedCount)) : ?>
+                            <h1><?php echo $rejectedCount; ?></h1>
+                        <?php endif; ?>
+                    </div>
+                </button>
+            </form>
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
@@ -569,4 +586,29 @@ while ($currentDate <= $endTimestamp) {
 
     // Actualizar el gráfico
     myChart.update();
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateForm = document.getElementById('dateForm');
+        const startDateField = document.getElementById('startDate');
+        const endDateField = document.getElementById('endDate');
+        const indicatorForms = document.querySelectorAll('.indicatorForm');
+
+        function updateIndicatorForms() {
+            const startDate = startDateField.value;
+            const endDate = endDateField.value;
+
+            indicatorForms.forEach(function(form) {
+                form.querySelector('.startDate').value = startDate;
+                form.querySelector('.endDate').value = endDate;
+            });
+        }
+
+        indicatorForms.forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                updateIndicatorForms();
+            });
+        });
+    });
 </script>
