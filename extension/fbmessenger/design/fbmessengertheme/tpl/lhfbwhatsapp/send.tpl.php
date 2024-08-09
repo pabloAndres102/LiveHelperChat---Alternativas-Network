@@ -9,15 +9,34 @@
     <?php include(erLhcoreClassDesign::designtpl('lhkernel/validation_error.tpl.php')); ?>
 <?php endif; ?>
 
-<?php if (isset($updated)) : $msg = erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Updated'); ?>
-    <?php include(erLhcoreClassDesign::designtpl('lhkernel/alert_success.tpl.php')); ?>
+<?php if (isset($updated)) : ?>
+    <?php
+    $msg = erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Actualizado con éxito. Para saber el estado de su mensaje consulte ');
+    $linkText = erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Aquí');
+    $linkUrl = erLhcoreClassDesign::baseurl('fbwhatsapp/messages');
+    ?>
+    <div class="alert alert-success" role="alert">
+        <p><?php echo $msg; ?><a href="<?php echo $linkUrl; ?>"><?php echo $linkText; ?></a></p>
+    </div>
 <?php endif; ?>
+
+
 
 <?php if (isset($fbcommand)) : ?>
     <div class="alert alert-info">
-        <?php echo htmlspecialchars($fbcommand) ?>
+        <p><strong>Nombre de plantilla: </strong> <?php echo htmlspecialchars($fbcommand['template_name']) ?></p>
+        <p><strong>Idioma de plantilla: </strong> <?php echo htmlspecialchars($fbcommand['template_lang']) ?></p>
+        <?php if (isset($fbcommand['args']) && !empty($fbcommand['args'])) : ?>
+            <h5>Campos: </h5>
+            <ul>
+                <?php foreach ($fbcommand['args'] as $key => $value) : ?>
+                    <li><strong><?php echo htmlspecialchars($key) ?>: </strong> <?php echo htmlspecialchars($value) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
     </div>
 <?php endif; ?>
+
 
 <?php if (isset($whatsapp_contact)) : ?>
 
@@ -49,15 +68,16 @@
     </div>
 <?php endif; ?>
 
-<form id="whatsapp-form" enctype="multipart/form-data" action="<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/send') ?><?php if (isset($whatsapp_contact)) : ?>/(recipient)/<?php echo $whatsapp_contact->id; endif; ?>" method="post" ng-non-bindable>
+<form id="whatsapp-form" enctype="multipart/form-data" action="<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/send') ?><?php if (isset($whatsapp_contact)) : ?>/(recipient)/<?php echo $whatsapp_contact->id;
+                                                                                                                                                                                endif; ?>" method="post" ng-non-bindable>
     <?php include(erLhcoreClassDesign::designtpl('lhkernel/csfr_token.tpl.php')); ?>
     <div class="row">
         <div class="col-8">
             <div class="row">
                 <div class="col-6">
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <small><strong>Tenga en cuenta:</strong> Los contactos desactivados serán ignorados en el envío de la campaña, Si desea activar o desactivar un contacto haga click <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/mailingrecipient') ?>"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Aqui'); ?></a></small>
-                </div>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <small><strong>Tenga en cuenta:</strong> Los contactos desactivados serán ignorados en el envío de la campaña, Si desea activar o desactivar un contacto haga click <a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsappmessaging/mailingrecipient') ?>"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Aqui'); ?></a></small>
+                    </div>
                     <div class="form-group">
                         <label><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Recipient Phone'); ?>*</label>
                         <div class="input-group input-group-sm mb-3">
@@ -162,12 +182,12 @@
             <div id="arguments-template"></div>
         </div>
     </div>
-    
+
 
     <button class="btn btn-secondary btn-sm" type="submit" value=""><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Send a test message'); ?></button>&nbsp;&nbsp;
     <button type="button" class="btn btn-warning btn-sm" onclick="return previewTemplate()">
-                <i class="material-icons">visibility</i> Previsualizar
-            </button>
+        <i class="material-icons">visibility</i> Previsualizar
+    </button>
 </form>
 
 <script>
@@ -178,14 +198,14 @@
         var texto3 = document.getElementById("field_3") ? document.getElementById("field_3").value : '';
         var texto4 = document.getElementById("field_4") ? document.getElementById("field_4").value : '';
         var texto5 = document.getElementById("field_5") ? document.getElementById("field_5").value : '';
-        
+
         var header_img = document.getElementById("field_header_img_1") ? document.getElementById("field_header_img_1").value : '';
         var header_video = document.getElementById("field_header_video_1") ? document.getElementById("field_header_video_1").value : '';
 
         var texto_header = document.getElementById("field_header_1") ? document.getElementById("field_header_1").value : '';
         var parts = selectedTemplate.split("||");
         var selectedTemplateName = parts[0];
-        var url = '<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/template_table') ?>/' + selectedTemplateName + '/' + texto + '/' + texto2 + '/' + texto3 + '/' + texto4 + '/' + texto5 + '?header='+texto_header + '&img=' + header_img + '&video=' + header_video;
+        var url = '<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/template_table') ?>/' + selectedTemplateName + '/' + texto + '/' + texto2 + '/' + texto3 + '/' + texto4 + '/' + texto5 + '?header=' + texto_header + '&img=' + header_img + '&video=' + header_video;
         console.log(url);
 
         if (selectedTemplateName !== "") {
@@ -205,46 +225,46 @@
 
 
 <script>
-   document.addEventListener('DOMContentLoaded', function() {
-    // Selecciona el elemento de entrada de fecha y hora
-    var scheduledAtInput = document.getElementById('scheduled_at');
-    var scheduleCheckbox = document.getElementById('schedule_message');
+    document.addEventListener('DOMContentLoaded', function() {
+        // Selecciona el elemento de entrada de fecha y hora
+        var scheduledAtInput = document.getElementById('scheduled_at');
+        var scheduleCheckbox = document.getElementById('schedule_message');
 
-    // Función para validar la fecha y hora seleccionadas
-    function validateScheduledDateTime() {
-        // Obtiene la fecha y hora actual en formato ISO8601
-        var currentDateTime = new Date();
-        currentDateTime.setMinutes(currentDateTime.getMinutes() + 5); // Agrega 5 minutos
-
-        // Obtiene la fecha y hora seleccionada
-        var selectedDateTime = new Date(scheduledAtInput.value);
-
-        // Verifica si la fecha seleccionada es anterior a la actual más 5 minutos
-        if (selectedDateTime < currentDateTime) {
-            // Calcula la fecha y hora mínima permitida (actual más 5 minutos)
-            currentDateTime.setMinutes(currentDateTime.getMinutes() - 5);
-            
-            
-            scheduledAtInput.value = currentDateTime.toISOString().slice(0, 16);
-        }
-    }
-
-    // Agrega un evento de escucha al cambio en el valor del input
-    scheduledAtInput.addEventListener('change', validateScheduledDateTime);
-
-    // Agrega un evento de escucha al cambio en el estado del checkbox "Schedule a message"
-    scheduleCheckbox.addEventListener('change', function() {
-        // Si el checkbox se desmarca, restablece la fecha y hora mínima permitida
-        if (!scheduleCheckbox.checked) {
+        // Función para validar la fecha y hora seleccionadas
+        function validateScheduledDateTime() {
+            // Obtiene la fecha y hora actual en formato ISO8601
             var currentDateTime = new Date();
             currentDateTime.setMinutes(currentDateTime.getMinutes() + 5); // Agrega 5 minutos
-            scheduledAtInput.value = currentDateTime.toISOString().slice(0, 16);
-        }
-    });
 
-    // Ejecuta la validación inicial al cargar la página
-    validateScheduledDateTime();
-});
+            // Obtiene la fecha y hora seleccionada
+            var selectedDateTime = new Date(scheduledAtInput.value);
+
+            // Verifica si la fecha seleccionada es anterior a la actual más 5 minutos
+            if (selectedDateTime < currentDateTime) {
+                // Calcula la fecha y hora mínima permitida (actual más 5 minutos)
+                currentDateTime.setMinutes(currentDateTime.getMinutes() - 5);
+
+
+                scheduledAtInput.value = currentDateTime.toISOString().slice(0, 16);
+            }
+        }
+
+        // Agrega un evento de escucha al cambio en el valor del input
+        scheduledAtInput.addEventListener('change', validateScheduledDateTime);
+
+        // Agrega un evento de escucha al cambio en el estado del checkbox "Schedule a message"
+        scheduleCheckbox.addEventListener('change', function() {
+            // Si el checkbox se desmarca, restablece la fecha y hora mínima permitida
+            if (!scheduleCheckbox.checked) {
+                var currentDateTime = new Date();
+                currentDateTime.setMinutes(currentDateTime.getMinutes() + 5); // Agrega 5 minutos
+                scheduledAtInput.value = currentDateTime.toISOString().slice(0, 16);
+            }
+        });
+
+        // Ejecuta la validación inicial al cargar la página
+        validateScheduledDateTime();
+    });
 </script>
 
 <script>
@@ -287,7 +307,7 @@
                     field.required = true;
                 } else {
                     field.required = false;
-                } 
+                }
             });
 
             // Si no se han completado todas las variables, mostrar una alerta y evitar que el formulario se envíe
@@ -320,7 +340,7 @@
     });
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         // Inicializa Flatpickr en el input de fecha y hora
         flatpickr('#scheduled_at', {
             enableTime: true, // Permite la selección de la hora

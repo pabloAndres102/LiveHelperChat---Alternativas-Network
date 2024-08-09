@@ -10,6 +10,12 @@ if (isset($_GET['doSearch'])) {
     $filterParams['is_search'] = false;
 }
 
+// Enabled/Disabled filter
+if (isset($filterParams['input_form']->enabled) && $filterParams['input_form']->enabled !== '') {
+    $filterParams['filter']['filter']['disabled'] = $filterParams['input_form']->enabled == '1' ? 0 : 1;
+}
+
+
 // Mailing list filter
 if (!empty($filterParams['input_form']->ml)) {
     $filterParams['filter']['innerjoin']['lhc_fbmessengerwhatsapp_contact_list_contact'] = array('`lhc_fbmessengerwhatsapp_contact`.`id`','`lhc_fbmessengerwhatsapp_contact_list_contact`.`contact_id`');

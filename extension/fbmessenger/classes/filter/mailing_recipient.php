@@ -73,6 +73,20 @@ $fieldsSearch['email'] = array(
         ezcInputFormDefinitionElement::OPTIONAL, 'string'
     )
 );
+$fieldsSearch['enabled'] = array(
+    'type' => 'text',
+    'trans' => 'Enabled', // Este es el texto que se muestra en la UI
+    'required' => false,
+    'valid_if_filled' => false,
+    'filter_type' => 'filter',
+    'filter_table_field' => 'disabled',
+    'filter_value_callback' => function ($fieldValue) {
+        return $fieldValue == '1' ? 0 : 1; // Si el valor es '1', busca donde disabled = 0 (enabled), si es '0', busca donde disabled = 1 (disabled)
+    },
+    'validation_definition' => new ezcInputFormDefinitionElement(
+        ezcInputFormDefinitionElement::OPTIONAL, 'int', array('min_range' => 0, 'max_range' => 1)
+    )
+);
 
 
 $fieldSortAttr = array (

@@ -110,8 +110,7 @@ if (ezcInputForm::hasPostData()) {
 
             curl_close($curl);
 
-           $files_campaign[] = $response;
-           
+            $files_campaign[] = $response;
         }
         $item->files_campaign = $files_campaign;
     }
@@ -265,6 +264,10 @@ if (ezcInputForm::hasPostData()) {
 
                     if ($campaign instanceof \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppCampaign) {
                         $campaign->enabled = 1;
+                        if (isset($_POST['ml'])) {
+                            $campaign->lists_id = json_encode($_POST['ml']);
+                        }
+
                         $campaign->saveThis();
                     }
                     header('Location: ' . erLhcoreClassDesign::baseurl('fbwhatsappmessaging/campaign'));
@@ -273,7 +276,7 @@ if (ezcInputForm::hasPostData()) {
             }
 
             exit;
-        } catch (Exception $e) { 
+        } catch (Exception $e) {
             $tpl->set('errors', array($e->getMessage()));
         }
     } else {

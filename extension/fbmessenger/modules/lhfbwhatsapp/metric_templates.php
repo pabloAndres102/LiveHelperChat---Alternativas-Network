@@ -85,7 +85,15 @@ if (isset($dataPoints) && !empty($dataPoints)) :
         $sent = $data_point['sent'];
         $delivered = $data_point['delivered'];
         $read = $data_point['read'];
-        
+        $clicked = 0;
+
+        // Si hay datos de clics, suma los valores
+        if (isset($data_point['clicked']) && !empty($data_point['clicked'])) {
+            foreach ($data_point['clicked'] as $clickedItem) {
+                $clicked += $clickedItem['count'];
+            }
+        }
+
         // Verifica si al menos uno de los valores es mayor a 0
         if ($sent > 0 || $delivered > 0 || $read > 0) :
             $labels[] = date('d/m/Y', $data_point['start']);
@@ -93,21 +101,33 @@ if (isset($dataPoints) && !empty($dataPoints)) :
             $deliveredData[] = $delivered;
             $readData[] = $read;
         endif;
+
+        // Verifica si hay datos de clics y la fecha correspondiente
+        if ($clicked > 0) :
+            $clickLabels[] = date('d/m/Y', $data_point['start']);
+            $clickedData[] = $clicked;
+        endif;
     endforeach;
 endif;
+
 
 // Convertir datos a JSON para pasar a JavaScript
 $labelsJson = json_encode($labels);
 $sentDataJson = json_encode($sentData);
 $deliveredDataJson = json_encode($deliveredData);
 $readDataJson = json_encode($readData);
+$clickLabelsJson = json_encode($clickLabels); // Para el gráfico de barras de clics
+$clickedDataJson = json_encode($clickedData);
 
 $tpl->setArray([
     'labelsJson' => $labelsJson,
     'sentDataJson' => $sentDataJson,
     'deliveredDataJson' => $deliveredDataJson,
     'readDataJson' => $readDataJson,
+    'clickLabelsJson' => $clickLabelsJson, // Añadir esta línea
+    'clickedDataJson' => $clickedDataJson, // Añadir esta línea
 ]);
+
 
 
 $curl = curl_init();

@@ -6,75 +6,55 @@ $modalBodyClass = 'p-1';
 ?>
 <?php include(erLhcoreClassDesign::designtpl('lhkernel/modal_header.tpl.php'));?>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Field'); ?></th>
-            <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Value'); ?></th>
-        </tr>
-    </thead>
+<style>
+    .table th, .table td {
+        vertical-align: middle;
+    }
+    .table th {
+        background-color: #f8f9fa;
+    }
+    .section-header {
+        background-color: #e9ecef;
+        font-weight: bold;
+        text-align: center;
+    }
+</style>
+
+<table class="table table-striped table-bordered">
     <tbody>
-        <tr>
-            <td>ID</td>
-            <td><?php echo htmlspecialchars($item->id); ?></td>
+        <tr class="section-header">
+            <td colspan="2"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Datos basicos'); ?></td>
         </tr>
         <tr>
-            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Phone'); ?></td>
-            <td><?php echo htmlspecialchars($item->phone); ?></td>
-        </tr>
-        <tr>
-            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Created At'); ?></td>
-            <td><?php echo htmlspecialchars(date('Y-m-d H:i:s', $item->created_at)); ?></td>
-        </tr>
-        <tr>
-            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Email'); ?></td>
-            <td><?php echo htmlspecialchars($item->email); ?></td>
-        </tr>
-        <tr>
-            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Disabled'); ?></td>
-            <td><?php echo $item->disabled ? erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Yes') : erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','No'); ?></td>
-        </tr>
-        <tr>
-            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Mailing List IDs'); ?></td>
-            <td><?php echo htmlspecialchars(json_encode($item->ml_ids)); ?></td>
-        </tr>
-        <tr>
-            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Title'); ?></td>
-            <td><?php echo htmlspecialchars($item->title); ?></td>
+            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Name'); ?></td>
+            <td><?php echo htmlspecialchars($item->name); ?></td>
         </tr>
         <tr>
             <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Last Name'); ?></td>
             <td><?php echo htmlspecialchars($item->lastname); ?></td>
         </tr>
         <tr>
+            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Title'); ?></td>
+            <td><?php echo htmlspecialchars($item->title); ?></td>
+        </tr>
+        <tr>
             <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Company'); ?></td>
             <td><?php echo htmlspecialchars($item->company); ?></td>
+        </tr>
+        <tr>
+            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Phone'); ?></td>
+            <td><?php echo htmlspecialchars($item->phone); ?></td>
+        </tr>
+        <tr>
+            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Email'); ?></td>
+            <td><?php echo htmlspecialchars($item->email); ?></td>
         </tr>
         <tr>
             <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Date'); ?></td>
             <td><?php echo htmlspecialchars($item->date); ?></td>
         </tr>
-        <tr>
-            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Delivery Status'); ?></td>
-            <td><?php
-                switch($item->delivery_status) {
-                    case \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_UNKNOWN:
-                        echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Unknown');
-                        break;
-                    case \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_UNSUBSCRIBED:
-                        echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Unsubscribed');
-                        break;
-                    case \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_FAILED:
-                        echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Failed');
-                        break;
-                    case \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_ACTIVE:
-                        echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Active');
-                        break;
-                    default:
-                        echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Unknown');
-                        break;
-                }
-            ?></td>
+        <tr class="section-header">
+            <td colspan="2"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Campos multimedia'); ?></td>
         </tr>
         <tr>
             <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','File 1'); ?></td>
@@ -92,13 +72,8 @@ $modalBodyClass = 'p-1';
             <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','File 4'); ?></td>
             <td><?php echo htmlspecialchars($item->file_4); ?></td>
         </tr>
-        <tr>
-            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Name'); ?></td>
-            <td><?php echo htmlspecialchars($item->name); ?></td>
-        </tr>
-        <tr>
-            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Phone Recipient'); ?></td>
-            <td><?php echo htmlspecialchars($item->phone_recipient); ?></td>
+        <tr class="section-header">
+            <td colspan="2"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Campos personalizados'); ?></td>
         </tr>
         <tr>
             <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Attribute 1'); ?></td>
@@ -124,6 +99,21 @@ $modalBodyClass = 'p-1';
             <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Attribute 6'); ?></td>
             <td><?php echo htmlspecialchars($item->attr_str_6); ?></td>
         </tr>
+        <tr class="section-header">
+            <td colspan="2"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Datos del sistema'); ?></td>
+        </tr>
+        <tr>
+            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Mailing List IDs'); ?></td>
+            <td><?php echo htmlspecialchars(json_encode($item->ml_ids)); ?></td>
+        </tr>
+        <tr>
+            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Created At'); ?></td>
+            <td><?php echo htmlspecialchars(date('Y-m-d H:i:s', $item->created_at)); ?></td>
+        </tr>
+        <tr>
+            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Disabled'); ?></td>
+            <td><?php echo $item->disabled ? erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Yes') : erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','No'); ?></td>
+        </tr>
         <tr>
             <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Chat ID'); ?></td>
             <td><?php echo htmlspecialchars($item->chat_id); ?></td>
@@ -135,6 +125,28 @@ $modalBodyClass = 'p-1';
         <tr>
             <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Private'); ?></td>
             <td><?php echo $item->private ? erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Yes') : erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','No'); ?></td>
+        </tr>
+        <tr>
+            <td><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Delivery Status'); ?></td>
+            <td><?php
+                switch($item->delivery_status) {
+                    case \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_UNKNOWN:
+                        echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Unknown');
+                        break;
+                    case \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_UNSUBSCRIBED:
+                        echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Unsubscribed');
+                        break;
+                    case \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_FAILED:
+                        echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Failed');
+                        break;
+                    case \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_ACTIVE:
+                        echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Active');
+                        break;
+                    default:
+                        echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Unknown');
+                        break;
+                }
+            ?></td>
         </tr>
     </tbody>
 </table>

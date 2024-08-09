@@ -25,52 +25,56 @@ $modalBodyClass = 'p-1';
        
         <div class="modal-footer">
         <div class="btn-group" role="group" aria-label="...">
-        <input type="submit" class="btn btn-sm btn-secondary" id="update-kanban-status" name="Save_page" value="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons','Save');?>"/>
+        <input type="submit" class="btn btn-sm btn-secondary" id="update-kanban-status" name="Save_page" value="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons','Save');?>"data-bs-dismiss="modal"/>
             <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons','Close')?></button>
         </div>
     </div>
     </form>
 </div>
 <script>
-    $(document).ready(function() {
-        $('#update-kanban-status').click(function(e) {
-            e.preventDefault();
+   $(document).ready(function() {
+    $('#kanban-status-form').submit(function(e) {
+        e.preventDefault(); // Evita el envío del formulario
 
-            var chatId = <?php echo json_encode($chat->id); ?>;
-            var newStatus = $('#kanban_status').val();
+        var chatId = <?php echo json_encode($chat->id); ?>;
+        var newStatus = $('#kanban_status').val();
 
-            $.ajax({
-                type: "POST",
-                url: "<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/kanban_status2'); ?>",
-                data: {
-                    chat_id: chatId,
-                    kanban_status: newStatus,
-                },
-                success: function(response) {
-                    console.log("Respuesta del servidor:", response);
-                    mostrarMensaje('success', 'El estado de enbudo se ha actualizado correctamente.');
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error en la solicitud AJAX:", error);
-                    mostrarMensaje('error', 'Hubo un error al actualizar el estado de enbudo.');
-                }
-            });
+        $.ajax({
+            type: "POST",
+            url: "<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/kanban_status2'); ?>",
+            data: {
+                chat_id: chatId,
+                kanban_status: newStatus,
+            },
+            success: function(response) {
+                console.log("Respuesta del servidor:", response);
+                mostrarMensaje('success', 'El estado de enbudo se ha actualizado correctamente.');
+
+                // Llamar a la función adicional
+                lhinst.setSubject($('#kanban_status'), chatId);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en la solicitud AJAX:", error);
+                mostrarMensaje('error', 'Hubo un error al actualizar el estado de enbudo.');
+            }
         });
-
-        function mostrarMensaje(type, message) {
-            var alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
-            var alertHtml = '<div class="alert ' + alertClass + ' alert-dismissible fade show" role="alert">' +
-                message +
-                '</div>';
-
-            $('#alert-container').html(alertHtml); // Agregar mensaje al contenedor
-
-            // Opcional: Scroll hacia arriba para ver el mensaje (si es necesario)
-            $('html, body').animate({
-                scrollTop: 0
-            }, 'fast');
-        }
     });
+
+    function mostrarMensaje(type, message) {
+        var alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
+        var alertHtml = '<div class="alert ' + alertClass + ' alert-dismissible fade show" role="alert">' +
+            message +
+            '</div>';
+
+        $('#alert-container').html(alertHtml); // Agregar mensaje al contenedor
+
+        // Opcional: Scroll hacia arriba para ver el mensaje (si es necesario)
+        $('html, body').animate({
+            scrollTop: 0
+        }, 'fast');
+    }
+});
+
 </script>
 
 

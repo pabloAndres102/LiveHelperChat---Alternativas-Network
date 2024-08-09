@@ -3,6 +3,27 @@
 <script src="https://cdn.jsdelivr.net/npm/emojionearea@3.4.2/dist/emojionearea.min.js"></script>
 
 <style>
+    .button-group {
+        margin-bottom: 10px;
+    }
+
+    .delete-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        margin-left: 10px;
+    }
+
+    .delete-button:hover .material-icons {
+        color: darkred;
+    }
+
+    .form-control {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
     .hidden-content {
         display: none;
     }
@@ -125,32 +146,30 @@
                 </div>
 
                 <div class="mb-3 hidden-content" id="headers">
-                    <br>
-                    <span><small><strong>Ejemplos de contenido del encabezado y variables: </strong><br>
-                            Para ayudarnos a revisar tu contenido, proporciona ejemplos de las variables o del contenido multimedia en el encabezado. No incluyas información del cliente. Meta revisa las plantillas y los parámetros de las variables para proteger la seguridad e integridad de nuestros servicios.
-                        </small></span><br><br>
-                    <label for="header" class="form-label"> <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Header type'); ?></strong></label>
-                    <select class="form-select" id="header" name="header" aria-label="Default select example">
-                        <option value=""><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Without header'); ?></option>
-                        <option value="DOCUMENT"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Document'); ?></option>
-                        <option value="TEXT"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Text'); ?></option>
-                        <option value="VIDEO"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Video'); ?></option>
-                        <option value="IMAGE"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Image'); ?></option>
-                    </select>
+    <br>
+    <span><small><strong>Ejemplos de contenido del encabezado y variables: </strong><br>
+            Para ayudarnos a revisar tu contenido, proporciona ejemplos de las variables o del contenido multimedia en el encabezado. No incluyas información del cliente. Meta revisa las plantillas y los parámetros de las variables para proteger la seguridad e integridad de nuestros servicios.
+        </small></span><br><br>
+    <label for="header" class="form-label"> <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Header type'); ?></strong></label>
+    <select class="form-select" id="header" name="header" aria-label="Default select example">
+        <option value=""><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Without header'); ?></option>
+        <option value="DOCUMENT"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Document'); ?></option>
+        <option value="TEXT"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Text'); ?></option>
+        <option value="VIDEO"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Video'); ?></option>
+        <option value="IMAGE"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Image'); ?></option>
+    </select>
 
-                    <label for="campoDeTexto" id="labelCampoDeTexto" class="form-label" hidden> <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Text header'); ?></strong> </label>
-                    <input type="text" id="campoDeTexto" name="campoDeTexto" class="form-control" maxlength="60" placeholder="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'You can upload a variable'); ?>" hidden>
-                    <div id="charCount1" class="form-text" hidden>Caracteres: 0 de 60</div>
+    <label for="campoDeTexto" id="labelCampoDeTexto" class="form-label" hidden> <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Text header'); ?></strong> </label>
+    <input type="text" id="campoDeTexto" name="campoDeTexto" class="form-control" maxlength="60" placeholder="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'You can upload a variable'); ?>" hidden>
+    <div id="charCount1" class="form-text" hidden>Caracteres: 0 de 60</div>
 
-                    <div id="nuevoInput" style="display: none;">
-                        <label for="inputNuevo">Variable</label>
-                        <input type="text" id="inputNuevo" name="inputNuevo" class="form-control">
-                    </div>
+    <div id="nuevoInput" style="display: none;">
+        <label for="inputNuevo">Variable</label>
+        <input type="text" id="inputNuevo" name="inputNuevo" class="form-control">
+    </div>
 
-
-                    <input type="file" name="archivo" id="archivo" class="form-control" hidden>
-
-                </div>
+    <input type="file" name="archivo" id="archivo" class="form-control" hidden>
+</div>
 
                 <div class="form-group shadow-textarea hidden-content">
                     <label for="textAreaTexto"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Body'); ?></strong></label>
@@ -205,24 +224,34 @@
 
 
                 <div id="inputsContainer" style="display: none;">
-                    <label for="input1"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Button'); ?> 1</strong></label>
-                    <input class="form-control" type="text" id="button1" name="button1" maxlength="25">
-
-                    <label for="input2"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Button'); ?> 2 (<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Optional'); ?>)</strong></label>
-                    <input class="form-control" type="text" id="button2" name="button2" maxlength="25">
-
-                    <label for="input3"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Button'); ?> 3 (<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Optional'); ?>)</strong></label>
-                    <input class="form-control" type="text" id="button3" name="button3" maxlength="25">
+                    <button type="button" class="btn btn-success" id="addButton" class="styled-button">
+                        <span class="material-icons">add</span>&nbsp;
+                        Agregar botón
+                    </button>
+                    <div id="buttonsContainer"></div>
                 </div>
-
+                
+                <br>
+                <div class="form-check form-switch hidden-content">
+                    <label for="mostrarInputsURL">
+                        <input class="form-check-input" type="checkbox" id="mostrarInputsURL">
+                        <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Add button (URL)'); ?></strong>
+                    </label>
+                </div>
+                <div id="urlButtonsContainer" style="display: none;">
+                    <!-- Aquí se agregarán dinámicamente los campos de texto y URL para los botones de URL -->
+                    <button type="button" id="addUrlButton" class="btn btn-primary" style="display: none;">
+                        <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Agregar botón URL'); ?>
+                    </button>
+                </div>
+                <br>
                 <div class="form-check form-switch hidden-content">
                     <label for="mostrarInputscallback">
                         <input class="form-check-input" type="checkbox" id="mostrarInputscallback"> <strong> <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Add button (Callback)'); ?> </strong>
                     </label>
                 </div>
-
                 <div id="inputsContainercallback" style="display: none;">
-                    <label for="input1"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Text'); ?></strong></label>
+                    <label for="input1"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Texto del boton'); ?></strong></label>
                     <input class="form-control" type="text" id="buttonCallbackText" name="buttonCallbackText" maxlength="25">
                     <label for="input2"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Country code'); ?></strong></label>
                     <select class="form-select" id="buttoCallbackCountry" name="buttoCallbackCountry" aria-label="Default select example">
@@ -480,12 +509,8 @@
                     </select>
                     <label for="input3"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Phone number'); ?></strong></label>
                     <input class="form-control" type="number" id="buttonCallbackPhone" name="buttonCallbackPhone" maxlength="20"> <br>
-                    <h5><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Go to website'); ?></strong></h5>
-                    <label for="input1"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Text'); ?></strong></label>
-                    <input class="form-control" type="text" id="buttonWebText" name="buttonWebText" maxlength="25">
-                    <label for="input2"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'URL site'); ?></strong></strong></label>
-                    <input class="form-control" type="url" id="buttonWebUrl" name="buttonWebUrl" maxlength="2000" placeholder="https://www.google.com/">
                 </div>
+
 
                 <!-- <div class="form-check form-switch hidden-content">
                 <label for="mostrarInputsflow">
@@ -539,7 +564,134 @@
         <br>
         <br> <br> <br> <br> <br> <br> <br> <br> <br>
     </div>
+    <script>
+    document.getElementById('header').addEventListener('change', function() {
+        var archivoInput = document.getElementById('archivo');
+        var headerValue = this.value;
 
+        archivoInput.value = '';  // Clear the file input
+        archivoInput.hidden = false; // Show the file input
+
+        if (headerValue === 'VIDEO') {
+            archivoInput.accept = 'video/*';
+        } else if (headerValue === 'IMAGE') {
+            archivoInput.accept = 'image/*';
+        } else if (headerValue === 'DOCUMENT') {
+            archivoInput.accept = 'application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, .doc, .docx, .pdf';
+        } else if (headerValue === 'TEXT') {
+            archivoInput.hidden = true; // Hide the file input for text header
+        } else {
+            archivoInput.hidden = true; // Hide the file input if no valid header type is selected
+        }
+
+        // Show or hide text input based on header type
+        var textInput = document.getElementById('campoDeTexto');
+        var textLabel = document.getElementById('labelCampoDeTexto');
+        var charCount = document.getElementById('charCount1');
+
+        if (headerValue === 'TEXT') {
+            textInput.hidden = false;
+            textLabel.hidden = false;
+            charCount.hidden = false;
+        } else {
+            textInput.hidden = true;
+            textLabel.hidden = true;
+            charCount.hidden = true;
+        }
+    });
+</script>
+    <script>
+  document.getElementById('mostrarInputsURL').addEventListener('change', function() {
+    const urlButtonsContainer = document.getElementById('urlButtonsContainer');
+    const addUrlButton = document.getElementById('addUrlButton');
+    
+    if (this.checked) {
+      urlButtonsContainer.style.display = 'block';
+      addUrlButton.style.display = 'block';
+    } else {
+      urlButtonsContainer.style.display = 'none';
+      addUrlButton.style.display = 'none';
+    }
+  });
+</script>
+
+    <script>
+        let urlButtonCount = 0;
+
+        document.getElementById('addUrlButton').addEventListener('click', function() {
+            if (urlButtonCount < 2) {
+                urlButtonCount++;
+                const container = document.getElementById('urlButtonsContainer');
+                const buttonTextId = `buttonWebText${urlButtonCount}`;
+                const buttonUrlId = `buttonWebUrl${urlButtonCount}`;
+                const buttonDivId = `urlButtonDiv${urlButtonCount}`;
+
+                const div = document.createElement('div');
+                div.id = buttonDivId;
+                div.innerHTML = `
+        <h5><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Go to website'); ?></strong></h5>
+        <label for="${buttonTextId}"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Text'); ?></strong></label>
+        <input class="form-control" type="text" id="${buttonTextId}" name="${buttonTextId}" maxlength="25">
+        <label for="${buttonUrlId}"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'URL site'); ?></strong></strong></label>
+        <input class="form-control" type="url" id="${buttonUrlId}" name="${buttonUrlId}" maxlength="2000" placeholder="https://www.google.com/">
+        <button type="button" onclick="removeUrlButton('${buttonDivId}')" class="btn btn-danger">Eliminar</button>
+        <hr>
+      `;
+                container.appendChild(div);
+            } else {
+                alert("Se pueden agregar un máximo de 2 botones de URL.");
+            }
+        });
+
+        function removeUrlButton(buttonDivId) {
+            const buttonDiv = document.getElementById(buttonDivId);
+            if (buttonDiv) {
+                buttonDiv.remove();
+                urlButtonCount--;
+            }
+        }
+    </script>
+    <script>
+        let buttonCount = 0;
+        const maxButtons = 10;
+
+        document.getElementById('addButton').addEventListener('click', function() {
+            if (buttonCount < maxButtons) {
+                buttonCount++;
+                const buttonsContainer = document.getElementById('buttonsContainer');
+
+                const buttonDiv = document.createElement('div');
+                buttonDiv.className = 'button-group';
+                buttonDiv.id = `buttonGroup${buttonCount}`;
+
+                const label = document.createElement('label');
+                label.setAttribute('for', `button${buttonCount}`);
+                label.innerHTML = `<strong>Botón ${buttonCount} (Opcional)</strong>`;
+
+                const input = document.createElement('input');
+                input.setAttribute('type', 'text');
+                input.setAttribute('class', 'form-control');
+                input.setAttribute('id', `button${buttonCount}`);
+                input.setAttribute('name', `button${buttonCount}`);
+                input.setAttribute('maxlength', '25');
+                input.style.width = '30%';
+
+                const deleteButton = document.createElement('button');
+                deleteButton.type = 'button';
+                deleteButton.className = 'delete-button';
+                deleteButton.innerHTML = `<span class="material-icons" style="color: red;">delete</span>`;
+                deleteButton.onclick = function() {
+                    buttonDiv.remove();
+                    buttonCount--;
+                };
+
+                buttonDiv.appendChild(label);
+                buttonDiv.appendChild(input);
+                buttonDiv.appendChild(deleteButton);
+                buttonsContainer.appendChild(buttonDiv);
+            }
+        });
+    </script>
     <script>
         function addCharCounter(inputId, counterId, maxLength) {
             const inputField = document.getElementById(inputId);

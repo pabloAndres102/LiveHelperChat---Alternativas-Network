@@ -1,214 +1,344 @@
 <style>
+    .container2 {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-top: 20px;
+        gap: 20px;
+        /* Espacio entre los elementos */
+    }
+
+    .template-preview {
+        width: 25%;
+        box-sizing: border-box;
+        border: 2px solid #ddd;
+        /* Borde más grueso */
+        border-radius: 8px;
+        /* Radio del borde */
+        padding: 20px;
+        background-color: #fff;
+        overflow: auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        /* Sombra más pronunciada */
+        transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        /* Transición para efectos de hover */
+    }
+
+    .template-preview:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        /* Sombra más pronunciada al pasar el ratón */
+        border-color: #3498db;
+        /* Cambio de color de borde en hover */
+    }
+
+
+
+    .quality-indicator {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        border-radius: 50%;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+
+    .quality-green {
+        background-color: #4CAF50;
+    }
+
+    .quality-yellow {
+        background-color: #FFEB3B;
+    }
+
+    .quality-red {
+        background-color: #F44336;
+    }
+
+    .quality-unknown {
+        background-color: #9E9E9E;
+    }
+
+    .quality-label {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 16px;
+        color: #333;
+    }
+
     .tooltip-container {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-}
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
 
-.tooltip-container .tooltip-content {
-    visibility: hidden;
-    width: 300px; /* Ajusta el ancho según sea necesario */
-    background-color: #f9f9f9;
-    color: #333;
-    text-align: left;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    position: absolute;
-    z-index: 1;
-    top: 125%; /* Mueve el tooltip hacia abajo desde el icono */
-    left: 50%;
-    margin-left: -150px; /* Centra el tooltip */
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
-    white-space: pre-line; /* Asegura que los saltos de línea en el texto se respeten */
-    overflow: auto; /* Permite el desplazamiento si el contenido es demasiado grande */
-}
+    .tooltip-container .tooltip-content {
+        visibility: hidden;
+        width: 300px;
+        background-color: #f9f9f9;
+        color: #333;
+        text-align: left;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        position: absolute;
+        z-index: 1;
+        top: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+        white-space: pre-line;
+        overflow: auto;
+    }
 
-.tooltip-container:hover .tooltip-content {
-    visibility: visible;
-}
+    .tooltip-container:hover .tooltip-content {
+        visibility: visible;
+    }
 
-.tooltip-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
+    .tooltip-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
 
-.tooltip-item:last-child {
-    margin-bottom: 0;
-}
+    .tooltip-item:last-child {
+        margin-bottom: 0;
+    }
 
-.tooltip-item .circle {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 8px;
-    display: inline-block;
-}
+    .tooltip-item .circle {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 8px;
+        display: block;
+    }
 
-.tooltip-item.red .circle {
-    background-color: red;
-}
+    .tooltip-item.red .circle {
+        background-color: red;
+    }
 
-.tooltip-item.green .circle {
-    background-color: green;
-}
+    .tooltip-item.green .circle {
+        background-color: green;
+    }
 
-.tooltip-item.yellow .circle {
-    background-color: yellow;
-}
+    .tooltip-item.yellow .circle {
+        background-color: yellow;
+    }
 
-.tooltip-item.unknown .circle {
-    background-color: gray; /* Usa un color adecuado para UNKNOWN */
-}
+    .tooltip-item.unknown .circle {
+        background-color: gray;
+    }
 
-</style>
-<head>
-    <style>
-        .quality-indicator {
-            width: 20px;
-            height: 20px;
-            display: inline-block;
-            border-radius: 4px;
-            margin-right: 8px;
-            vertical-align: middle;
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    canvas {
+        width: 100% !important;
+        height: auto !important;
+        margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .container2 {
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            /* Espacio entre los elementos en vista móvil */
         }
 
-        .quality-green {
-            background-color: #4CAF50;
-            /* Verde */
-        }
-
-        .quality-yellow {
-            background-color: #FFEB3B;
-            /* Amarillo */
-        }
-
-        .quality-red {
-            background-color: #F44336;
-            /* Rojo */
-        }
-
-        .quality-unknown {
-            background-color: #9E9E9E;
-            /* Gris */
-        }
-
-        .quality-label {
-            display: inline-block;
-            vertical-align: middle;
-            font-size: 16px;
-            color: #333;
-        }
-
-        table {
+        .template-preview,
+        .info-box {
             width: 100%;
-            border-collapse: collapse;
         }
+    }
+</style>
 
-        table,
-        th,
-        td {
-            border: 1px solid #ddd;
-        }
 
-        th,
-        td {
-            padding: 12px;
-            text-align: center;
-        }
 
-        th {
-            background-color: #f2f2f2;
-        }
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<?php
+if (isset($_GET['template_id'])) {
+    $instance = LiveHelperChatExtension\fbmessenger\providers\FBMessengerWhatsAppLiveHelperChat::getInstance();
+    $template = $instance->getTemplateById($_GET['template_id']);
+}
 
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        tr:hover {
-            background-color: #ddd;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
+?>
 
 <body>
+    <div class="container2">
+        <div class="info-box">
 
-    <?php include(erLhcoreClassDesign::designtpl('lhkernel/paginator.tpl.php')); ?>
-    <center>
-        <h4><?php print_r($template_name) ?></h4>
-    </center> <br>
-    <center><small><mark><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Summary of the last 30 days'); ?> </mark></small></center>
-    <div>
-        <span class="quality-indicator quality-<?php echo strtolower($quality_score); ?>"></span>
-        <span class="quality-label">
-            <?php
-            if ($quality_score == 'GREEN') {
-                echo 'Calidad Alta';
-            } elseif ($quality_score == 'YELLOW') {
-                echo 'Calidad Media';
-            } elseif ($quality_score == 'RED') {
-                echo 'Calidad Baja';
-            } else {
-                echo 'Calidad Desconocida';
-            }
-            ?>
-        </span>
-        <span class="tooltip-container">
-            <span class="tooltip-content">
-                <div class="tooltip-item red">
-                    <span class="circle red"></span>
-                    BAJA: La calidad es baja y suspendida o pausada debido a la alta cantidad de rebotes al momento de envíos o bloqueos por parte de los clientes.
-                </div>
-                <div class="tooltip-item green">
-                    <span class="circle green"></span>
-                    ALTA: Tu plantilla cumple con todos los requisitos de calidad.
-                </div>
-                <div class="tooltip-item yellow">
-                    <span class="circle yellow"></span>
-                    MEDIA: Debes tener cuidado, esta plantilla puede ser suspendida por abuso en rebotes o aumento de bloqueos o denuncias por parte de los clientes.
-                </div>
-                <div class="tooltip-item unknown">
-                    <span class="circle unknown"></span>
-                    DESCONOCIDA: No tienes el suficiente volumen para calificar esta plantilla.
-                </div>
+            <span class="quality-indicator quality-<?php echo strtolower($quality_score); ?>"></span>
+            <span class="quality-label">
+                <?php
+                if ($quality_score == 'GREEN') {
+                    echo 'Calidad Alta';
+                } elseif ($quality_score == 'YELLOW') {
+                    echo 'Calidad Media';
+                } elseif ($quality_score == 'RED') {
+                    echo 'Calidad Baja';
+                } else {
+                    echo 'Calidad Desconocida';
+                }
+                ?>
             </span>
-            &nbsp;&nbsp;<span class="material-icons">help</span>
-        </span>
-
-    </div>
-    <div id="infoDiv" style="border: 2px solid #3498db; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); background-color: #f9f9f9; margin-top: 20px;">
-        <h1 style="font-size: 24px; color: #3498db; margin-bottom: 10px;">
-            <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/pendingchats', 'Resumen') ?>
-            <span class="material-icons">query_stats</span>
-        </h1>
-        <p style="font-size: 18px; margin-bottom: 10px;">
-            <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Sended') ?>: <?php print_r($info_sent) ?>
-        </p>
-        <p style="font-size: 18px; margin-bottom: 10px; display: inline-flex; align-items: center;">
-            <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Delivered') ?>: <?php print_r($info_delivered) ?>
-            <span class="tooltip-container" title="Número de mensajes que la plataforma logró entregar de forma efectiva a los clientes. Es posible que algunos mensajes no se entreguen, como cuando el dispositivo de un cliente está fuera de servicio, pero quedan en cola hasta que el dispositivo esté encendido o en cobertura de señal.">
+            <span class="tooltip-container">
+                <span class="tooltip-content">
+                    <div class="tooltip-item red">
+                        <span class="circle red"></span>
+                        BAJA: La calidad es baja y suspendida o pausada debido a la alta cantidad de rebotes al momento de envíos o bloqueos por parte de los clientes.
+                    </div>
+                    <div class="tooltip-item green">
+                        <span class="circle green"></span>
+                        ALTA: Tu plantilla cumple con todos los requisitos de calidad.
+                    </div>
+                    <div class="tooltip-item yellow">
+                        <span class="circle yellow"></span>
+                        MEDIA: Debes tener cuidado, esta plantilla puede ser suspendida por abuso en rebotes o aumento de bloqueos o denuncias por parte de los clientes.
+                    </div>
+                    <div class="tooltip-item unknown">
+                        <span class="circle unknown"></span>
+                        DESCONOCIDA: No tienes el suficiente volumen para calificar esta plantilla.
+                    </div>
+                </span>
                 &nbsp;&nbsp;<span class="material-icons">help</span>
             </span>
-        </p>
-        <p style="font-size: 18px;">
-            <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Readed') ?>: <?php print_r($info_read) ?>
-            <span class="tooltip-container" title="Número de mensajes que el negocio envió a los clientes y que se entregaron y leyeron. Es posible que algunas lecturas de mensajes no se incluyan, como cuando el cliente desactiva las confirmaciones de lectura.">
-                &nbsp;&nbsp;<span class="material-icons">help</span>
-            </span>
-        </p>
+            <br><br>
+            <h6><strong>Nombre de plantilla: </strong><?php echo htmlspecialchars($template['name']) ?></h6>
+            <h6><strong>Categoria de plantilla: </strong><span style="color: black;" class="badge badge-secondary"><?php echo htmlspecialchars($template['category']) ?></span></h6>
+            <h6><strong>Idioma de plantilla: </strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', $template['language']); ?></h6>
+            <small><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Summary of the last 30 days'); ?></small><br><br>
+            <h1 style="font-size: 24px; color: #3498db; margin-bottom: 10px;">
+                <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('chat/pendingchats', 'Datos consolidados') ?>
+                <span class="material-icons">query_stats</span>
+            </h1>
+            <p style="font-size: 18px; margin-bottom: 10px;">
+                <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Sended') ?>:&nbsp;</strong> <?php print_r($info_sent) ?>
+            </p>
+            <p style="font-size: 18px; margin-bottom: 10px; display: inline-flex; align-items: center;">
+                <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Delivered') ?>:&nbsp;</strong> <?php print_r($info_delivered) ?>
+                <span class="tooltip-container" title="Número de mensajes que la plataforma logró entregar de forma efectiva a los clientes. Es posible que algunos mensajes no se entreguen, como cuando el dispositivo de un cliente está fuera de servicio, pero quedan en cola hasta que el dispositivo esté encendido o en cobertura de señal.">
+                    &nbsp;&nbsp;<span class="material-icons">help</span>
+                </span>
+            </p>
+            <p style="font-size: 18px;">
+                <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Readed') ?>:&nbsp;</strong> <?php print_r($info_read) ?>
+                <span class="tooltip-container" title="Número de mensajes que el negocio envió a los clientes y que se entregaron y leyeron. Es posible que algunas lecturas de mensajes no se incluyan, como cuando el cliente desactiva las confirmaciones de lectura.">
+                    &nbsp;&nbsp;<span class="material-icons">help</span>
+                </span>
+            </p>
+
+        </div>
+            <div class="template-preview rounded bg-light p-2" title="<?php echo htmlspecialchars(json_encode($template, JSON_PRETTY_PRINT)) ?>">
+                <?php foreach ($template['components'] as $component) : ?>
+                    <?php if ($component['type'] == 'HEADER' && $component['format'] == 'IMAGE' && isset($component['example']['header_url'][0])) : ?>
+                        <img src="<?php echo htmlspecialchars($component['example']['header_url'][0]) ?>" />
+                    <?php endif; ?>
+                    <?php if ($component['type'] == 'HEADER' && $component['format'] == 'DOCUMENT' && isset($component['example']['header_url'][0])) : ?>
+                        <div>
+                            <span class="badge badge-secondary">FILE: <?php echo htmlspecialchars($component['example']['header_url'][0]) ?></span>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($component['type'] == 'HEADER' && $component['format'] == 'VIDEO' && isset($component['example']['header_url'][0])) : ?>
+                        <div>
+                            <span class="badge badge-secondary">VIDEO: <?php echo htmlspecialchars($component['example']['header_url'][0]) ?></span>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <?php foreach ($template['components'] as $component) : ?>
+                    <?php if ($component['type'] == 'BODY') :
+                        $matchesReplace = [];
+                        preg_match_all('/\{\{[0-9]\}\}/is', $component['text'], $matchesReplace);
+                        if (isset($matchesReplace[0])) {
+                            $fieldsCount = count($matchesReplace[0]);
+                        }
+                    ?><p><?php echo htmlspecialchars($component['text']) ?></p><?php endif; ?>
+                    <?php if ($component['type'] == 'HEADER') : ?>
+                        <?php if ($component['format'] == 'DOCUMENT') : $fieldCountHeaderDocument = 1; ?>
+                            <!-- <h5 class="text-secondary">DOCUMENT</h5> -->
+                        <?php elseif ($component['format'] == 'VIDEO') : $fieldCountHeaderVideo = 1; ?>
+                            <!-- <h5 class="text-secondary">VIDEO</h5> -->
+                            <?php if (isset($component['example']['header_handle'][0])) : ?>
+                                <video width="100">
+                                    <source src="<?php echo htmlspecialchars($component['example']['header_handle'][0]) ?>" type="video/mp4">
+                                </video>
+                            <?php endif; ?>
+                        <?php elseif ($component['format'] == 'IMAGE') : $fieldCountHeaderImage = 1; ?>
+                            <!-- <h5 class="text-secondary">IMAGE</h5> -->
+                            <?php if (isset($component['example']['header_handle'][0])) : ?>
+                                <img src="<?php echo htmlspecialchars($component['example']['header_handle'][0]) ?>" width="100px" />
+                            <?php endif; ?>
+                        <?php else : ?>
+                            <?php
+                            $matchesReplace = [];
+                            preg_match_all('/\{\{[0-9]\}\}/is', $component['text'], $matchesReplace);
+                            if (isset($matchesReplace[0])) {
+                                $fieldsCountHeader = count($matchesReplace[0]);
+                            }
+                            ?>
+                            <h5 class="text-secondary"><?php echo htmlspecialchars($component['text']) ?></h5>
+                        <?php endif; ?>
+
+                    <?php endif; ?>
+                    <?php if ($component['type'] == 'FOOTER') : ?><p class="text-secondary"><?php echo htmlspecialchars($component['text']) ?></p><?php endif; ?>
+                    <?php if ($component['type'] == 'BUTTONS') : ?>
+                        <?php foreach ($component['buttons'] as $button) : ?>
+                            <div class="pb-2"><button class="btn btn-sm btn-secondary"><?php echo htmlspecialchars($button['text']) ?> | <?php echo htmlspecialchars($button['type']) ?></button></div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <?php
+                foreach ($template['components'] as $component) :
+                    if ($component['type'] === 'CAROUSEL' && isset($component['cards']) && is_array($component['cards'])) : ?>
+                        <h5><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Carousel'); ?></h5>
+                        <?php foreach ($component['cards'] as $card) : ?>
+                            <?php foreach ($card['components'] as $cardComponent) : ?>
+                                <?php if ($cardComponent['type'] == 'BODY') : ?>
+                                    <p><?php echo htmlspecialchars($cardComponent['text']) ?></p>
+                                <?php endif; ?>
+                                <?php if ($cardComponent['type'] == 'BUTTONS') : ?>
+                                    <?php foreach ($cardComponent['buttons'] as $button) : ?>
+                                        <div class="pb-2"><button class="btn btn-sm btn-secondary"><?php echo htmlspecialchars($button['text']) ?> | <?php echo htmlspecialchars($button['type']) ?></button></div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                                <?php if ($cardComponent['format'] == 'VIDEO') : ?>
+                                    <video width="100">
+                                        <source src="<?php echo htmlspecialchars($cardComponent['example']['header_handle'][0]) ?>" type="video/mp4">
+                                    </video>
+                                <?php endif; ?>
+                                <?php if ($cardComponent['format'] == 'IMAGE') : ?>
+                                    <img src="<?php print_r($cardComponent['example']['header_handle'][0]) ?>" width="100px">
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+        </div>
+
     </div>
-
-    <br><br>
-
     <br>
-
     <table>
         <tr>
             <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Start') ?></th>
@@ -256,77 +386,124 @@
         <?php endif; ?>
     </table>
     <br>
-    <canvas id="lineChart" width="400" height="200"></canvas>
+    <center>
+        <h4>Estado de envios de plantilla</h4>
+        <canvas id="lineChart" width="400" height="200"></canvas>
+        <center>
+            <h4>Interaccion de botones de plantilla</h4>
+        </center>
+        <canvas id="barChart" width="400" height="200"></canvas>
 
-    <script>
-        // Datos en formato JSON desde PHP
-        var labels = <?php echo $labelsJson; ?>;
-        var sentData = <?php echo $sentDataJson; ?>;
-        var deliveredData = <?php echo $deliveredDataJson; ?>;
-        var readData = <?php echo $readDataJson; ?>;
 
-        // Configuración del gráfico de líneas
-        var ctx = document.getElementById('lineChart').getContext('2d');
-        var lineChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                        label: 'Enviado',
-                        data: sentData,
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        fill: false
-                    },
-                    {
-                        label: 'Entregado',
-                        data: deliveredData,
-                        borderColor: 'rgba(153, 102, 255, 1)',
-                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        fill: false
-                    },
-                    {
-                        label: 'Leído',
-                        data: readData,
-                        borderColor: 'rgba(255, 159, 64, 1)',
-                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                        fill: false
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Date'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Count'
+        <script>
+            // Datos en formato JSON desde PHP
+            var labels = <?php echo $labelsJson; ?>;
+            var sentData = <?php echo $sentDataJson; ?>;
+            var deliveredData = <?php echo $deliveredDataJson; ?>;
+            var readData = <?php echo $readDataJson; ?>;
+            var clickLabels = <?php echo $clickLabelsJson; ?>;
+            var clickedData = <?php echo $clickedDataJson; ?>;
+
+            // Configuración del gráfico de líneas
+            var ctx = document.getElementById('lineChart').getContext('2d');
+            var lineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                            label: 'Enviado',
+                            data: sentData,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            fill: false
                         },
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value, index, values) {
-                                // Muestra solo valores enteros
-                                return Number.isInteger(value) ? value : '';
+                        {
+                            label: 'Entregado',
+                            data: deliveredData,
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                            fill: false
+                        },
+                        {
+                            label: 'Leído',
+                            data: readData,
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Count'
+                            },
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    // Muestra solo valores enteros
+                                    return Number.isInteger(value) ? value : '';
+                                }
                             }
                         }
                     }
                 }
-            }
-        });
-    </script>
+            });
+            var ctxBar = document.getElementById('barChart').getContext('2d');
+            var barChart = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: clickLabels,
+                    datasets: [{
+                        label: 'Clics',
+                        data: clickedData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Fecha'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Cantidad'
+                            },
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    // Muestra solo valores enteros
+                                    return Number.isInteger(value) ? value : '';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
 
 
 
 
 
 
-    <!-- <td><?php print_r($data_point[0]['data_points'][0]['delivered']); ?></td> -->
+        <!-- <td><?php print_r($data_point[0]['data_points'][0]['delivered']); ?></td> -->
 
 </body>
 

@@ -103,6 +103,7 @@
                         <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Sent conversations'); ?></strong></p>
                         <?php if (isset($totalSent)) : ?>
                             <h1><?php echo $totalSent; ?></h1>
+                            <span class="material-icons">visibility</span>
                         <?php endif; ?>
                     </div>
                 </button>
@@ -119,6 +120,7 @@
                         <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Total read'); ?></strong></p>
                         <?php if (isset($totalRead)) : ?>
                             <h1><?php echo $totalRead; ?></h1>
+                            <span class="material-icons">visibility</span>
                         <?php endif; ?>
                     </div>
                 </button>
@@ -154,6 +156,7 @@
                         <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Generated conversations'); ?></strong></p>
                         <?php if (isset($chatid)) : ?>
                             <h1><?php echo $chatid; ?></h1>
+                            <span class="material-icons">visibility</span>
                         <?php endif; ?>
                     </div>
                 </button>
@@ -201,6 +204,7 @@
                         <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Estado entregado'); ?></strong></p>
                         <?php if (isset($deliveredCount)) : ?>
                             <h1><?php echo $deliveredCount; ?></h1>
+                            <span class="material-icons">visibility</span>
                         <?php endif; ?>
                     </div>
                 </button>
@@ -217,6 +221,7 @@
                         <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Estado fallido'); ?></strong></p>
                         <?php if (isset($failedCount)) : ?>
                             <h1><?php echo $failedCount; ?></h1>
+                            <span class="material-icons">visibility</span>
                         <?php endif; ?>
                     </div>
                 </button>
@@ -233,6 +238,7 @@
                         <p><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Estado rechazado'); ?></strong></p>
                         <?php if (isset($rejectedCount)) : ?>
                             <h1><?php echo $rejectedCount; ?></h1>
+                            <span class="material-icons">visibility</span>
                         <?php endif; ?>
                     </div>
                 </button>

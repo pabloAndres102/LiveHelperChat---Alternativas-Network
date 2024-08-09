@@ -115,20 +115,27 @@
             </div>
 
             <div class="form-group">
-                <div class="form-group">
-                    <label><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Seleccionar lista de contactos'); ?></label>
-                    <br><br>
-                    <div class="contact-list-checkboxes" style="max-height: 200px; overflow-y: auto;">
-                        <?php
-                        $contactLists = \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContactList::getList();
-                        foreach ($contactLists as $contactList) {
-                            echo '<label class="checkbox-label"><input type="checkbox" name="ml[]" value="' . $contactList->id . '"><span class="checkmark"></span>' . htmlspecialchars($contactList->name) . '</label>';
-                        }
-                        ?>
-                    </div>
-                </div>
-
+            <label><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Seleccionar lista de contactos'); ?></label>
+            <br><br>
+            <div class="contact-list-checkboxes" style="max-height: 200px; overflow-y: auto;">
+                <?php
+                $contactLists = \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContactList::getList();
+                
+                // Decodificar lists_id si existe
+                $selectedLists = !empty($item->lists_id) ? json_decode($item->lists_id, true) : [];
+    
+                foreach ($contactLists as $contactList) {
+                    // Verificar si el ID de la lista está en el array de listas seleccionadas
+                    $isChecked = in_array($contactList->id, $selectedLists) ? 'checked' : '';
+                    echo '<label class="checkbox-label">';
+                    echo '<input type="checkbox" name="ml[]" value="' . $contactList->id . '" ' . $isChecked . '>';
+                    echo '<span class="checkmark"></span>';
+                    echo htmlspecialchars($contactList->name);
+                    echo '</label>';
+                }
+                ?>
             </div>
+        </div>
 
 
         </div>

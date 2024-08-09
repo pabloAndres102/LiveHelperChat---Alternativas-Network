@@ -4,31 +4,36 @@ $fbOptions = erLhcoreClassModelChatConfig::fetch('fbmessenger_options');
 $data = (array)$fbOptions->data;
 $tpl = erLhcoreClassTemplate::getInstance('lhfbwhatsapp/profilebusiness.tpl.php');
 
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://graph.facebook.com/v18.0/'.$data['business_phone_id'].'/whatsapp_business_profile?fields=about%2Caddress%2Cdescription%2Cemail%2Cprofile_picture_url%2Cwebsites%2Cvertical',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_HTTPHEADER => array(
-    'Authorization: Bearer '.$data['whatsapp_access_token']
-  ),
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-$response_GET = json_decode($response, true);
+$phones = array_map('trim', explode(',', $data['whatsapp_business_account_phone_number']));
+$tpl->set('phones', $phones);
 
 
+if (isset($_POST['phone'])) {
+    $_SESSION['phone'] = $_POST['phone'];
+    $curl = curl_init();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://graph.facebook.com/v18.0/' . $_POST['phone'] . '/whatsapp_business_profile?fields=about%2Caddress%2Cdescription%2Cemail%2Cprofile_picture_url%2Cwebsites%2Cvertical',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer ' . $data['whatsapp_access_token']
+        ),
+    ));
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+    $response_GET = json_decode($response, true);
+}
+
+if ($_POST['about']) {
+    $profile_id_phone =  $_POST['phone_profile'];
     $messaging_product = 'whatsapp';
     $about = $_POST['about'];
     $address = $_POST['address'];
@@ -113,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($postdata)) {
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://graph.facebook.com/v17.0/' . $data['business_phone_id'] . '/whatsapp_business_profile',
+            CURLOPT_URL => 'https://graph.facebook.com/v17.0/' .  $profile_id_phone . '/whatsapp_business_profile',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -132,15 +137,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         curl_close($curl);
 
         $jsonResponse = json_decode($response, true);
-        
+
         // print_r($jsonResponse);
 
-        
+
     }
 }
 
 
-$tpl->set('config', $response_GET); 
+$tpl->set('config', $response_GET);
 $Result['content'] = $tpl->fetch();
 if (isset($jsonResponse['error'])) {
     $_SESSION['profile_error'] = $jsonResponse['error']['message'];
@@ -151,7 +156,7 @@ if (isset($jsonResponse['error'])) {
     $_SESSION['profile_success'] = 'Se ha actualizado su perfil con exito! ';
 } else {
     $_SESSION['profile_unknown_error'] = $jsonResponse;
-}
+} 
 
 if (isset($jsonResponse)) {
     header('Location: ' . erLhcoreClassDesign::baseurl('fbwhatsapp/profilebusiness'));

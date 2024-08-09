@@ -29,7 +29,8 @@ class erLhcoreClassModelMessageFBWhatsAppCampaign
             'template_id' => $this->template_id,
             'language' => $this->language,
             'private' => $this->private,
-            'finished_at' => $this->finished_at // Añadir la propiedad finished_at
+            'finished_at' => $this->finished_at,
+            'lists_id' => $this->lists_id // Añadir la propiedad lists_id
         );
     }
 
@@ -102,6 +103,9 @@ class erLhcoreClassModelMessageFBWhatsAppCampaign
             case 'finished_at':
                 return $this->finished_at;
 
+            case 'lists_id':
+                return $this->lists_id;
+
             default:
                 break;
         }
@@ -129,9 +133,8 @@ class erLhcoreClassModelMessageFBWhatsAppCampaign
     public $template = '';
     public $template_id = '';
     public $language = '';
-    public $finished_at = 0; // Añadir la propiedad finished_at
+    public $finished_at = 0;
+    public $lists_id = ''; // Añadir la propiedad lists_id
 }
-
-
 
 ?>

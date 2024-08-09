@@ -15,6 +15,10 @@
   <context>
   <name>module/fbmessenger</name>
   <message>
+      <source>Summary of the last 30 days</source>
+      <translation>Resumen de los ultimos 30 dias</translation>
+    </message>
+  <message>
       <source>Template type</source>
       <translation>Tipo</translation>
     </message>

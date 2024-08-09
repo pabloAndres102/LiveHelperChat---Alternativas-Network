@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <div class="col-2">
+        <!-- <div class="col-2">
             <label><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Delivery status'); ?></label>
             <select name="delivery_status" class="form-control form-control-sm">
                 <option value=""><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Choose'); ?></option>
@@ -61,7 +61,17 @@
                 <option <?php if ($input->delivery_status === \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_FAILED) : ?>selected="selected" <?php endif; ?> value="<?php echo \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_FAILED ?>"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Failed'); ?></option>
                 <option <?php if ($input->delivery_status === \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_ACTIVE) : ?>selected="selected" <?php endif; ?> value="<?php echo \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_ACTIVE ?>"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Active'); ?></option>
             </select>
+        </div> -->
+
+        <div class="col-2">
+            <label><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Enabled'); ?></label>
+            <select name="enabled" class="form-control form-control-sm">
+                <option value=""><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Choose'); ?></option>
+                <option <?php if ($input->enabled === '1') : ?>selected="selected" <?php endif; ?> value="1"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Enabled'); ?></option>
+                <option <?php if ($input->enabled === '0') : ?>selected="selected" <?php endif; ?> value="0"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Disabled'); ?></option>
+            </select>
         </div>
+
 
     </div>
 

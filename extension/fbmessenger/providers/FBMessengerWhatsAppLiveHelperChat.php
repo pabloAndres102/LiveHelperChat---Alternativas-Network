@@ -152,6 +152,17 @@ namespace LiveHelperChatExtension\fbmessenger\providers {
                 'method' => "v15.0/{$name}",
             ]);
         }
+        public function getTemplateById($templateId)
+        {
+            // https://developers.facebook.com/docs/graph-api/reference/whats-app-business-hsm/
+            // curl -i -X GET "https://graph.facebook.com/v20.0/WHATS-APP-MESSAGE-TEMPLATE-ID?access_token=USER-ACCESS-TOKEN"
+            return $this->getRestAPI([
+                'baseurl' => $this->endpoint,
+                'bearer' =>  $this->access_key,
+                'method' => "v20.0/{$templateId}",
+            ]);
+        }
+
 
 
 
@@ -255,7 +266,7 @@ namespace LiveHelperChatExtension\fbmessenger\providers {
 
                     // fwrite($logFile, "Message variables: " . print_r($item->message_variables, true) . "\n");
                     // fwrite($logFile, "MESSAGE VARIABLES ARRAY: " . print_r($item->message_variables_array, true) . "\n");
-  
+
 
                     $parameters = [
                         [

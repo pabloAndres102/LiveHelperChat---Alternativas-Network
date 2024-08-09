@@ -11,7 +11,6 @@
             <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Owner'); ?></th>
             <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Status'); ?></th>
             <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Type'); ?></th>
-            <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Delivery status'); ?></th>
             <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Chat ID'); ?></th>
             <th><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Send'); ?></th>
             <th width="1%"></th>
@@ -80,7 +79,7 @@
                         <span class="material-icons">vpn_lock</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Private'); ?>
                     <?php endif; ?>
                 </td>
-                <td>
+                <!-- <td>
                     <?php
                     $deliveryStatus = $item->delivery_status;
                     if ($deliveryStatus === \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_UNKNOWN) {
@@ -93,7 +92,7 @@
                         echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Active');
                     }
                     ?>
-                </td>
+                </td> -->
                 <td>
                     <?php if ($item->chat_id > 0) : ?>
                         <a target="_blank" href="<?php echo erLhcoreClassDesign::baseurl('front/default') ?>/(cid)/<?php echo $item->chat_id ?>/#!#chat-id-<?php echo $item->chat_id ?>"><span class="material-icons">open_in_new</span><?php echo $item->chat_id ?></a>

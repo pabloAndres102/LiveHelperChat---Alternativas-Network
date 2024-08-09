@@ -24,7 +24,43 @@ $Result['path'] = array(
 
 $components = [];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  
+  $buttons = [];
+  for ($i = 1; $i <= 10; $i++) {
+    $buttonText = isset($_POST["button$i"]) ? $_POST["button$i"] : null;
+    if (!empty($buttonText)) {
+        $buttons[] = [
+            "type" => "QUICK_REPLY",
+            "text" => $buttonText
+        ];
+    }
+}
+$urlButtons = [];
+  for ($i = 1; $i <= 2; $i++) {
+    $buttonWebText = isset($_POST["buttonWebText$i"]) ? $_POST["buttonWebText$i"] : null;
+    $buttonWebUrl = isset($_POST["buttonWebUrl$i"]) ? $_POST["buttonWebUrl$i"] : null;
+    if (!empty($buttonWebText) && !empty($buttonWebUrl)) {
+      $urlButtons[] = [
+        "type" => "URL",
+        "text" => $buttonWebText,
+        "url" => $buttonWebUrl
+      ];
+    }
+  }
+  if (!empty($urlButtons)) {
+    $buttons = array_merge($buttons, $urlButtons);
+  }
+
+  $buttonCallbackPhone = $_POST['buttoCallbackCountry'] . $_POST['buttonCallbackPhone'];
+  $buttonCallbackText = $_POST['buttonCallbackText'];
+  if (!empty($buttonCallbackPhone)) {
+      $buttons[] = [
+          "type" => "PHONE_NUMBER",
+          "text" => $buttonCallbackText,
+          "phone_number" => $buttonCallbackPhone
+      ];
+  }
+
+
   $token = $data['whatsapp_access_token'];
   $app_id = $data['app_id'];
   $whatsapp_business_account_id = $data['whatsapp_business_account_id'];
@@ -46,9 +82,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $inputCuerpo5 = $_POST['variableCuerpo5'];
   $variableHeader = isset($_POST['inputNuevo']) ? $_POST['inputNuevo'] : "";
 
-  $buttoCallbackCountry = $_POST['buttoCallbackCountry'];
-  $buttonCallbackText = $_POST['buttonCallbackText'];
-  $buttonCallbackPhone = $_POST['buttonCallbackPhone'];
 
   $flow_text = $_POST['flow_text'];
   $flow_id = $_POST['flow_id'];
@@ -67,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $buttonOffertURL = $_POST['buttonOffertURL'];
   $buttonNameOffertURL = $_POST['buttonNameOffertURL'];
 
-  $buttonCallbackPhone = $buttoCallbackCountry . $buttonCallbackPhone;
+
 
   $buttonWebText = $_POST['buttonWebText'];
   $buttonWebUrl = $_POST['buttonWebUrl'];
@@ -145,26 +178,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   #Create template
   $button = [];
 
-  if (!empty($button1)) {
-    $button[] =  [
-      "type" => "QUICK_REPLY",
-      "text" => $button1
-    ];
-  };
+  // if (!empty($button1)) {
+  //   $button[] =  [
+  //     "type" => "QUICK_REPLY",
+  //     "text" => $button1
+  //   ];
+  // };
 
-  if (!empty($button2)) {
-    $button[] =  [
-      "type" => "QUICK_REPLY",
-      "text" => $button2
-    ];
-  };
+  // if (!empty($button2)) {
+  //   $button[] =  [
+  //     "type" => "QUICK_REPLY",
+  //     "text" => $button2
+  //   ];
+  // };
 
-  if (!empty($button3)) {
-    $button[] =  [
-      "type" => "QUICK_REPLY",
-      "text" => $button3
+  // if (!empty($button3)) {
+  //   $button[] =  [
+  //     "type" => "QUICK_REPLY",
+  //     "text" => $button3
+  //   ];
+  // };
+  if (!empty($buttons)) {
+    $components[] = [
+        "type" => "BUTTONS",
+        "buttons" => $buttons
     ];
-  };
+}
 
 
   if (!empty($buttonCatalog)) {
@@ -204,14 +243,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ];
   };
 
-
-  if (!empty($buttonCallbackPhone)) {
-    $button[] =  [
-      "type" => "PHONE_NUMBER",
-      "text" => $buttonCallbackText,
-      "phone_number" => $buttonCallbackPhone
-    ];
-  };
 
   if (!empty($buttonWebText)) {
     $button[] =  [
@@ -357,7 +388,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       'name' => $templateName,
       'category' => $templateCat,
       'language' => $language,
-      'components' => $components
+      'components' => $components,
+      'cta_url_link_tracking_opted_out' => true
     );
   }
 
@@ -382,7 +414,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $jsonresponse = json_decode($result, true);
   // print_r('<br>');
   // print_r($jsonresponse);
-  // curl_close($ch);
+  curl_close($ch);
 
   if (isset($jsonresponse['error'])) {
     $_SESSION['api_error'] = $jsonresponse;

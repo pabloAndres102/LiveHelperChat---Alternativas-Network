@@ -9,6 +9,12 @@ $ViewList['togglecampaign'] = array(
     'functions' => array( 'use_admin' )
 );
 
+$ViewList['kanban'] = array(
+    'params' => array(),
+    'uparams' => array(),
+    'functions' => array( 'use_admin','view_kanban' )
+);
+
 $ViewList['statistic_campaign'] = array(
     'params' => array(),
     'uparams' => array(),
