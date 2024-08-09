@@ -1776,7 +1776,15 @@
         "key": "",
         "default": null,
         "extra": ""
-      }
+      },
+      {
+        "field": "lists_id",
+        "type": "varchar(100)",
+        "null": "NO",
+        "collate": "utf8mb4_unicode_ci",
+        "default": null,
+        "extra": ""
+    }
     ],
     "lh_abstract_subject_dep": [
       {
