@@ -87,10 +87,11 @@
     <h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Statistics'); ?></h1>
     <br>
     <form method="POST" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/index') ?>" id="dateForm">
-        <input type="datetime-local" name="start" id="startDate" value="<?php echo (isset($startTimestamp) ? date('Y-m-01\T00:00', $startTimestamp) : date('Y-m-01\T00:00')); ?>">&nbsp;&nbsp;
+        <input type="datetime-local" name="start" id="startDate" value="<?php echo (isset($startTimestamp) ? date('Y-m-d\TH:i', $startTimestamp) : date('Y-m-d\TH:i')); ?>">&nbsp;&nbsp;
         <input type="datetime-local" name="end" id="endDate" value="<?php echo (isset($endTimestamp) ? date('Y-m-d\TH:i', $endTimestamp) : date('Y-m-d\TH:i')); ?>">&nbsp;&nbsp;
         <button class="btn btn-primary" type="submit"><span class="material-icons">search</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Search'); ?></button>
     </form>
+
     <br>
     <div class="row">
         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
@@ -195,7 +196,7 @@
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-        <form method="GET" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/indicators') ?>" class="indicatorForm">
+            <form method="GET" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/indicators') ?>" class="indicatorForm">
                 <input type="hidden" name="status_statistic" value="2">
                 <input type="hidden" name="start" class="startDate">
                 <input type="hidden" name="end" class="endDate">
@@ -212,7 +213,7 @@
         </div>
 
         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-        <form method="GET" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/indicators') ?>" class="indicatorForm">
+            <form method="GET" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/indicators') ?>" class="indicatorForm">
                 <input type="hidden" name="status_statistic" value="6">
                 <input type="hidden" name="start" class="startDate">
                 <input type="hidden" name="end" class="endDate">

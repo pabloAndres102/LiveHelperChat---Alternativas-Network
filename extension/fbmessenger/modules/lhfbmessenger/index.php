@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
+
 $tpl->set('startTimestamp', $startTimestamp);
 $tpl->set('endTimestamp', $endTimestamp);
 
