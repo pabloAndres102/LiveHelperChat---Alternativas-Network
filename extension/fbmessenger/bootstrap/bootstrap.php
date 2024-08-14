@@ -9,7 +9,7 @@ class erLhcoreClassExtensionFbmessenger {
 	public function run() {
 		$this->registerAutoload ();
 		
-		include_once 'extension/fbmessenger/vendor/autoload.php';
+		
 		
 		$dispatcher = erLhcoreClassChatEventDispatcher::getInstance();
 		

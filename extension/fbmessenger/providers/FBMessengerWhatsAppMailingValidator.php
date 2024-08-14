@@ -539,7 +539,7 @@ class FBMessengerWhatsAppMailingValidator
         }
 
         if ($form->hasValidData('business_account_id')) {
-            $item->business_account_id = \strtotime($form->business_account_id);
+            $item->business_account_id = $form->business_account_id;
         } else {
             $item->business_account_id = 0;
         }
