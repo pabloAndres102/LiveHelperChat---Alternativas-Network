@@ -13,7 +13,7 @@ if (isset($_POST['phone'])) {
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://graph.facebook.com/v18.0/' . $_POST['phone'] . '/whatsapp_business_profile?fields=about%2Caddress%2Cdescription%2Cemail%2Cprofile_picture_url%2Cwebsites%2Cvertical',
+        CURLOPT_URL => 'https://graph.facebook.com/v20.0/' . $_POST['phone'] . '/whatsapp_business_profile?fields=about%2Caddress%2Cdescription%2Cemail%2Cprofile_picture_url%2Cwebsites%2Cvertical',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -62,7 +62,7 @@ if ($_POST['about']) {
         $nombre_archivo = str_replace(' ', '', $nombre_archivo);
 
         curl_setopt_array($ch, array(
-            CURLOPT_URL => 'https://graph.facebook.com/v17.0/' . $data['app_id'] . '/uploads?file_length=' . $tamaño_archivo . '&file_type=' . $tipo_archivo . '&file_name=' . $nombre_archivo,
+            CURLOPT_URL => 'https://graph.facebook.com/v20.0/' . $data['app_id'] . '/uploads?file_length=' . $tamaño_archivo . '&file_type=' . $tipo_archivo . '&file_name=' . $nombre_archivo,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -87,7 +87,7 @@ if ($_POST['about']) {
 
 
         curl_setopt_array($ch2, array(
-            CURLOPT_URL => 'https://graph.facebook.com/v17.0/' . $session_id,
+            CURLOPT_URL => 'https://graph.facebook.com/v20.0/' . $session_id,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -118,7 +118,7 @@ if ($_POST['about']) {
 
     if (isset($postdata)) {
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://graph.facebook.com/v17.0/' .  $profile_id_phone . '/whatsapp_business_profile',
+            CURLOPT_URL => 'https://graph.facebook.com/v20.0/' .  $profile_id_phone . '/whatsapp_business_profile',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,

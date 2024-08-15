@@ -133,7 +133,7 @@ $tpl->setArray([
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-    CURLOPT_URL => 'https://graph.facebook.com/v18.0/' . $template_id . '',
+    CURLOPT_URL => 'https://graph.facebook.com/v20.0/' . $template_id . '',
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => '',
     CURLOPT_MAXREDIRS => 10,

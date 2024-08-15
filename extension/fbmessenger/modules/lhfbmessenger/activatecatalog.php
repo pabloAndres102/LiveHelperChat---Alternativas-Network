@@ -7,7 +7,7 @@ $data = (array)$fbOptions->data;
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://graph.facebook.com/v17.0/'.$data['whatsapp_business_account_phone_number'].'/whatsapp_commerce_settings',
+  CURLOPT_URL => 'https://graph.facebook.com/v20.0/'.$data['whatsapp_business_account_phone_number'].'/whatsapp_commerce_settings',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -38,10 +38,10 @@ $curl = curl_init();
 
 if($data['business_phone_id']){
     if ($is_cart_enabled == true) {
-        $url = 'https://graph.facebook.com/v17.0/'.$data['business_phone_id'].'/whatsapp_commerce_settings?is_cart_enabled=false&is_catalog_visible=false';
+        $url = 'https://graph.facebook.com/v20.0/'.$data['business_phone_id'].'/whatsapp_commerce_settings?is_cart_enabled=false&is_catalog_visible=false';
         $_SESSION['desactivado'] = 'Su catalogo fue desactivado exitosamente';
     } else {
-        $url = 'https://graph.facebook.com/v17.0/'.$data['business_phone_id'].'/whatsapp_commerce_settings?is_cart_enabled=true&is_catalog_visible=true';
+        $url = 'https://graph.facebook.com/v20.0/'.$data['business_phone_id'].'/whatsapp_commerce_settings?is_cart_enabled=true&is_catalog_visible=true';
         $_SESSION['activado'] = 'Su catalogo fue activado exitosamente';
     }
 }else {

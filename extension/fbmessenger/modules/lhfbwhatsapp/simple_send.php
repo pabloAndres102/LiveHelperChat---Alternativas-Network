@@ -301,7 +301,7 @@ if (ezcInputForm::hasPostData()) {
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://graph.facebook.com/v18.0/' . $data['business_phone_id'] . '/media',
+                    CURLOPT_URL => 'https://graph.facebook.com/v20.0/' . $data['business_phone_id'] . '/media',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -383,7 +383,7 @@ if (ezcInputForm::hasPostData()) {
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://graph.facebook.com/v18.0/' . $data['business_phone_id'] . '/media',
+                    CURLOPT_URL => 'https://graph.facebook.com/v20.0/' . $data['business_phone_id'] . '/media',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,

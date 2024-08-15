@@ -52,7 +52,7 @@ namespace LiveHelperChatExtension\fbmessenger\providers {
             $templates = $this->getRestAPI([
                 'baseurl'   => $this->endpoint,
                 'bearer'    => $this->access_key,
-                'method'    => "v15.0/{$this->whatsapp_business_account_id}/phone_numbers",
+                'method'    => "v20.0/{$this->whatsapp_business_account_id}/phone_numbers",
             ]);
 
             if (isset($templates['data']) && is_array($templates['data'])) {
@@ -66,12 +66,12 @@ namespace LiveHelperChatExtension\fbmessenger\providers {
         {
             // https://developers.facebook.com/docs/graph-api/reference/whats-app-business-account/message_templates/
             // curl -i -X GET "https://graph.facebook.com/LATEST-VERSION/WHATSAPP-BUSINESS-ACCOUNT-ID/message_templates?access_token=USER-ACCESS-TOKEN"
-            // curl -i -X GET "https://graph.facebook.com/v15.0/105209658989864/message_templates?access_token=EAARB6lT6poQBAPgBHm06sO7QfAZAPjflwCRuLRCKHnT9I9g9ZCeDqQ5bLktX647qH2JwWmMWD1kijbReD5ZASZAdJZCFgIyN5NJ1lkzhjwsibYDSwN5a6YhZCUgMgZCbl52am5Q8pXLatXmTp4yxL1kdhDC3DTai1MU7Ujmo1suscwjwoSPgR71"
+            // curl -i -X GET "https://graph.facebook.com/v20.0/105209658989864/message_templates?access_token=EAARB6lT6poQBAPgBHm06sO7QfAZAPjflwCRuLRCKHnT9I9g9ZCeDqQ5bLktX647qH2JwWmMWD1kijbReD5ZASZAdJZCFgIyN5NJ1lkzhjwsibYDSwN5a6YhZCUgMgZCbl52am5Q8pXLatXmTp4yxL1kdhDC3DTai1MU7Ujmo1suscwjwoSPgR71"
 
             $templates = $this->getRestAPI([
                 'baseurl'   => $this->endpoint,
                 'bearer'    => $this->access_key,
-                'method'    => "v18.0/{$this->whatsapp_business_account_id}/message_templates",
+                'method'    => "v20.0/{$this->whatsapp_business_account_id}/message_templates",
                 'args'      => [
                     'limit' => 1000,
                 ],
@@ -91,7 +91,7 @@ namespace LiveHelperChatExtension\fbmessenger\providers {
             $phoneNumber = str_replace([' ', '+'], '', $phoneNumber);
             $curl = curl_init();
             curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://graph.facebook.com/v18.0/' . $this->whatsapp_business_account_id . '?fields=conversation_analytics.start(' . $start . ').end(' . $end . ').granularity(' . $granularity . ').phone_numbers([' . $phoneNumber . ']).conversation_directions([]).dimensions([%22CONVERSATION_CATEGORY%22%2C%22CONVERSATION_TYPE%22%2C%22COUNTRY%22%2C%22PHONE%22%2C%22CONVERSATION_DIRECTION%22])%0A',
+                CURLOPT_URL => 'https://graph.facebook.com/v20.0/' . $this->whatsapp_business_account_id . '?fields=conversation_analytics.start(' . $start . ').end(' . $end . ').granularity(' . $granularity . ').phone_numbers([' . $phoneNumber . ']).conversation_directions([]).dimensions([%22CONVERSATION_CATEGORY%22%2C%22CONVERSATION_TYPE%22%2C%22COUNTRY%22%2C%22PHONE%22%2C%22CONVERSATION_DIRECTION%22])%0A',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -116,7 +116,7 @@ namespace LiveHelperChatExtension\fbmessenger\providers {
             $template_id = json_encode($template_id);
 
             $curl = curl_init();
-            $url = 'https://graph.facebook.com/v18.0/' . $this->whatsapp_business_account_id . '/template_analytics?start=' . $start . '&end=' . $end . '&granularity=DAILY&metric_types=[%22SENT%22%2C%22DELIVERED%22%2C%22READ%22%2C%22CLICKED%22]&template_ids=[' . $template_id . ']&limit=1000';
+            $url = 'https://graph.facebook.com/v20.0/' . $this->whatsapp_business_account_id . '/template_analytics?start=' . $start . '&end=' . $end . '&granularity=DAILY&metric_types=[%22SENT%22%2C%22DELIVERED%22%2C%22READ%22%2C%22CLICKED%22]&template_ids=[' . $template_id . ']&limit=1000';
 
             curl_setopt_array($curl, array(
                 CURLOPT_URL => $url,
@@ -149,7 +149,7 @@ namespace LiveHelperChatExtension\fbmessenger\providers {
             return $this->getRestAPI([
                 'baseurl' => $this->endpoint,
                 'bearer' =>  $this->access_key,
-                'method' => "v15.0/{$name}",
+                'method' => "v20.0/{$name}",
             ]);
         }
         public function getTemplateById($templateId)
@@ -465,7 +465,7 @@ namespace LiveHelperChatExtension\fbmessenger\providers {
 
             $requestParams = [
                 'baseurl' => $this->endpoint,
-                'method' => "v18.0/{$item->phone_sender_id}/messages",
+                'method' => "v20.0/{$item->phone_sender_id}/messages",
                 'bearer' => $this->access_key,
                 'body_json' => json_encode([
                     'messaging_product' => 'whatsapp',
