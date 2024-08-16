@@ -3,6 +3,125 @@
 <script src="https://cdn.jsdelivr.net/npm/emojionearea@3.4.2/dist/emojionearea.min.js"></script>
 
 <style>
+    .whatsapp-buttons {
+        display: flex;
+        flex-direction: column;
+        /* Asegura que los botones se coloquen en una columna */
+        gap: 10px;
+        /* Espacio entre los botones */
+        margin-top: 10px;
+    }
+
+    .whatsapp-button-text {
+        padding: 10px 15px;
+        border-radius: 5px;
+        background-color: #25D366;
+        /* Color similar al de WhatsApp */
+        color: white;
+        font-size: 16px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .whatsapp-catalog {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .whatsapp-catalog .material-icons {
+        vertical-align: middle;
+        font-size: 36px;
+        /* Tamaño grande del ícono */
+        margin-right: 8px;
+    }
+
+    .whatsapp-header .material-icons {
+        vertical-align: middle;
+        font-size: 50px;
+        /* Tamaño grande del ícono */
+        margin-right: 8px;
+    }
+
+    .whatsapp-button-text,
+    .whatsapp-country-code {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #25D366;
+        /* Color verde de WhatsApp */
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+    }
+
+    .whatsapp-button-text {
+        display: inline-block;
+    }
+
+    /* Ajustes generales para los elementos dentro de la previsualización */
+    #previewContainer {
+        border: 1px solid #ccc;
+        /* Borde alrededor del contenedor de previsualización */
+        padding: 10px;
+        /* Espaciado interno del contenedor */
+        border-radius: 5px;
+        /* Bordes redondeados */
+        background-color: #f9f9f9;
+        /* Color de fondo del contenedor */
+    }
+
+    .whatsapp-message {
+        max-width: 300px;
+        background-color: #DCF8C6;
+        /* Color típico del mensaje en WhatsApp */
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    .whatsapp-header {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #075E54;
+        /* Color del texto del encabezado */
+    }
+
+    .whatsapp-body {
+        margin-bottom: 5px;
+    }
+
+    .whatsapp-footer {
+        font-size: 12px;
+        color: #888;
+        text-align: right;
+    }
+
+    .variable-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .variable-input {
+        width: 35%;
+        margin-right: 10px;
+        /* Espacio entre el input y el icono */
+    }
+
+    .eliminarIcon {
+        cursor: pointer;
+        color: red;
+        font-size: 24px;
+        vertical-align: middle;
+    }
+
+
     .button-group {
         margin-bottom: 10px;
     }
@@ -40,8 +159,12 @@
         <center>
             <h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Create template'); ?></h1>
         </center> <br>
-        <center><a href="<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/templates'); ?>" class="btn btn-primary"><span class="material-icons">description</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Templates'); ?></a></center>
-        <form method="POST" action=<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/create') ?> enctype="multipart/form-data" onsubmit="return validateForm()">
+        <center>
+            <div id="templatePreview">
+            </div>
+            <button id="confirmSubmit" style="display:none;" type="submit" class="btn btn-success"><span class="material-icons">send</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Create'); ?></button> <br> <br>
+        </center>
+        <form id="templateForm" method="POST" action=<?php echo erLhcoreClassDesign::baseurl('fbwhatsapp/create') ?> enctype="multipart/form-data" onsubmit="return validateForm()">
             <div class="mb-3">
                 <label for="edad" class="form-label"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('abstract/widgettheme', 'Name'); ?> <?php echo htmlspecialchars($template['name']) ?></strong></label>
                 <input type="text" class="form-control" id="templateName" name="templateName" placeholder=<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('abstract/widgettheme', 'Name'); ?> required>
@@ -146,64 +269,73 @@
                 </div>
 
                 <div class="mb-3 hidden-content" id="headers">
-    <br>
-    <span><small><strong>Ejemplos de contenido del encabezado y variables: </strong><br>
-            Para ayudarnos a revisar tu contenido, proporciona ejemplos de las variables o del contenido multimedia en el encabezado. No incluyas información del cliente. Meta revisa las plantillas y los parámetros de las variables para proteger la seguridad e integridad de nuestros servicios.
-        </small></span><br><br>
-    <label for="header" class="form-label"> <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Header type'); ?></strong></label>
-    <select class="form-select" id="header" name="header" aria-label="Default select example">
-        <option value=""><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Without header'); ?></option>
-        <option value="DOCUMENT"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Document'); ?></option>
-        <option value="TEXT"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Text'); ?></option>
-        <option value="VIDEO"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Video'); ?></option>
-        <option value="IMAGE"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Image'); ?></option>
-    </select>
+                    <br>
+                    <span><small><strong>Ejemplos de contenido del encabezado y variables: </strong><br>
+                            Para ayudarnos a revisar tu contenido, proporciona ejemplos de las variables o del contenido multimedia en el encabezado. No incluyas información del cliente. Meta revisa las plantillas y los parámetros de las variables para proteger la seguridad e integridad de nuestros servicios.
+                        </small></span><br><br>
+                    <label for="header" class="form-label"> <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Header type'); ?></strong></label>
+                    <select class="form-select" id="header" name="header" aria-label="Default select example">
+                        <option value=""><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Without header'); ?></option>
+                        <option value="DOCUMENT"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Document'); ?></option>
+                        <option value="TEXT"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Text'); ?></option>
+                        <option value="VIDEO"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Video'); ?></option>
+                        <option value="IMAGE"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Image'); ?></option>
+                    </select>
 
-    <label for="campoDeTexto" id="labelCampoDeTexto" class="form-label" hidden> <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Text header'); ?></strong> </label>
-    <input type="text" id="campoDeTexto" name="campoDeTexto" class="form-control" maxlength="60" placeholder="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'You can upload a variable'); ?>" hidden>
-    <div id="charCount1" class="form-text" hidden>Caracteres: 0 de 60</div>
+                    <label for="campoDeTexto" id="labelCampoDeTexto" class="form-label" hidden> <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Text header'); ?></strong> </label>
+                    <input type="text" id="campoDeTexto" name="campoDeTexto" class="form-control" maxlength="60" placeholder="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'You can upload a variable'); ?>" hidden>
+                    <div id="charCount1" class="form-text" hidden>Caracteres: 0 de 60</div>
 
-    <div id="nuevoInput" style="display: none;">
-        <label for="inputNuevo">Variable</label>
-        <input type="text" id="inputNuevo" name="inputNuevo" class="form-control">
-    </div>
+                    <div id="nuevoInput" style="display: none;">
+                        <label for="inputNuevo">Variable</label>
+                        <input type="text" id="inputNuevo" name="inputNuevo" class="form-control">
+                    </div>
 
-    <input type="file" name="archivo" id="archivo" class="form-control" hidden>
-</div>
+                    <input type="file" name="archivo" id="archivo" class="form-control" hidden>
+                </div>
 
                 <div class="form-group shadow-textarea hidden-content">
                     <label for="textAreaTexto"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Body'); ?></strong></label>
                     <textarea id="textAreaTexto" name="text" class="form-control z-depth-1" rows="3" maxlength="1024" placeholder="<?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Remember that you can load a maximum of 5 variables'); ?>"></textarea>
 
-                    <button type="button" id="mostrarVariablesBtn" class="btn btn-primary"><span class="material-icons">visibility</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Add variable'); ?></button>
-                    <button type="button" id="quitarVariablesBtn" class="btn btn-dark"><span class="material-icons">cleaning_services</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Clean'); ?></button>
+                    <button type="button" id="mostrarVariablesBtn" class="btn btn-primary">
+                        <span class="material-icons">visibility</span>
+                        <?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Add variable'); ?>
+                    </button>
                     <br>
 
-                    <div id="variableCuerpo" style="display: none;">
+                    <div id="variableCuerpo" class="variable-group" style="display: none;">
                         <label for="variableCuerpoInput">Variable 1: </label>
-                        <input type="text" id="variableCuerpoInput" name="variableCuerpo" class="form-control" />
+                        <input type="text" id="variableCuerpoInput" name="variableCuerpo" class="form-control variable-input" />
+                        <span class="material-icons eliminarIcon">delete</span>
                     </div>
 
-                    <div id="variableCuerpo2" style="display: none;">
+                    <div id="variableCuerpo2" class="variable-group" style="display: none;">
                         <label for="variableCuerpoInput2">Variable 2: </label>
-                        <input type="text" id="variableCuerpoInput2" name="variableCuerpo2" class="form-control" />
+                        <input type="text" id="variableCuerpoInput2" name="variableCuerpo2" class="form-control variable-input" />
+                        <span class="material-icons eliminarIcon">delete</span>
                     </div>
 
-                    <div id="variableCuerpo3" style="display: none;">
+                    <div id="variableCuerpo3" class="variable-group" style="display: none;">
                         <label for="variableCuerpoInput3">Variable 3: </label>
-                        <input type="text" id="variableCuerpoInput3" name="variableCuerpo3" class="form-control" />
+                        <input type="text" id="variableCuerpoInput3" name="variableCuerpo3" class="form-control variable-input" />
+                        <span class="material-icons eliminarIcon">delete</span>
                     </div>
 
-                    <div id="variableCuerpo4" style="display: none;">
+                    <div id="variableCuerpo4" class="variable-group" style="display: none;">
                         <label for="variableCuerpoInput4">Variable 4: </label>
-                        <input type="text" id="variableCuerpoInput4" name="variableCuerpo4" class="form-control" />
+                        <input type="text" id="variableCuerpoInput4" name="variableCuerpo4" class="form-control variable-input" />
+                        <span class="material-icons eliminarIcon">delete</span>
                     </div>
 
-                    <div id="variableCuerpo5" style="display: none;">
+                    <div id="variableCuerpo5" class="variable-group" style="display: none;">
                         <label for="variableCuerpoInput5">Variable 5: </label>
-                        <input type="text" id="variableCuerpoInput5" name="variableCuerpo5" class="form-control" />
+                        <input type="text" id="variableCuerpoInput5" name="variableCuerpo5" class="form-control variable-input" />
+                        <span class="material-icons eliminarIcon">delete</span>
                     </div>
                 </div>
+
+
 
                 <label style="display: none;" for="buttonOffertURL"><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'URL site'); ?></strong></strong></label>
                 <input class="form-control" type="text" id="buttonNameOffertURL" name="buttonNameOffertURL" maxlength="25" placeholder="Nombre del boton" style="display: none;">
@@ -230,7 +362,7 @@
                     </button>
                     <div id="buttonsContainer"></div>
                 </div>
-                
+
                 <br>
                 <div class="form-check form-switch hidden-content">
                     <label for="mostrarInputsURL">
@@ -558,62 +690,63 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success"><span class="material-icons">send</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Send'); ?></button> <br> <br>
+                <button class="btn btn-success" type="submit">Previsualización<span class="material-icons">visibility</span></button><br>
         </form>
+
 
         <br>
         <br> <br> <br> <br> <br> <br> <br> <br> <br>
     </div>
     <script>
-    document.getElementById('header').addEventListener('change', function() {
-        var archivoInput = document.getElementById('archivo');
-        var headerValue = this.value;
+        document.getElementById('header').addEventListener('change', function() {
+            var archivoInput = document.getElementById('archivo');
+            var headerValue = this.value;
 
-        archivoInput.value = '';  // Clear the file input
-        archivoInput.hidden = false; // Show the file input
+            archivoInput.value = ''; // Clear the file input
+            archivoInput.hidden = false; // Show the file input
 
-        if (headerValue === 'VIDEO') {
-            archivoInput.accept = 'video/*';
-        } else if (headerValue === 'IMAGE') {
-            archivoInput.accept = 'image/*';
-        } else if (headerValue === 'DOCUMENT') {
-            archivoInput.accept = 'application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, .doc, .docx, .pdf';
-        } else if (headerValue === 'TEXT') {
-            archivoInput.hidden = true; // Hide the file input for text header
-        } else {
-            archivoInput.hidden = true; // Hide the file input if no valid header type is selected
-        }
+            if (headerValue === 'VIDEO') {
+                archivoInput.accept = 'video/*';
+            } else if (headerValue === 'IMAGE') {
+                archivoInput.accept = 'image/*';
+            } else if (headerValue === 'DOCUMENT') {
+                archivoInput.accept = 'application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, .doc, .docx, .pdf';
+            } else if (headerValue === 'TEXT') {
+                archivoInput.hidden = true; // Hide the file input for text header
+            } else {
+                archivoInput.hidden = true; // Hide the file input if no valid header type is selected
+            }
 
-        // Show or hide text input based on header type
-        var textInput = document.getElementById('campoDeTexto');
-        var textLabel = document.getElementById('labelCampoDeTexto');
-        var charCount = document.getElementById('charCount1');
+            // Show or hide text input based on header type
+            var textInput = document.getElementById('campoDeTexto');
+            var textLabel = document.getElementById('labelCampoDeTexto');
+            var charCount = document.getElementById('charCount1');
 
-        if (headerValue === 'TEXT') {
-            textInput.hidden = false;
-            textLabel.hidden = false;
-            charCount.hidden = false;
-        } else {
-            textInput.hidden = true;
-            textLabel.hidden = true;
-            charCount.hidden = true;
-        }
-    });
-</script>
+            if (headerValue === 'TEXT') {
+                textInput.hidden = false;
+                textLabel.hidden = false;
+                charCount.hidden = false;
+            } else {
+                textInput.hidden = true;
+                textLabel.hidden = true;
+                charCount.hidden = true;
+            }
+        });
+    </script>
     <script>
-  document.getElementById('mostrarInputsURL').addEventListener('change', function() {
-    const urlButtonsContainer = document.getElementById('urlButtonsContainer');
-    const addUrlButton = document.getElementById('addUrlButton');
-    
-    if (this.checked) {
-      urlButtonsContainer.style.display = 'block';
-      addUrlButton.style.display = 'block';
-    } else {
-      urlButtonsContainer.style.display = 'none';
-      addUrlButton.style.display = 'none';
-    }
-  });
-</script>
+        document.getElementById('mostrarInputsURL').addEventListener('change', function() {
+            const urlButtonsContainer = document.getElementById('urlButtonsContainer');
+            const addUrlButton = document.getElementById('addUrlButton');
+
+            if (this.checked) {
+                urlButtonsContainer.style.display = 'block';
+                addUrlButton.style.display = 'block';
+            } else {
+                urlButtonsContainer.style.display = 'none';
+                addUrlButton.style.display = 'none';
+            }
+        });
+    </script>
 
     <script>
         let urlButtonCount = 0;
@@ -935,6 +1068,24 @@
                 }
             });
 
+            // Evento para eliminar el input correspondiente
+            $(document).on('click', '.eliminarIcon', function() {
+                var inputDiv = $(this).parent(); // Div padre que contiene el input y el icono
+                var textArea = emojione[0].emojioneArea;
+
+                // Ocultar el bloque de variables
+                inputDiv.hide();
+
+                // Remover la variable del textarea
+                var variableLabel = inputDiv.find('label').text().match(/(\d+)/); // Obtener el número de la variable
+                if (variableLabel) {
+                    var variableNumber = variableLabel[1];
+                    var currentText = textArea.getText();
+                    var newText = currentText.replace('{{' + variableNumber + '}}', '');
+                    textArea.setText(newText.trim());
+                }
+            });
+
             $('#quitarVariablesBtn').on('click', function() {
                 var textArea = emojione[0].emojioneArea;
                 var variableCuerpo = $("#variableCuerpo");
@@ -952,7 +1103,6 @@
                 variableCuerpo3.hide();
                 variableCuerpo4.hide();
                 variableCuerpo5.hide();
-                // Oculta más bloques de variables según sea necesario
             });
         });
     </script>
@@ -1128,6 +1278,115 @@
             // Si el nombre de la plantilla es válido, permite que el formulario se envíe
             return true;
         }
+    </script>
+    <script>
+        document.getElementById('templateForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario inicialmente
+
+            let previewContent = '';
+
+            // Evaluar el valor de los campos del formulario
+
+            const category = document.getElementById('templateCat').value;
+            const headerType = document.getElementById('header').value;
+            const headerText = document.getElementById('campoDeTexto').value;
+            const bodyText = document.getElementById('textAreaTexto').value;
+            const footerText = document.getElementById('footer').value;
+            const buttonText = document.getElementById('buttonCallbackText').value;
+            const countryCode = document.getElementById('buttoCallbackCountry').value;
+            const buttonCatalogChecked = document.getElementById('buttonCatalog').checked;
+            const buttonNameOffertURL = document.getElementById('buttonNameOffertURL').value;
+            const buttonOffertURL = document.getElementById('buttonOffertURL').value;
+
+            // Inputs para OTP y otros detalles
+            const otpType = document.getElementById('otp_type').value;
+            const packageName = document.getElementById('Nombrepaquete').value;
+            const packageHash = document.getElementById('Hashpaquete').value;
+            const buttonAutocompletar = document.getElementById('buttonAutocompletar').value;
+            const expiration = document.getElementById('caducidad').value;
+
+            if (headerType) {
+                if (headerType === 'VIDEO') {
+                    previewContent += `<div class="whatsapp-header"><span class="material-icons">videocam</span></div>`;
+                } else if (headerType === 'IMAGE') {
+                    previewContent += `<div class="whatsapp-header"><span class="material-icons">image</span>`;
+                } else if (headerType === 'DOCUMENT') {
+                    previewContent += `<div class="whatsapp-header"><span class="material-icons">description</span>`;
+                } else {
+                    previewContent += `<div class="whatsapp-header">${headerText}</div>`;
+                }
+            }
+            if (bodyText) {
+                previewContent += `<div class="whatsapp-body">${bodyText}</div>`;
+            }
+            if (footerText) {
+                previewContent += `<div class="whatsapp-footer">${footerText}</div>`;
+            }
+            if (buttonText) {
+                previewContent += `<div class="whatsapp-button-text"> ${buttonText}</div>`;
+            }
+            if (buttonCatalogChecked) {
+                previewContent += `<div class="whatsapp-catalog"><span class="material-icons">shopping_cart</span></div>`;
+            }
+
+            for (let i = 1; i <= 2; i++) {
+                const buttonTextInput = document.getElementById(`buttonWebText${i}`)?.value;
+                const buttonUrlInput = document.getElementById(`buttonWebUrl${i}`)?.value;
+
+                if (buttonTextInput && buttonUrlInput) {
+                    previewContent += '<div class="whatsapp-buttons">';
+                    previewContent += `
+                    <div class="whatsapp-button-text">${buttonTextInput}</div>
+                `;
+                    previewContent += '</div>';
+                }
+
+            }
+            const buttonsContainer = document.getElementById('buttonsContainer');
+            const buttons = buttonsContainer.getElementsByClassName('button-group');
+            if (buttons.length > 0) {
+                previewContent += '<div class="whatsapp-buttons">';
+                for (let i = 0; i < buttons.length; i++) {
+                    const buttonInput = buttons[i].querySelector('input').value;
+                    if (buttonInput) {
+                        previewContent += `<div class="whatsapp-button-text">${buttonInput}</div>`;
+                    }
+                }
+                previewContent += '</div>';
+            }
+            if (buttonNameOffertURL && buttonOffertURL) {
+                previewContent += '<div class="whatsapp-buttons">';
+                previewContent += `
+                    <div class="whatsapp-button-text">${buttonNameOffertURL}</div>
+                `;
+                previewContent += '</div>';
+            }
+            if (otpType) {
+                previewContent += `<div class="whatsapp-otp">
+            <div><strong>OTP Type:</strong> ${otpType}</div>`;
+                if (otpType === 'ONE_TAP') {
+                    previewContent += `<div> ${packageName}</div>`;
+                    previewContent += `<div> ${packageHash}</div>`;
+                    previewContent += `<div> ${buttonAutocompletar}</div>`;
+                }
+                previewContent += `<div> ${expiration}</div></div>`;
+            }
+
+            // Mostrar la previsualización en un estilo de WhatsApp
+            document.getElementById('templatePreview').innerHTML = `<div class="whatsapp-message">${previewContent}</div>`;
+
+            // Mostrar el botón de confirmación para enviar el formulario
+            document.getElementById('confirmSubmit').style.display = 'inline-block';
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        document.getElementById('confirmSubmit').addEventListener('click', function() {
+            // Enviar el formulario
+            document.getElementById('templateForm').submit();
+        });
     </script>
 
 </body>

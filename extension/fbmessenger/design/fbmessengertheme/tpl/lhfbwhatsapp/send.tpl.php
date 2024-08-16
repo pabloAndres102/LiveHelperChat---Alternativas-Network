@@ -16,7 +16,7 @@
     $linkUrl = erLhcoreClassDesign::baseurl('fbwhatsapp/messages');
     ?>
     <div class="alert alert-success" role="alert">
-        <p><?php echo $msg; ?><a href="<?php echo $linkUrl; ?>"><?php echo $linkText; ?></a></p>
+        <p><?php echo $msg; ?><a href="<?php echo $linkUrl; ?>" target="_blank"><?php echo $linkText; ?></a></p>
     </div>
 <?php endif; ?>
 

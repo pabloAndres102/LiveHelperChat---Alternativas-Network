@@ -1,5 +1,16 @@
 <style>
     /* Estilos para el título del gráfico */
+    select.form-control {
+        padding: 8px 12px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+        outline: none;
+        width: auto;
+        display: inline-block;
+    }
+
     .chart-title {
         font-size: 24px;
         color: #333;
@@ -82,15 +93,33 @@
     }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<?php 
+$businessAccount = \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppAccount::getList();
+?>
 <div class="container">
     <h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Statistics'); ?></h1>
     <br>
     <form method="POST" action="<?php echo erLhcoreClassDesign::baseurl('fbmessenger/index') ?>" id="dateForm">
         <input type="datetime-local" name="start" id="startDate" value="<?php echo (isset($startTimestamp) ? date('Y-m-d\TH:i', $startTimestamp) : date('Y-m-d\TH:i')); ?>">&nbsp;&nbsp;
         <input type="datetime-local" name="end" id="endDate" value="<?php echo (isset($endTimestamp) ? date('Y-m-d\TH:i', $endTimestamp) : date('Y-m-d\TH:i')); ?>">&nbsp;&nbsp;
-        <button class="btn btn-primary" type="submit"><span class="material-icons">search</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Search'); ?></button>
+
+        <input type="tel" name="phone" id="phoneNumber" placeholder="Enter phone number" pattern="[0-9]{10,15}" title="Please enter a valid phone number (10-15 digits)." style="padding: 8px 12px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; font-size: 14px; outline: none;">&nbsp;&nbsp;
+
+        <select name="businessAccount" class="form-control form-control-sm">
+            <option value=""><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Select Business Account'); ?></option>
+            <?php foreach ($businessAccount as $account): ?>
+                <option value="<?php echo $account->id; ?>">
+                    <?php echo htmlspecialchars($account->name); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>&nbsp;&nbsp;
+
+        <button class="btn btn-primary" type="submit">
+            <span class="material-icons">search</span><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('system/buttons', 'Search'); ?>
+        </button>
     </form>
+
+
 
     <br>
     <div class="row">
@@ -206,7 +235,7 @@
                         <?php if (isset($deliveredCount)) : ?>
                             <h1><?php echo $deliveredCount; ?></h1>
                             <span class="material-icons">visibility</span>
-                        <?php endif; ?>
+                        <?php endif; ?>    
                     </div>
                 </button>
             </form>

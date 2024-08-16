@@ -13,14 +13,32 @@ $appendPrintExportURL = ''; ?>
 <?php if (isset($errors)) : ?>
     <?php include(erLhcoreClassDesign::designtpl('lhkernel/validation_error.tpl.php')); ?>
 <?php endif; ?>
-
-<?php if (isset($updated)) : $msg = erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Updated'); ?>
-    <?php include(erLhcoreClassDesign::designtpl('lhkernel/alert_success.tpl.php')); ?>
+<?php if (isset($updated)) : ?>
+    <?php
+    $msg = erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Actualizado con éxito. Para saber el estado de su mensaje consulte ');
+    $linkText = erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Aquí');
+    $linkUrl = erLhcoreClassDesign::baseurl('fbwhatsapp/messages');
+    ?>
+    <div class="alert alert-success" role="alert">
+        <p><?php echo $msg; ?><a href="<?php echo $linkUrl; ?>" target="_blank"><?php echo $linkText; ?></a></p>
+    </div>
 <?php endif; ?>
+
+
+
 
 <?php if (isset($fbcommand)) : ?>
     <div class="alert alert-info">
-        <?php echo htmlspecialchars($fbcommand) ?>
+        <p><strong>Nombre de plantilla: </strong> <?php echo htmlspecialchars($fbcommand['template_name']) ?></p>
+        <p><strong>Idioma de plantilla: </strong> <?php echo htmlspecialchars($fbcommand['template_lang']) ?></p>
+        <?php if (isset($fbcommand['args']) && !empty($fbcommand['args'])) : ?>
+            <h5>Campos: </h5>
+            <ul>
+                <?php foreach ($fbcommand['args'] as $key => $value) : ?>
+                    <li><strong><?php echo htmlspecialchars($key) ?>: </strong> <?php echo htmlspecialchars($value) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
     </div>
 <?php endif; ?>
 

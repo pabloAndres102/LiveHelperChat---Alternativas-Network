@@ -111,4 +111,6 @@ $items = \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessag
 
     ?>
 <?php endif ?>
+<hr style="border: none; height: 2px; background-color: #000; opacity: 1;">
+
 </td>

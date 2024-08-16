@@ -19,35 +19,35 @@
     </div>
     <div class="col-6">
         <div class="form-group">
-            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Name'); ?></strong>. {args.recipient.name_front}</label>
+            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Name'); ?></strong>. <span style="font-weight: 300;">{args.recipient.name_front}</span></label>
             <input type="text" maxlength="50" class="form-control form-control-sm" name="name" value="<?php echo htmlspecialchars($item->name) ?>" />
         </div>
     </div>
 
     <div class="col-6">
         <div class="form-group">
-            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Lastname'); ?></strong>. {args.recipient.lastname_front}</label>
+            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Lastname'); ?></strong>. <span style="font-weight: 300;">{args.recipient.lastname_front}</span></label>
             <input type="text" maxlength="50" class="form-control form-control-sm" name="lastname" value="<?php echo htmlspecialchars($item->lastname) ?>" />
         </div>
     </div>
 
     <div class="col-6">
         <div class="form-group">
-            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Company'); ?></strong>. {args.recipient.company_front}</label>
+            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Company'); ?></strong>. <span style="font-weight: 300;">{args.recipient.company_front}</span></label>
             <input type="text" maxlength="50" class="form-control form-control-sm" name="company" value="<?php echo htmlspecialchars($item->company) ?>" />
         </div>
     </div>
 
     <div class="col-6">
         <div class="form-group">
-            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Title'); ?></strong>. {args.recipient.title_front}</label>
+            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Title'); ?></strong>. <span style="font-weight: 300;">{args.recipient.title_front}</span></label>
             <input type="text" maxlength="50" class="form-control form-control-sm" name="title" value="<?php echo htmlspecialchars($item->title) ?>" />
         </div>
     </div>
 
     <div class="col-6">
         <div class="form-group">
-            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Delivery status'); ?></label>
+            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Delivery status'); ?></strong></label>
             <select class="form-control form-control-sm" name="delivery_status">
                 <option value="<?php echo \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_UNKNOWN ?>" <?php if ($item->delivery_status == \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_UNKNOWN) : ?>selected="selected" <?php endif; ?>>Unknown</option>
                 <option value="<?php echo \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_UNSUBSCRIBED ?>" <?php if ($item->delivery_status == \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassModelMessageFBWhatsAppContact::DELIVERY_STATUS_UNSUBSCRIBED) : ?>selected="selected" <?php endif; ?>>Unsubscribed</option>
@@ -59,36 +59,35 @@
 
     <div class="col-6">
         <div class="form-group">
-            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Date'); ?></strong>, <?php print date_default_timezone_get() ?>, Current time - [<?php echo (new DateTime('now', new DateTimeZone(date_default_timezone_get())))->format('Y-m-d H:i:s') ?>]</label>
+            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Date'); ?></strong>, <?php print date_default_timezone_get() ?>, Current time - <span style="font-weight: 300;">[<?php echo (new DateTime('now', new DateTimeZone(date_default_timezone_get())))->format('Y-m-d H:i:s') ?>]</span></label>
             <input class="form-control form-control-sm" name="date" type="datetime-local" value="<?php echo $item->date > 0 ? date('Y-m-d\TH:i', $item->date) : '' ?>">
         </div>
     </div>
 
-
     <div class="col-6">
         <div class="form-group">
-            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'File 1'); ?></strong>. {args.recipient.file_1_url_front}<button type="button" data-selector="#id_file_1" class="fb-choose-file btn btn-sm btn-link"><span class="material-icons">attach_file</span></button></label>
+            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'File 1'); ?></strong>. <span style="font-weight: 300;">{args.recipient.file_1_url_front}</span><button type="button" data-selector="#id_file_1" class="fb-choose-file btn btn-sm btn-link"><span class="material-icons">attach_file</span></button></label>
             <input type="text" maxlength="200" class="form-control form-control-sm" id="id_file_1" name="file_1" value="<?php echo htmlspecialchars($item->file_1) ?>" />
         </div>
     </div>
 
     <div class="col-6">
         <div class="form-group">
-            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'File 2'); ?></strong>. {args.recipient.file_2_url_front}}<button type="button" data-selector="#id_file_2" class="fb-choose-file btn btn-sm btn-link"><span class="material-icons">attach_file</span></button></label>
+            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'File 2'); ?></strong>. <span style="font-weight: 300;">{args.recipient.file_2_url_front}</span><button type="button" data-selector="#id_file_2" class="fb-choose-file btn btn-sm btn-link"><span class="material-icons">attach_file</span></button></label>
             <input type="text" maxlength="200" class="form-control form-control-sm" id="id_file_2" name="file_2" value="<?php echo htmlspecialchars($item->file_2) ?>" />
         </div>
     </div>
 
     <div class="col-6">
         <div class="form-group">
-            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'File 3'); ?></strong>. {args.recipient.file_3_url_front}}<button type="button" data-selector="#id_file_3" class="fb-choose-file btn btn-sm btn-link"><span class="material-icons">attach_file</span></button></label>
+            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'File 3'); ?></strong>. <span style="font-weight: 300;">{args.recipient.file_3_url_front}</span><button type="button" data-selector="#id_file_3" class="fb-choose-file btn btn-sm btn-link"><span class="material-icons">attach_file</span></button></label>
             <input type="text" maxlength="200" class="form-control form-control-sm" id="id_file_3" name="file_3" value="<?php echo htmlspecialchars($item->file_3) ?>" />
         </div>
     </div>
 
     <div class="col-6">
         <div class="form-group">
-            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'File 4'); ?></strong>. {args.recipient.file_4_url_front}}<button type="button" data-selector="#id_file_4" class="fb-choose-file btn btn-sm btn-link"><span class="material-icons">attach_file</span></button></label>
+            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'File 4'); ?></strong>. {args.recipient.file_4_url_front}<button type="button" data-selector="#id_file_4" class="fb-choose-file btn btn-sm btn-link"><span class="material-icons">attach_file</span></button></label>
             <input type="text" maxlength="200" class="form-control form-control-sm" id="id_file_4" name="file_4" value="<?php echo htmlspecialchars($item->file_4) ?>" />
         </div>
     </div>
@@ -101,10 +100,14 @@
     </div>
     <div class="col-6">
         <div class="form-group">
-            <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'String attribute 1'); ?></strong>. {args.recipient.attr_str_1_front}</label>
+            <label>
+                <strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'String attribute 1'); ?></strong>.
+                <span style="font-weight: 300;"> {args.recipient.attr_str_1_front}</span>
+            </label>
             <input type="text" maxlength="100" class="form-control form-control-sm" name="attr_str_1" value="<?php echo htmlspecialchars($item->attr_str_1) ?>" />
         </div>
     </div>
+
     <div class="col-6">
         <div class="form-group">
             <label><strong><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'String attribute 2'); ?></strong>. {args.recipient.attr_str_2_front}</label>

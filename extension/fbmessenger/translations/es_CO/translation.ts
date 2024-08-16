@@ -34,6 +34,10 @@
   <source>Create contact list</source>
   <translation>Crear lista de contacto</translation>
 </message>
+<message>
+      <source>Template metrics</source>
+      <translation>Metricas de plantilla</translation>
+    </message>
   <message>
   <source>Contacts list</source>
   <translation>Lista de contactos</translation>

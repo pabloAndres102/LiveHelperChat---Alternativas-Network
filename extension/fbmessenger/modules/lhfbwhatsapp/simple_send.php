@@ -459,11 +459,12 @@ if (ezcInputForm::hasPostData()) {
             }
 
             $tpl->set('updated', true);
-            $tpl->set('fbcommand', '!fbtemplate ' . json_encode([
+            $fbcommand = json_encode([
                 'template_name' => $item->template,
                 'template_lang' => $item->language,
                 'args' => $item->message_variables_array
-            ]));
+            ]);
+            $tpl->set('fbcommand', json_decode($fbcommand, true));
         } catch (Exception $e) {
             $tpl->set('errors', array($e->getMessage()));
         }

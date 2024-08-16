@@ -174,9 +174,6 @@
         }
     }
 </style>
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <?php
 if (isset($_GET['template_id'])) {
@@ -185,8 +182,9 @@ if (isset($_GET['template_id'])) {
 }
 
 ?>
-
 <body>
+<h1><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger','Template metrics');?></h1>
+
     <div class="container2">
         <div class="info-box">
 
