@@ -103,10 +103,10 @@ $businessAccount = \LiveHelperChatExtension\fbmessenger\providers\erLhcoreClassM
         <input type="datetime-local" name="start" id="startDate" value="<?php echo (isset($startTimestamp) ? date('Y-m-d\TH:i', $startTimestamp) : date('Y-m-d\TH:i')); ?>">&nbsp;&nbsp;
         <input type="datetime-local" name="end" id="endDate" value="<?php echo (isset($endTimestamp) ? date('Y-m-d\TH:i', $endTimestamp) : date('Y-m-d\TH:i')); ?>">&nbsp;&nbsp;
 
-        <input type="tel" name="phone" id="phoneNumber" placeholder="Enter phone number" pattern="[0-9]{10,15}" title="Please enter a valid phone number (10-15 digits)." style="padding: 8px 12px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; font-size: 14px; outline: none;">&nbsp;&nbsp;
+        <input type="tel" name="phone" id="phoneNumber" placeholder="Numero telefonico" pattern="[0-9]{10,15}" title="Please enter a valid phone number (10-15 digits)." style="padding: 8px 12px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; font-size: 14px; outline: none;">&nbsp;&nbsp;
 
         <select name="businessAccount" class="form-control form-control-sm">
-            <option value=""><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Select Business Account'); ?></option>
+            <option value=""><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('module/fbmessenger', 'Cuenta comercial'); ?></option>
             <?php foreach ($businessAccount as $account): ?>
                 <option value="<?php echo $account->id; ?>">
                     <?php echo htmlspecialchars($account->name); ?>
@@ -456,7 +456,7 @@ while ($currentDate <= $endTimestamp) {
     var data = {
         labels: ['Leídos', 'Enviado', 'Fallido', 'Entregado', 'Rechazado', 'Pendiente'],
         datasets: [{
-            data: [<?php echo $totalRead ?>, <?php echo $sentCount ?>, <?php echo $failedCount ?>, <?php echo $deliveredCount ?>, <?php echo $rejectedCount ?>, <?php echo $PendingCount ?>],
+            data: [<?php echo $totalRead ?>, <?php echo $sentCount ?>, <?php echo $failedCount ?>, <?php echo $deliveredCount ?>, <?php echo $rejectedCount ?>, <?php echo $pendingCount ?>],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.5)',
                 'rgba(54, 162, 235, 0.5)',
