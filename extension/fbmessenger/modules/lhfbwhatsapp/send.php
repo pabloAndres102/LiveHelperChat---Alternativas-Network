@@ -308,9 +308,9 @@ if (ezcInputForm::hasPostData()) {
                 }
 
                 $curl = curl_init();
-
+                $phone_numbers = explode(',', $data['whatsapp_business_account_phone_number']);
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://graph.facebook.com/v20.0/' . $data['whatsapp_business_account_phone_number'] . '/media',
+                    CURLOPT_URL => 'https://graph.facebook.com/v20.0/' . $phone_numbers[0]. '/media',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -339,6 +339,7 @@ if (ezcInputForm::hasPostData()) {
             // print_r('<mark>');
             // print_r($item->message_variables_array);
             // print_r('</mark>');
+            // print_r($data['whatsapp_business_account_phone_number']);
         }
     }
 
@@ -390,9 +391,9 @@ if (ezcInputForm::hasPostData()) {
                 }
 
                 $curl = curl_init();
-
+$phone_numbers = explode(',', $data['whatsapp_business_account_phone_number']);
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://graph.facebook.com/v20.0/' . $data['whatsapp_business_account_phone_number'] . '/media',
+                    CURLOPT_URL => 'https://graph.facebook.com/v20.0/' . $phone_numbers[0] . '/media',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
